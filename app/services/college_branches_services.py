@@ -19,7 +19,7 @@ def update_college_branch(db:Session, college_branch_id:int, college_branch):
     return college_branch_repository.update_college_branch(db, college_branch_id, college_branch)
 
 def delete_college_branch(db:Session, college_branch_id:int):
-    college_branch = college_branch_repository.delete_college_branch(db, college_branch)
+    college_branch = college_branch_repository.get_collegeBranch(db, college_branch)
     if college_branch is None:
         return None, "branch not found"
 

@@ -16,7 +16,7 @@ def update_studentpreferences(db:Session, student_preferences_id, studentprefere
     return student_preferences_repository.update_studentpreferences(db, student_preferences_id, studentpreferences)
 
 def delete_studentpreferences(db:Session, student_preferences_id:int):
-    studentpreferences = student_preferences_repository.delete_studentpreferences(db, student_preferences_id)
+    studentpreferences = student_preferences_repository.get_studentpreferences(db, student_preferences_id)
     if studentpreferences is None:
         return None, "preferences does not exist"
 

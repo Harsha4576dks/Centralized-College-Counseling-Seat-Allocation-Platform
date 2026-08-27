@@ -11,7 +11,7 @@ def create_college(db:Session, college):
     return college_repository.create_college(db, college)
 
 def delete_college(db:Session, college_id:int):
-    college = college_repository.delete_college(db, college_id)
+    college = college_repository.get_college(db, college_id)
     if college is None:
         return None, "college not found"
     

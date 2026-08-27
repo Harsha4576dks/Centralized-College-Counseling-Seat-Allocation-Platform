@@ -19,7 +19,7 @@ def update_student(db:Session, student_id, student):
     return student_repository.update_student(db, student_id, student)
 
 def delete_student(db:Session, student_id:int):
-    student = student_repository.delete_student(db, student_id)
+    student = student_repository.get_student(db, student_id)
     if student is None:
         return None, "student not found"
 
