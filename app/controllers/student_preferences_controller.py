@@ -20,7 +20,13 @@ async def get_student_preferences(db:db_dependency, student_preferences_id:int):
 
 @router.post("/")
 async def create_studentpreferences(db:db_dependency, studentpreferences:Student_PreferencesBase):
-        return student_preference_services.create_studentpreferences(db, studentpreferences)
+        result, error = student_preference_services.create_studentpreferences(db, studentpreferences)
+        if error == "student not found":
+                raise HTTPException(status_code=404, detail="student not found")
+
+        if error == "branch not found":
+                raise HTTPException(status_code=404, detail="branch doesn't  exist")
+        return result
 
 @router.put("/{student_preferences_id}")
 async def update_studentpreferences(db:db_dependency, student_preferences_id:int, studentpreferences:Update_studentpreferencesBase):

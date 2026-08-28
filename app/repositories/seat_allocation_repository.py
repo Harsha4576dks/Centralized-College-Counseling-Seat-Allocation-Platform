@@ -25,3 +25,12 @@ def delete_seat_allocation(db:Session, seat_allocation):
     db.commit()
 
     return {"message": "seat allocation deleted successfully", "deleted_seat_allocation": seat_allocation}
+
+def get_student(db:Session, student_id:int):
+    return db.query(models.Student).filter(models.Student.id == student_id).first()
+
+def get_college_branch(db:Session, college_branch_id:int):
+    return db.query(models.CollegeBranches).filter(models.CollegeBranches.id == college_branch_id).first()
+
+def get_counselling_details(db:Session, counselling_round_id:int):
+    return db.query(models.CounsellingRound).filter(models.CounsellingRound.id == counselling_round_id).first()

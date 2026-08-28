@@ -8,7 +8,10 @@ def get_branch_name(db:Session, branch_name:str):
     return college_branch_repository.search_college_branch(db, branch_name)
 
 def create_college_branch(db:Session, college_branch):
-    return college_branch_repository.create_branches(db, college_branch)
+    db_college =  college_branch_repository.get_college(db, college_branch.college_id)
+    if db_college is None:
+        return None, "college doesn't exist"
+    return college_branch_repository.create_branches(db, college_branch), None
 
 def update_college_branch(db:Session, college_branch_id:int, college_branch):
     db_collegeBranch = college_branch_repository.update_college_branch(db, college_branch_id, college_branch)

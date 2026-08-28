@@ -5,7 +5,15 @@ def get_studentpreferences(db:Session, student_preferences_id:int):
     return student_preferences_repository.get_studentpreferences(db, student_preferences_id)
 
 def create_studentpreferences(db:Session, studentpreferences):
-    return student_preferences_repository.create_studentpreferences(db, studentpreferences)
+    db_student = student_preferences_repository.get_student(db, studentpreferences.student_id)
+    if db_student is None:
+        return None, "student not found"
+
+    db_collegebranches = student_preferences_repository.get_college_branch(db, studentpreferences.college_branch_id)
+    if db_collegebranches is None:
+        return None, "branch not found"
+
+    return student_preferences_repository.create_studentpreferences(db, studentpreferences), None
 
 def update_studentpreferences(db:Session, student_preferences_id, studentpreferences):
     db_studentpreferences = student_preferences_repository.update_studentpreferences(db, student_preferences_id, studentpreferences)

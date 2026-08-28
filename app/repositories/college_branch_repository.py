@@ -34,3 +34,6 @@ def delete_college_branch(db:Session, college_branch):
     db.delete(college_branch)
     db.commit()
     return {"message":"branches deleted successfully", "deleted_branches":college_branch}
+
+def get_college(db:Session, college_id:int):
+    return db.query(models.College).filter(models.College.id == college_id).first()

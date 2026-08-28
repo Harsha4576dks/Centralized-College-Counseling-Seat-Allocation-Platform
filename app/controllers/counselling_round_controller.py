@@ -26,7 +26,10 @@ async def get_counselling_round(db:db_dependency, counselling_round_id:int):
 
 @router.post("/")
 async def create_counselling(db:db_dependency, counselling:CounsellingBase):
-        return counselling_round_services.create_counselling(db, counselling)
+        result, error = counselling_round_services.create_counselling(db, counselling)
+        if error == "end date must be greater than start date":
+                raise HTTPException(status_code=404, detail="please change the end date")
+        return result
 
 @router.delete("/{counselling_round_id}")
 async def delete_counselling(db:db_dependency, counselling_round_id:int):

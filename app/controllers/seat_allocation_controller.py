@@ -29,8 +29,18 @@ async def get_seat_allocation( db: db_dependency, seat_allocation_id: int):
 
 @router.post("/")
 async def create_seat_allocation(db: db_dependency, seats: Seat_AllocationBase):
-    return seat_allocation_services.create_seats(db, seats)
+    result, error = seat_allocation_services.create_seats(db, seats)
+    if error == "student not found":
+        raise HTTPException(status_code=404, detail="student details not found" )
 
+    if error == "branch doesn't exist":
+        raise HTTPException(status_code=404, detail="branch not found" )
+    
+    if error == "counselling details not found":
+        raise HTTPException(status_code=404, detail="counselling details not found" )
+
+    return result
+        
 
 @router.delete("/{seat_allocation_id}")
 async def delete_seat_allocation(db: db_dependency, seat_allocation_id: int):

@@ -20,3 +20,4 @@ def delete_counselling(db:Session, counselling):
     db.delete(counselling)
     db.commit()
     return {"message":"counselling deleted successfully", "deleted_counselling":counselling}
+

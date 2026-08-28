@@ -27,7 +27,10 @@ async def get_college_branch(db:db_dependency, college_branch_id:int):
 
 @router.post("/")
 async def create_branch(db:db_dependency, college_branch:College_BranchBase):
-     return college_branches_services.create_college_branch(db, college_branch)
+     result, error = college_branches_services.create_college_branch(db, college_branch)
+     if error == "college doesn't exist":
+          raise HTTPException(status_code=404, detail="college not found")
+     return result
 
 @router.put("/{college_branch_id}")
 async def update_college_branch(db:db_dependency, college_branch_id:int, college_branch:Update_CollegeBranchBase):

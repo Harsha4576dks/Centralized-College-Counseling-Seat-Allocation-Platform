@@ -8,7 +8,10 @@ def search_counselling_round(db:Session, round_number:int):
     return counselling_round_repository.search_counselling_round(db, round_number)
 
 def create_counselling(db:Session, counselling):
-    return counselling_round_repository.create_counselling(db, counselling)
+    if counselling.end_date <= counselling.start_date:
+        return None, "end date must be greater than start date"
+    
+    return counselling_round_repository.create_counselling(db, counselling), None
 
 def delete_counselling(db:Session, counselling_round_id:int):
     counselling = counselling_round_repository.get_counselling(db, counselling_round_id)

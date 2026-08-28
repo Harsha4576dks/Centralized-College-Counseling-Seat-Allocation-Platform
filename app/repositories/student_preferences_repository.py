@@ -28,3 +28,9 @@ def delete_studentpreferences(db:Session, studentpreferences):
     db.delete(studentpreferences)
     db.commit()
     return {"message":"preferences deleted successfully", "deleted_preferences":studentpreferences}
+
+def get_student(db:Session, student_id:int):
+    return db.query(models.Student).filter(models.Student.id == student_id).first()
+
+def get_college_branch(db:Session, college_branch_id:int):
+    return db.query(models.CollegeBranches).filter(models.CollegeBranches.id == college_branch_id).first()
