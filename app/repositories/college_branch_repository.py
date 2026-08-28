@@ -37,3 +37,9 @@ def delete_college_branch(db:Session, college_branch):
 
 def get_college(db:Session, college_id:int):
     return db.query(models.College).filter(models.College.id == college_id).first()
+
+def get_student_preferences(db:Session, student_preferences_id:int):
+    return db.query(models.StudentPreferences).filter(models.StudentPreferences.college_branch_id == student_preferences_id).first()
+
+def get_seat_allocation(db:Session, seat_allocation_id:int):
+    return db.query(models.SeatAllocation).filter(models.SeatAllocation.college_branch_id == seat_allocation_id).first()

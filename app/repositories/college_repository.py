@@ -19,3 +19,6 @@ def delete_college(db:Session, college):
 
 def search_college_name(db:Session, college_name:str):
     return db.query(models.College).filter(models.College.college_name == college_name).first()
+
+def get_college_branch(db:Session, college_branch_id:int):
+    return db.query(models.CollegeBranches).filter(models.CollegeBranches.college_id == college_branch_id)

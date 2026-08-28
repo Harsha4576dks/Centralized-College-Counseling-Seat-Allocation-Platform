@@ -36,5 +36,9 @@ async def delete_counselling(db:db_dependency, counselling_round_id:int):
         result, error = counselling_round_services.delete_counselling(db, counselling_round_id)
         if error == "counselling details deleted successfully":
                 raise HTTPException(status_code=404, detail="counselling details not found")
+
+        if error == "seats not found":
+                raise HTTPException(status_code=404, detail="cancel the seats allocated to this counselling round first")
+                
         return {"message":"counselling details deleted successfully", "deleted_details":result}
                 

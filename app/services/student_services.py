@@ -23,5 +23,13 @@ def delete_student(db:Session, student_id:int):
     if student is None:
         return None, "student not found"
 
+    student_preferences = student_repository.get_student_preferences(db, student_id)
+    if student_preferences is not None:
+        return None, "delete preferences first"
+
+    seat_allocation = student_repository.get_seat_allocation(db, student_id)
+    if seat_allocation is not None:
+        return None, "delete allocated seats first "
+
     student_repository.delete_student(db, student)
     return student_id, None

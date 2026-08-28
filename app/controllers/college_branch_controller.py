@@ -45,4 +45,10 @@ async def delete_branch(db:db_dependency, college_branch_id:int):
      if error == "branch not found":
           raise HTTPException(status_code=404, detail="branch not found")
 
+     if error == "delete the preferences of this student first":
+          raise HTTPException(status_code=404, detail="delete the preferenced seats for this branch first")
+
+     if error == "delete seats reserved for this branch first":
+          raise HTTPException(status_code=404, detail="delete the seats reserved  for this specific branch first ")      
+
      return {"message":"branch deleted successfully", "deleted_branch":result}

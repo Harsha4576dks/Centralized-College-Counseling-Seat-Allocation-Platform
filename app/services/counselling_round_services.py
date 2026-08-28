@@ -18,5 +18,9 @@ def delete_counselling(db:Session, counselling_round_id:int):
     if counselling is None:
         return None, "counselling details deleted successfully"
 
+    seat_allocation = counselling_round_repository.get_seat_allocation(db, counselling_round_id)
+    if seat_allocation is not None:
+        return None, "seats not found"
+
     counselling_round_repository.delete_counselling(db, counselling)
     return counselling_round_id, None

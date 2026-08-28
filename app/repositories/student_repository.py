@@ -32,3 +32,9 @@ def delete_student(db:Session, student):
     db.delete(student)
     db.commit()
     return {"message":"students deleted successfully", "deleted_student":student}
+
+def get_student_preferences(db:Session, student_preferences_id:int):
+    return db.query(models.StudentPreferences).filter(models.StudentPreferences.student_id == student_preferences_id)
+
+def get_seat_allocation(db:Session, seat_allocation_id:int):
+    return db.query(models.SeatAllocation).filter(models.SeatAllocation.student_id == seat_allocation_id)

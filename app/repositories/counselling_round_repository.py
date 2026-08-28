@@ -21,3 +21,5 @@ def delete_counselling(db:Session, counselling):
     db.commit()
     return {"message":"counselling deleted successfully", "deleted_counselling":counselling}
 
+def get_seat_allocation(db:Session, seat_allocation_id:int):
+    return db.query(models.SeatAllocation).filter(models.SeatAllocation.counselling_round_id == seat_allocation_id).first()

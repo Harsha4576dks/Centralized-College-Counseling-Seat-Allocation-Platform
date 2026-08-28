@@ -10,10 +10,14 @@ def get_college_name(db:Session, college_name:str):
 def create_college(db:Session, college):
     return college_repository.create_college(db, college)
 
-def delete_college(db:Session, college_id:int):
+def delete_college(db: Session, college_id: int):
     college = college_repository.get_college(db, college_id)
     if college is None:
         return None, "college not found"
-    
+
+    college_branch = college_repository.get_college_branch(db, college_id)
+    if college_branch is not None:
+        return None, "delete college branches first"
+
     college_repository.delete_college(db, college)
     return college_id, None

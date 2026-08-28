@@ -41,4 +41,12 @@ async def delete_student(db:db_dependency, student_id:int):
        result, error = student_services.delete_student(db, student_id)
        if error == "student not found":
             raise HTTPException(status_code=404, detail="student not found")
+
+       if error == "delete preferences first":
+              raise HTTPException(status_code=404, detail="delete preferences made by this student first")
+
+       if error == "delete allocated seats first ":
+              raise HTTPException(status_code=404, detail="cancel the seats allocated to this student first")
+              
+              
        return {"message":"student deleted successfully", "deleted_student":result}

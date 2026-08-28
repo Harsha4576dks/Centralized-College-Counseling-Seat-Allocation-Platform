@@ -35,4 +35,7 @@ async def delete_college(db:db_dependency, college_id:int):
     if error == "college not found":
         raise HTTPException(status_code=400, detail="college not found")
 
+    if error == "delete college branches first":
+        raise HTTPException(status_code=400, detail="delete branches related to this college first")
+        
     return {"messsage":"college deleted successfully", "deleted_college":result}

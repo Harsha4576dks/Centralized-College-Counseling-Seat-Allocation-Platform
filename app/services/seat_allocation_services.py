@@ -32,4 +32,4 @@ def delete_seat_allocation(db:Session, seat_allocation_id: int):
         return None, "no seats found on this id"
 
     seat_allocation_repository.delete_seat_allocation( db, seat_allocation )
-    return seat_allocation
+    return seat_allocation, None
