@@ -1,25 +1,20 @@
 from sqlalchemy.orm import Session
 from ..import models
 
-def create_counselling(db:Session, counselling_round):
-    db_counselling = models.CounsellingRound(round_number=counselling_round.round_number, status=counselling_round.status, 
-                                             start_date=counselling_round.start_date, end_date=counselling_round.end_date)
+def get_college_id(db:Session, college_id:int):
+    return db.query(models.College).filter(models.College.id == college_id).all()
 
-    db.add(db_counselling)
-    db.commit()
-    db.refresh(db_counselling)
-    return db_counselling
+def get_college_branch(db:Session, college_branch_id:int):
+    return db.query(models.CollegeBranches).filter(models.CollegeBranches.id == college_branch_id).first()
 
-def get_counselling(db:Session, counselling_round_id:int):
-    return db.query(models.CounsellingRound).filter(models.CounsellingRound.id == counselling_round_id).first()
+def get_available_seats_in_college(db:Session, available_seats):
+    return db.query(models.CollegeBranches).filter(models.CollegeBranches.available_seats == available_seats).all()
 
-def search_counselling_round(db:Session, round_number:str):
-    return db.query(models.CounsellingRound).filter(models.CounsellingRound.round_number == round_number).first()
+def get_student_id(db:Session, student_id:int):
+    return db.query(models.Student).filter(models.Student.id == student_id).all()
 
-def delete_counselling(db:Session, counselling):
-    db.delete(counselling)
-    db.commit()
-    return {"message":"counselling deleted successfully", "deleted_counselling":counselling}
+def get_student_rank(db:Session, student_rank):
+    return db.query(models.Student).filter(models.Student.rank == student_rank).first()
 
-def get_seat_allocation(db:Session, seat_allocation_id:int):
-    return db.query(models.SeatAllocation).filter(models.SeatAllocation.counselling_round_id == seat_allocation_id).first()
+def get_student_preference(db:Session, student_preference_order):
+    return db.query(models.StudentPreferences).filter(models.StudentPreferences.preference_order == student_preference_order).all()

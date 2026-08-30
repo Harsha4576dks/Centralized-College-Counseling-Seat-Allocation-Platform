@@ -1,51 +1,45 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Depends
+from sqlalchemy.orm import Session
 
 from ..database import db_dependency
-from ..schemas.seat_allocation_schemas import Seat_AllocationBase
 from ..services import seat_allocation_services
+from ..schemas.seat_allocation_schemas import SeatAllocationResponse
 
 
 router = APIRouter(
-    prefix="/seat_allocation",
-    tags=["Seats_Allocated"]
+    prefix="/seat_allocations",
+    tags=["seat allocation"]
 )
 
-
-@router.get("/search")
-async def search_seat_allocation( db: db_dependency, student_id: int):
-    result = seat_allocation_services.search_seat_allocation_by_student( db, student_id)
+@router.get("/{seat_allocation_id}", response_model=SeatAllocationResponse)
+async def get_seat_allocation(seat_allocation_id: int, db: db_dependency):
+    result = seat_allocation_services.get_seat_allocation_service(db, seat_allocation_id)
     if result is None:
         raise HTTPException(status_code=404, detail="seat allocation details not found")
     return result
 
 
-@router.get("/{seat_allocation_id}")
-async def get_seat_allocation( db: db_dependency, seat_allocation_id: int):
-    result = seat_allocation_services.get_seat_allocation(db,seat_allocation_id)
-    if result is None:
-        raise HTTPException(status_code=404, detail="seat allocation details not found")
-    return result
 
-
-@router.post("/")
-async def create_seat_allocation(db: db_dependency, seats: Seat_AllocationBase):
-    result, error = seat_allocation_services.create_seats(db, seats)
-    if error == "student not found":
-        raise HTTPException(status_code=404, detail="student details not found" )
-
-    if error == "branch doesn't exist":
-        raise HTTPException(status_code=404, detail="branch not found" )
+@router.get("/search/student/{student_id}", response_model=SeatAllocationResponse)
+async def search_allocation_by_student(student_id: int, db: db_dependency):
+    allocation, error = seat_allocation_services.search_seat_allocation_by_student_service(db, student_id)
     
-    if error == "counselling details not found":
-        raise HTTPException(status_code=404, detail="counselling details not found" )
-
-    return result
+    if error == "student not found":
+        raise HTTPException(status_code=404, detail="Student not found")
+    if error == "seat allocation details not found":
+        raise HTTPException(status_code=404, detail="Seat allocation details not found for this student")
         
+    return allocation
+
 
 @router.delete("/{seat_allocation_id}")
-async def delete_seat_allocation(db: db_dependency, seat_allocation_id: int):
-    result, error = seat_allocation_services.delete_seat_allocation( db, seat_allocation_id)
-    if error == "no seats found on this id":
-        raise HTTPException(status_code=404, detail="seat allocation details not found" )
-
-    return {"message": "seat allocation details deleted successfully", "deleted_details": result}
+async def delete_seat_allocation(seat_allocation_id: int, db: db_dependency):
+    result, error = seat_allocation_services.delete_seat_allocation_service(db, seat_allocation_id)
+    
+    if error == "seat allocation not found":
+        raise HTTPException(status_code=404, detail="Seat allocation not found")
+        
+    return {
+        "status": "Success",
+        "message": f"Seat allocation with ID {seat_allocation_id} successfully deleted."
+    }

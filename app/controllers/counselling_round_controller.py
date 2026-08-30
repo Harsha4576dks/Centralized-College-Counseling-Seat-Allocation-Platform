@@ -1,8 +1,7 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Depends
 from sqlalchemy.orm import Session
 
 from ..database import db_dependency
-from ..schemas.counselling_round_schemas import CounsellingBase
 from ..services import counselling_round_services
 
 router = APIRouter(
@@ -10,35 +9,12 @@ router = APIRouter(
     tags=["counselling"]
 )
 
-@router.get("/search")
-async def get_counselling_round_number(db:db_dependency, round_number:int):
-    result = counselling_round_services.search_counselling_round(db, round_number)
-    if result is None:
-                raise HTTPException(status_code=404, detail="counselling details not found")
-    return result
+@router.post("/execute")
+async def execute_counselling_round(db: db_dependency):
+    allocations, error = counselling_round_services.execute_counselling_algorithm(db)
 
-@router.get("/{counselling_round_id}")
-async def get_counselling_round(db:db_dependency, counselling_round_id:int):
-        result = counselling_round_services.get_counselling(db, counselling_round_id)
-        if result is None:
-                    raise HTTPException(status_code=404, detail="counselling details not found")
-        return result
+    if error == "no students found":
+        raise HTTPException(status_code=404, detail="No students found to process allotment")
 
-@router.post("/")
-async def create_counselling(db:db_dependency, counselling:CounsellingBase):
-        result, error = counselling_round_services.create_counselling(db, counselling)
-        if error == "end date must be greater than start date":
-                raise HTTPException(status_code=404, detail="please change the end date")
-        return result
-
-@router.delete("/{counselling_round_id}")
-async def delete_counselling(db:db_dependency, counselling_round_id:int):
-        result, error = counselling_round_services.delete_counselling(db, counselling_round_id)
-        if error == "counselling details deleted successfully":
-                raise HTTPException(status_code=404, detail="counselling details not found")
-
-        if error == "seats not found":
-                raise HTTPException(status_code=404, detail="cancel the seats allocated to this counselling round first")
-                
-        return {"message":"counselling details deleted successfully", "deleted_details":result}
-                
+    return {"status": "Success",  "message": f"Counselling round executed successfully. Total {len(allocations)} seats allocated.",
+             "allocations": allocations }

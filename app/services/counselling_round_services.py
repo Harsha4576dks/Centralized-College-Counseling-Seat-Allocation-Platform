@@ -1,26 +1,55 @@
 from sqlalchemy.orm import Session
+from .. import models
 from ..repositories import counselling_round_repository
 
-def get_counselling(db:Session, counselling_round_id:int):
-    return counselling_round_repository.get_counselling(db, counselling_round_id)
+def execute_counselling_algorithm(db: Session):
+    students = db.query(models.Student).all()
+    if not students:
+        return None, "no students found"
 
-def search_counselling_round(db:Session, round_number:int):
-    return counselling_round_repository.search_counselling_round(db, round_number)
+    sorted_ranks = sorted([s.rank for s in students if s.rank is not None])
+    branches = db.query(models.CollegeBranches).all()
+    inventory = {branch.id: branch.available_seats for branch in branches}
 
-def create_counselling(db:Session, counselling):
-    if counselling.end_date <= counselling.start_date:
-        return None, "end date must be greater than start date"
+    created_allocations = []
+
+    for rank in sorted_ranks:
+        student = counselling_round_repository.get_student_rank(db, rank)
+        if not student:
+            continue
+
+        student_preferences = db.query(models.StudentPreferences).filter( models.StudentPreferences.student_id == student.id).all()
+        sorted_pref_orders = sorted([p.preference_order for p in student_preferences if p.preference_order is not None])
     
-    return counselling_round_repository.create_counselling(db, counselling), None
+        for pref_order in sorted_pref_orders:
+            prefs_list = counselling_round_repository.get_student_preference(db, pref_order)
+            target_pref = next((p for p in prefs_list if p.student_id == student.id), None)
+            if not target_pref:
+                continue
 
-def delete_counselling(db:Session, counselling_round_id:int):
-    counselling = counselling_round_repository.get_counselling(db, counselling_round_id)
-    if counselling is None:
-        return None, "counselling details deleted successfully"
+            target_branch_id = target_pref.college_branch_id
+            seats_left = inventory.get(target_branch_id, 0)
 
-    seat_allocation = counselling_round_repository.get_seat_allocation(db, counselling_round_id)
-    if seat_allocation is not None:
-        return None, "seats not found"
+            if seats_left > 0:
+                inventory[target_branch_id] -= 1
 
-    counselling_round_repository.delete_counselling(db, counselling)
-    return counselling_round_id, None
+                allocation = models.SeatAllocation(student_id=student.id, college_branch_id=target_branch_id, counselling_round_id=1,
+                                                     status="successful", allocated_at="Allocation Processed")
+                
+                db.add(allocation)
+                db.flush()
+                db.refresh(allocation)
+                
+                created_allocations.append({
+                    "id": allocation.id,
+                    "student_id": student.id,
+                    "college_branch_id": target_branch_id
+                })
+                break
+
+    if created_allocations:
+        for branch in branches:
+            branch.available_seats = inventory[branch.id]
+        db.commit()
+
+    return created_allocations, None
