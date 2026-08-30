@@ -12,3 +12,4 @@ class College(Base):
     email = Column(String, index=True)
     affiliation = Column(String, index=True)
     college_branches = relationship("CollegeBranches", back_populates="college")
+    student_preferences = relationship("StudentPreferences", back_populates="college")

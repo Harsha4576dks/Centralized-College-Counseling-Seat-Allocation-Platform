@@ -11,9 +11,9 @@ router = APIRouter(
     tags=["seat allocation"]
 )
 
-@router.get("/{seat_allocation_id}", response_model=SeatAllocationResponse)
-async def get_seat_allocation(seat_allocation_id: int, db: db_dependency):
-    result = seat_allocation_services.get_seat_allocation_service(db, seat_allocation_id)
+@router.get("/{counselling_id}", response_model=SeatAllocationResponse)
+async def get_seat_allocation(counselling_id: int, db: db_dependency):
+    result = seat_allocation_services.get_seat_allocation_service(db, counselling_id)
     if result is None:
         raise HTTPException(status_code=404, detail="seat allocation details not found")
     return result

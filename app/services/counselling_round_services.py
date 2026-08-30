@@ -3,6 +3,9 @@ from .. import models
 from ..repositories import counselling_round_repository
 
 def execute_counselling_algorithm(db: Session):
+    db.query(models.SeatAllocation).delete()
+    db.commit()
+
     students = db.query(models.Student).all()
     if not students:
         return None, "no students found"
@@ -18,7 +21,7 @@ def execute_counselling_algorithm(db: Session):
         if not student:
             continue
 
-        student_preferences = db.query(models.StudentPreferences).filter( models.StudentPreferences.student_id == student.id).all()
+        student_preferences = db.query(models.StudentPreferences).filter(models.StudentPreferences.student_id == student.id).all()
         sorted_pref_orders = sorted([p.preference_order for p in student_preferences if p.preference_order is not None])
     
         for pref_order in sorted_pref_orders:
@@ -33,8 +36,8 @@ def execute_counselling_algorithm(db: Session):
             if seats_left > 0:
                 inventory[target_branch_id] -= 1
 
-                allocation = models.SeatAllocation(student_id=student.id, college_branch_id=target_branch_id, counselling_round_id=1,
-                                                     status="successful", allocated_at="Allocation Processed")
+                allocation = models.SeatAllocation( student_id=student.id, college_branch_id=target_branch_id, counselling_round_id=1,
+                                                                       status="successful", allocated_at="Allocation Processed")
                 
                 db.add(allocation)
                 db.flush()
