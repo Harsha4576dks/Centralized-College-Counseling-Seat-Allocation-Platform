@@ -7,6 +7,7 @@ from .controllers.student_controller import router as student_router
 from .controllers.student_preferences_controller import router as student_preferences_router
 from .controllers.counselling_round_controller import router as counselling_round_router
 from .controllers.seat_allocation_controller import router as seat_allocation_router
+from .controllers.auth_controller import router as authentication_router
 
 from .models import college
 from .models import college_branch
@@ -14,6 +15,7 @@ from .models import student
 from .models import student_preferences
 from .models import counselling_round
 from .models import seat_allocation
+from .models import user
 
 app = FastAPI()
 
@@ -25,3 +27,4 @@ app.include_router(student_router)
 app.include_router(student_preferences_router)
 app.include_router(counselling_round_router)
 app.include_router(seat_allocation_router)
+app.include_router(authentication_router)
