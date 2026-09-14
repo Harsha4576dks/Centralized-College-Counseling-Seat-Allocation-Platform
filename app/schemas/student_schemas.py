@@ -1,10 +1,10 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr
 from typing import List
 
 class StudentBase(BaseModel):
     name:str
     roll_number:int
-    email:str
+    email:EmailStr
     phone:int
     rank:int
     

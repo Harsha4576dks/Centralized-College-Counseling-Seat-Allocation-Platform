@@ -1,10 +1,10 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr
 from typing import List
 
 class CollegeBase(BaseModel):
     college_name:str
     college_address:str
     code:int
-    email:str
+    email:EmailStr
     affiliation:str
     

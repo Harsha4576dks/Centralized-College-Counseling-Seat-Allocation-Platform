@@ -23,7 +23,7 @@ class SeatAllocationResponse(BaseModel):
     allocated_at: Optional[str] = None
     
     student: Optional[StudentResponse] = None
-    college: Optional[CollegeResponse] = None  # Added college field
+    college: Optional[CollegeResponse] = None  
 
     class Config:
         from_attributes = True
@@ -34,15 +34,13 @@ class SeatAllocationResponse(BaseModel):
 
     @model_validator(mode='before')
     def extract_allocation_details(cls, values):
-        # Handle branch and college extraction
+    
         if hasattr(values, "college_branch") and values.college_branch:
             branch = values.college_branch
             
-            # Extract branch name into allocated_at
             if hasattr(branch, "branch_name"):
                 values.allocated_at = branch.branch_name
                 
-            # Extract parent college object
             if hasattr(branch, "college") and branch.college:
                 values.college = branch.college
                 
