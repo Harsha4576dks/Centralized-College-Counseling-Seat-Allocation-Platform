@@ -4,11 +4,13 @@ from sqlalchemy.orm import Session
 from ..database import db_dependency
 from ..services import seat_allocation_services
 from ..schemas.seat_allocation_schemas import SeatAllocationResponse
+from ..security import security
 
 
 router = APIRouter(
     prefix="/seat_allocations",
-    tags=["seat allocation"]
+    tags=["seat allocation"],
+    dependencies=[Depends(security)]
 )
 
 @router.get("/{counselling_id}", response_model=SeatAllocationResponse)

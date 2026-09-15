@@ -1,13 +1,15 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Depends
 from sqlalchemy.orm import Session
 
 from ..database import db_dependency
 from ..schemas.college_schemas import CollegeBase
 from ..services import college_services
+from ..security import security
 
 router = APIRouter(
     prefix="/colleges",
-    tags=["Colleges_List"]
+    tags=["Colleges_List"],
+    dependencies=[Depends(security)]
 )
 
 @router.get("/search")

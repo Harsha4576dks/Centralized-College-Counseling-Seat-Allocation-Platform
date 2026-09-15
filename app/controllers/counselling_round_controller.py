@@ -3,10 +3,13 @@ from sqlalchemy.orm import Session
 
 from ..database import db_dependency
 from ..services import counselling_round_services
+from ..security import security
+
 
 router = APIRouter(
     prefix="/counselling_details",
-    tags=["counselling"]
+    tags=["counselling"],
+    dependencies=[Depends(security)]
 )
 
 @router.post("/execute")

@@ -1,14 +1,16 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Depends
 from sqlalchemy.orm import Session
 
 from ..database import db_dependency
 from ..schemas.student_preferences_schemas import Student_PreferencesBase
 from ..schemas.update_student_preferences_schemas import Update_studentpreferencesBase
 from ..services import student_preference_services
+from ..security import security
 
 router = APIRouter(
     prefix="/course_preferences",
-    tags=["Student_preferences"]
+    tags=["Student_preferences"],
+    dependencies=[Depends(security)]
 )
 
 @router.get("/{student_preferences_id}")
