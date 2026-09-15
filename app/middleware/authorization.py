@@ -32,15 +32,14 @@ class AuthorizationMiddleware(BaseHTTPMiddleware):
             return JSONResponse( status_code=401, content={ "detail": "Invalid authorization header" })
 
         token = authorization.split(" ")[1]
-        user_id = verify_access_token(token)
 
+        user_id = verify_access_token(token)
         if user_id is None:
             return JSONResponse(status_code=401, content={"detail": "Invalid or expired token" })
 
         db = sessionLocal()
         try:
             user = db.query(User).filter( User.id == user_id ).first()
-
             if not user:
                 return JSONResponse( status_code=401, content={ "detail": "User not found"  } )
 
