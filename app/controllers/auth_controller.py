@@ -24,7 +24,6 @@ def register(user: RegisterUser, db: db_dependency):
 @router.post("/login")
 def login( user: LoginUser, db: db_dependency):
     token, error = auth_services.login_user( db,  user.username, user.password)
-
     if error:
         raise HTTPException( status_code=401, detail=error )
 

@@ -14,7 +14,6 @@ def register_user(db: Session, user):
         return None, "username already exists"
 
     existing_email = user_repository.get_user_by_email( db, user.email )
-
     if existing_email:
         return None, "email already exists"
 
@@ -29,7 +28,6 @@ def register_user(db: Session, user):
 def login_user(db: Session, username: str, password: str):
 
     user = user_repository.get_user_by_username( db, username)
-
     if not user:
         return None, "invalid username or password"
 
