@@ -44,13 +44,6 @@ app.include_router(counselling_round_router)
 app.include_router(seat_allocation_router)
 app.include_router(email_router)
 
-@app.get("/")
-def read_root():
-    return {
-        "status": "online",
-        "message": "CET Counseling API Service is active."
-    }
-
 
 if __name__ == "__main__":
     import uvicorn
