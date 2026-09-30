@@ -62,7 +62,7 @@ def generate_admission_pdf_matplotlib(student_data: dict) -> bytes:
     fig, ax = plt.subplots(figsize=(8.5, 11))
     ax.axis("off")
 
-    ax.text(0.5, 0.93, "CET ADMISSION & COUNSELLLING CELL", fontsize=18, fontweight="bold", ha="center")
+    ax.text(0.5, 0.93, "CET ADMISSION & COUNSELLLING CELL", fontsize=16, fontweight="bold", ha="center")
     ax.text(0.5, 0.89, "PROVISIONAL SEAT ALLOTMENT LETTER", fontsize=14, fontweight="bold", color="#1a365d", ha="center")
 
     rect = plt.Rectangle((0.05, 0.05), 0.9, 0.9, fill=False, edgecolor="#1a365d", linewidth=2, transform=ax.transAxes)
