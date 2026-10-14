@@ -1,41 +1,17 @@
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import LoginForm from './components/loginForm';
+import Home from './components/Home';
 
-import { useState, useEffect } from 'react';
-import loginForm from '../components/LoginForm';
-import StudentDashboard from './components/StudentDashboard';
-import { logoutUser } from './services/authService';
-
-export default function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  useEffect(() => {
-    const token = localStorage.getItem('access_token');
-    if (token) {
-      setIsAuthenticated(true);
-    }
-  }, []);
-
-  const handleLogout = () => {
-    logoutUser();
-    setIsAuthenticated(false);
-  };
-
+function App() {
   return (
-    <div style={{ padding: '20px' }}>
-      <h1>CET Counseling & Allocation Portal</h1>
-      
-      {!isAuthenticated ? (
-        <loginForm onLoginSuccess={() => setIsAuthenticated(true)} />
-      ) : (
-        <div>
-          <button 
-            onClick={handleLogout} 
-            style={{ marginBottom: '20px', background: 'red', color: 'white', padding: '5px 10px', border: 'none', cursor: 'pointer' }}
-          >
-            Logout
-          </button>
-          <StudentDashboard studentId={1} />
-        </div>
-      )}
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/login" element={<LoginForm />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="*" element={<Navigate to="/login" replace />} />
+      </Routes>
+    </Router>
   );
 }
+
+export default App;

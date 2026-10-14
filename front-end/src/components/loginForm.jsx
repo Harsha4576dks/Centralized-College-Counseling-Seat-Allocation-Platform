@@ -1,43 +1,66 @@
 import  { useState } from 'react';
-import { loginUser } from '../services/authService';
+import { useLogin } from '../hooks/userLogin';
 
-export default function LoginForm({ onLoginSuccess }) {
+export default function LoginForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState(null);
+  
+  const { handleLogin, loading, error, successMessage } = useLogin();
 
-  const handleSubmit = async (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
-    try {
-      await loginUser(username, password);
-      alert('Login successful! Token saved.');
-      if (onLoginSuccess) onLoginSuccess();
-    } catch (err) {
-      setError(err.response?.data?.detail || 'Login failed');
-    }
+    handleLogin(username, password);
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ padding: '20px' }}>
-      <h3>Login to Dashboard</h3>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      <div>
-        <label>Username/Email: </label>
-        <input 
-          type="text" 
-          value={username} 
-          onChange={(e) => setUsername(e.target.value)} 
-        />
-      </div>
-      <div style={{ marginTop: '10px' }}>
-        <label>Password: </label>
-        <input 
-          type="password" 
-          value={password} 
-          onChange={(e) => setPassword(e.target.value)} 
-        />
-      </div>
-      <button type="submit" style={{ marginTop: '10px' }}>Login</button>
-    </form>
+    <div style={{ maxWidth: '400px', margin: '80px auto', padding: '20px', border: '1px solid #ddd', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>
+      <h2>Login</h2>
+      
+
+      {successMessage && (
+        <div style={{ color: 'green', marginBottom: '15px', padding: '10px', background: '#e6ffed', border: '1px solid #b7eb8f', borderRadius: '4px' }}>
+          {successMessage}
+        </div>
+      )}
+
+
+      {error && (
+        <div style={{ color: 'red', marginBottom: '15px', padding: '10px', background: '#ffe6e6', border: '1px solid #ffa39e', borderRadius: '4px' }}>
+          {error}
+        </div>
+      )}
+      
+      <form onSubmit={onSubmit}>
+        <div style={{ marginBottom: '15px' }}>
+          <label style={{ display: 'block', marginBottom: '5px' }}>Username</label>
+          <input
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+            style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }}
+          />
+        </div>
+
+        <div style={{ marginBottom: '15px' }}>
+          <label style={{ display: 'block', marginBottom: '5px' }}>Password</label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }}
+          />
+        </div>
+
+        <button 
+          type="submit" 
+          disabled={loading}
+          style={{ width: '100%', padding: '10px', background: '#007BFF', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
+        >
+          {loading ? 'Logging in...' : 'Login'}
+        </button>
+      </form>
+    </div>
   );
 }

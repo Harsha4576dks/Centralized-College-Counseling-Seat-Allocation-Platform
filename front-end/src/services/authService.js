@@ -1,15 +1,10 @@
-
 import apiClient from '../api/client';
 
 export const loginUser = async (username, password) => {
-  const formData = new URLSearchParams();
-  formData.append('username', username);
-  formData.append('password', password);
-
-  const response = await apiClient.post('/auth/login', formData, {
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
+  
+  const response = await apiClient.post('/auth/login', {
+    username: username,
+    password: password,
   });
 
   if (response.data.access_token) {

@@ -1,11 +1,10 @@
-import { StrictMode } from 'react';
-import {createRoot} from 'react-dom/client';
+import React from 'react';
+import { createRoot } from 'react-dom/client';
 import './index.css';
-import StudentDashboard from '../components/studentDashboard';
-import App from './App';
+import App from './App.jsx';
 
 createRoot(document.getElementById('root')).render(
-    <StrictMode>
-        <StudentDashboard studentId={1}/>
-    </StrictMode>
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
 );
