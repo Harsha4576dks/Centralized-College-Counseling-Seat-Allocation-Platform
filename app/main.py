@@ -31,10 +31,21 @@ app = FastAPI(
     version="1.0.0"
 )
 
+origins = [
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+]
+
 Base.metadata.create_all(bind=engine)
 
 
-app.add_middleware( AuthorizationMiddleware)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],  
+    allow_headers=["*"],  
+)
 app.include_router(authentication_router)
 app.include_router(college_router)
 app.include_router(college_branch_router)
