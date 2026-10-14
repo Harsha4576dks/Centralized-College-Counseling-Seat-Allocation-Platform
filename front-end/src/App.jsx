@@ -1,4 +1,4 @@
-// front-end/src/App.jsx
+
 import { useState, useEffect } from 'react';
 import loginForm from '../components/LoginForm';
 import StudentDashboard from './components/StudentDashboard';

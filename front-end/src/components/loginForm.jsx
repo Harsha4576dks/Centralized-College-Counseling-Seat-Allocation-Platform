@@ -1,4 +1,3 @@
-// front-end/src/components/LoginForm.jsx
 import  { useState } from 'react';
 import { loginUser } from '../services/authService';
 
