@@ -1,0 +1,78 @@
+.student-container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 30px;
+  background: #ffffff;
+  border: 1px solid #e1e4e8;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+}
+
+.student-title {
+  font-size: 1.5rem;
+  color: #0b1329;
+  margin-bottom: 8px;
+}
+
+.student-desc {
+  color: #555;
+  font-size: 0.95rem;
+  margin-bottom: 20px;
+}
+
+.student-success {
+  color: #2e7d32;
+  background: #e8f5e9;
+  border: 1px solid #c8e6c9;
+  padding: 10px 15px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+}
+
+.student-error {
+  color: #c62828;
+  background: #ffebee;
+  border: 1px solid #ffcdd2;
+  padding: 10px 15px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+}
+
+.student-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-label {
+  font-weight: 600;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+.form-input {
+  width: 100%;
+  padding: 10px 12px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.form-input:focus {
+  border-color: #00dfc4;
+}
+
+.form-button-wrapper {
+  margin-top: 15px;
+}

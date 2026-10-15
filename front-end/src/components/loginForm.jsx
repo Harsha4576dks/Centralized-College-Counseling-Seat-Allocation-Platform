@@ -1,5 +1,7 @@
 import  { useState } from 'react';
 import { useLogin } from '../hooks/userLogin';
+import Button from './Button';
+import './LoginForm.css';
 
 export default function LoginForm() {
   const [username, setUsername] = useState('');
@@ -11,55 +13,44 @@ export default function LoginForm() {
     e.preventDefault();
     handleLogin(username, password);
   };
+  
 
   return (
-    <div style={{ maxWidth: '400px', margin: '80px auto', padding: '20px', border: '1px solid #ddd', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>
+    <div className="login-container">
       <h2>Login</h2>
       
-
-      {successMessage && (
-        <div style={{ color: 'green', marginBottom: '15px', padding: '10px', background: '#e6ffed', border: '1px solid #b7eb8f', borderRadius: '4px' }}>
-          {successMessage}
-        </div>
-      )}
-
-
-      {error && (
-        <div style={{ color: 'red', marginBottom: '15px', padding: '10px', background: '#ffe6e6', border: '1px solid #ffa39e', borderRadius: '4px' }}>
-          {error}
-        </div>
-      )}
+      {successMessage && <div className="login-success">{successMessage}</div>}
+      {error && <div className="login-error">{error}</div>}
       
       <form onSubmit={onSubmit}>
-        <div style={{ marginBottom: '15px' }}>
-          <label style={{ display: 'block', marginBottom: '5px' }}>Username</label>
+        <div className="form-group">
+          <label className="form-label">Username</label>
           <input
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
-            style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }}
+            className="form-input"
           />
         </div>
 
-        <div style={{ marginBottom: '15px' }}>
-          <label style={{ display: 'block', marginBottom: '5px' }}>Password</label>
+        <div className="form-group">
+          <label className="form-label">Password</label>
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }}
+            className="form-input"
           />
         </div>
 
-        <button 
+        <Button 
           type="submit" 
-          disabled={loading}
-          style={{ width: '100%', padding: '10px', background: '#007BFF', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
-        >
-          {loading ? 'Logging in...' : 'Login'}
-        </button>
+          label={loading ? 'Logging in...' : 'Login'} 
+          disabled={loading} 
+          variant="primary"
+        />
       </form>
     </div>
   );

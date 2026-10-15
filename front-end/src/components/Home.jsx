@@ -1,5 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import { logoutUser } from '../services/authService';
+import Navbar from './Navbar';
+import Button from './Button';
+import './Home.css';
+
 
 export default function Home() {
   const navigate = useNavigate();
@@ -9,16 +13,35 @@ export default function Home() {
     navigate('/login');
   };
 
+  const handleContinue = () =>{
+    navigate('/student Details');
+  };
+
   return (
-    <div style={{ textAlign: 'center', marginTop: '100px' }}>
-      <h1>Welcome to the Home Page!</h1>
-      <p>You have successfully logged into your application.</p>
-      <button 
-        onClick={handleLogout}
-        style={{ marginTop: '20px', padding: '10px 20px', background: '#dc3545', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
-      >
-        Logout
-      </button>
+    <div>
+      <Navbar />
+      
+      <div className="home-container">
+        <h1>Welcome to the CET Counselling Cell!</h1>
+        <p>You have successfully logged into your counseling system.</p>
+        
+        <div className="continue-wrapper">
+          <Button
+          label = "Continue"
+          onClick={handleContinue}
+          variant="primary"          
+          />
+          
+        </div>
+        </div>
+        
+          <div className="logout-wrapper">
+          <Button 
+            label="Logout" 
+            onClick={handleLogout} 
+            variant="danger" 
+          />
+      </div>
     </div>
   );
 }
