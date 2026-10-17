@@ -1,37 +1,18 @@
-import { useState } from "react";
 import Navbar from "./Navbar";
 import Button from "./Button";
-import { saveStudentDetails } from "../services/StudentService";
+import { useStudentDetails } from "../hooks/studentHook";
 import './Home.css';
 import './studentDetails.css';
 
 export default function StudentDetails(){
- 
-
-    const [formData, setFormData] = useState({fullName: '', roll_number: '', cetRank: '', email: '', phone: ''});
-    const [loading, setLoading] = useState(false);
-    const [success, setSuccess] = useState('');
-    const [error, setError] = useState('');
-
-    const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value});
-    };
-
-    const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setError('');
-    setSuccess('');
-
-    try {
-      await saveStudentDetails(formData);
-      setSuccess('Student details saved successfully!');
-    } catch (err) {
-      setError(typeof err === 'string' ? err : 'An error occurred.');
-    } finally {
-      setLoading(false);
-    }
-  };
+  const {
+    formData,
+    handleChange,
+    handleSubmit,
+    loading,
+    success,
+    error,
+  } = useStudentDetails();
 
   return (
     <div>
