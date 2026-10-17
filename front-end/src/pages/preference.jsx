@@ -31,8 +31,9 @@ export default function PreferenceDetails() {
                             type="number" 
                             name="student_id" 
                             value={formData.student_id} 
-                            onChange={handleChange} 
-                            required 
+                            onChange={handleChange}
+                            min="1"
+                            required
                             className="form-input"
                         />
                     </div>

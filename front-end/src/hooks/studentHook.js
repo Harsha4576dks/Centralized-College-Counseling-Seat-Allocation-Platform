@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { saveStudentDetails } from "../services/StudentService";
 import { getErrorMessage } from "../utils/errorHandler";
 
@@ -11,6 +12,7 @@ const initialFormData = {
 };
 
 export const useStudentDetails = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState(initialFormData);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState("");
@@ -31,8 +33,15 @@ export const useStudentDetails = () => {
     setSuccess("");
 
     try {
-      await saveStudentDetails(formData);
-      setSuccess("Student details saved successfully!");
+      const savedStudent = await saveStudentDetails(formData);
+      if (!savedStudent?.id) {
+        setError("Student details were saved, but the server did not return a student ID. Please contact support.");
+        return;
+      }
+      navigate("/course-preferences", {
+        state: { studentId: savedStudent.id },
+      });
+
     } catch (submitError) {
       setError(getErrorMessage(submitError));
     } finally {
