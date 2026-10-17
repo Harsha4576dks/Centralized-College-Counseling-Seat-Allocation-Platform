@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import { logoutUser } from '../services/authService';
-import Navbar from './Navbar';
-import Button from './Button';
-import './Home.css';
+import Navbar from '../components/Navbar';
+import Button from '../components/Button';
+import '../styles/Home.css';
 
 
 export default function Home() {
@@ -13,10 +13,6 @@ export default function Home() {
     navigate('/login');
   };
 
-  const handleContinue = () =>{
-    navigate('/student Details');
-  };
-
   return (
     <div>
       <Navbar />
@@ -25,14 +21,6 @@ export default function Home() {
         <h1>Welcome to the CET Counselling Cell!</h1>
         <p>You have successfully logged into your counseling system.</p>
         
-        <div className="continue-wrapper">
-          <Button
-          label = "Continue"
-          onClick={handleContinue}
-          variant="primary"          
-          />
-          
-        </div>
         </div>
         
           <div className="logout-wrapper">

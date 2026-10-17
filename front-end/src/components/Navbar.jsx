@@ -1,11 +1,10 @@
- import './Navbar.css';
+ import '../styles/Navbar.css';
+ 
 export default function Navbar(){
     const navLinks = [
-        {name: 'Home', href:'/home'},
-        {name: 'Student Details', href: '/student-Details'},
-        {name: 'College Details', href: '#'},
-        {name: 'Counselling Round', href: '#'}
-    ];
+        {name: 'Admin', href:'#'},
+        {name: 'User', href: '/student-Details'},
+     ];
 
     return (
         <nav className="navbar">

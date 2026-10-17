@@ -1,8 +1,8 @@
-import Navbar from "./Navbar";
-import Button from "./Button";
+import Navbar from "../components/Navbar";
+import Button from "../components/Button";
 import { useStudentDetails } from "../hooks/studentHook";
 import './Home.css';
-import './studentDetails.css';
+import '../styles/studentDetails.css';
 
 export default function StudentDetails(){
   const {
