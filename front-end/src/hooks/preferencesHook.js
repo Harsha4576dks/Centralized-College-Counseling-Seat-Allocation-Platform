@@ -1,5 +1,7 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom"; 
 import { savePreferences } from "../services/preferenceService";
+import { getErrorMessage } from "../utils/errorHandler";
 
 const initialFormData = {
     student_id: "",
@@ -8,20 +10,42 @@ const initialFormData = {
     preference_order: "",
 };
 
-const getErrorMessage = (error) => {
-    const detail = error?.response?.data?.detail ?? error;
+export const usePreferenceDetails = () => {
+    const [formData, setFormData] = useState(initialFormData);
+    const [loading, setLoading] = useState(false);
+    const [success, setSuccess ] = useState("");
+    const [error, setError] = useState("");
 
-    if (typeof detail === "string") {
-        return detail;
-    }
+    const navigate = useNavigate();
 
-    if (Array.isArray(detail)) {
-        return detail.map((item) => item.msg ?? String(item)).join(" , ");
-    }
-
-    if (detail && typeof detail === "object"){
-        return JSON.stringify(detail);
+    const handleChange = (event) => {
+        const {name, value} = event.target;
+        setFormData((currentFormData) => ({
+            ...currentFormData,
+            [name]: value,
+        }));
     };
 
-    
-}
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        setLoading(true);
+        setError("");
+        setSuccess("");
+
+        try{
+            await savePreferences(formData);
+            setSuccess("student preferences saved successfully.");
+
+            setTimeout(()=> {
+                navigate('/course_preferences')
+            }, 1000);
+
+        }catch (submitError) {
+            setError(getErrorMessage(submitError));
+        }finally {
+            setLoading(false);
+        }
+    };
+
+    return {formData, handleChange, handleSubmit, loading, success, error };
+};

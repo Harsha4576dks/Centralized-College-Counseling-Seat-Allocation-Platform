@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { saveStudentDetails } from "../services/StudentService";
+import { getErrorMessage } from "../utils/errorHandler";
 
 const initialFormData = {
   fullName: "",
@@ -7,24 +8,6 @@ const initialFormData = {
   cetRank: "",
   email: "",
   phone: "",
-};
-
-const getErrorMessage = (error) => {
-  const detail = error?.response?.data?.detail ?? error;
-
-  if (typeof detail === "string") {
-    return detail;
-  }
-
-  if (Array.isArray(detail)) {
-    return detail.map((item) => item.msg ?? String(item)).join(", ");
-  }
-
-  if (detail && typeof detail === "object") {
-    return JSON.stringify(detail);
-  }
-
-  return "An error occurred.";
 };
 
 export const useStudentDetails = () => {

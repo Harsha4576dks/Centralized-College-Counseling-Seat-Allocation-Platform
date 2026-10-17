@@ -21,7 +21,7 @@ export default function Home() {
         <h1>Welcome to the CET Counselling Cell!</h1>
         <p>You have successfully logged into your counseling system.</p>
         
-        </div>
+        
         
           <div className="logout-wrapper">
           <Button 
@@ -29,6 +29,8 @@ export default function Home() {
             onClick={handleLogout} 
             variant="danger" 
           />
+          
+        </div>
       </div>
     </div>
   );
