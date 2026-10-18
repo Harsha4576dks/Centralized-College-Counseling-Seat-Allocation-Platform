@@ -38,11 +38,11 @@ export const getStudentbyId = async (studentId) => {
 export const updateStudentDetails = async (studentId, studentData) => {
     try {
          const studentPayload = {
-            name: studentData.fullName,
+            name: studentData.name ?? studentData.fullName,
             roll_number: Number(studentData.roll_number),
             email: studentData.email,
             phone: Number(studentData.phone),
-            rank: Number(studentData.rank),
+            rank: Number(studentData.rank ?? studentData.cetRank),
          };
 
          const response = await apiClient.put(`/students/${studentId}`, studentPayload);

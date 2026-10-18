@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
-import Navbar from "../components/Navbar";
+import Navbar from "../../components/Navbar";
 import StudentDetails from "./StudentDetails";
 import PreferenceDetails from "./preference";
-import "../styles/userPage.css";
+import "../../styles/userPage.css";
 
 export default function UserDashboard() {
   const location = useLocation();
@@ -37,7 +37,7 @@ export default function UserDashboard() {
               setActiveTab("preference");
             }}
           >
-         College Preferences
+         student Preferences
           </button>
         </div>
 

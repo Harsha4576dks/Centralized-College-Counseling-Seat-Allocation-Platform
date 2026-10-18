@@ -1,6 +1,6 @@
-import Button from "../components/Button";
-import { useStudentDetails } from "../hooks/studentHook";
-import '../styles/studentDetails.css';
+import Button from "../../components/Button";
+import { useStudentDetails } from "../../hooks/studentHook";
+import '../../styles/studentDetails.css';
 
 export default function StudentDetails({ onStudentSaved }) {
   const {
