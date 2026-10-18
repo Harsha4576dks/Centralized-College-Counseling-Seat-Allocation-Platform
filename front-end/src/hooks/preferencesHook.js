@@ -1,11 +1,8 @@
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
 import { savePreferences } from "../services/preferenceService";
 import { getErrorMessage } from "../utils/errorHandler";
 
-export const usePreferenceDetails = () => {
-    const location = useLocation();
-    const studentId = location.state?.studentId;
+export const usePreferenceDetails = (studentId) => {
     const [formData, setFormData] = useState({
         student_id: studentId ? String(studentId) : "",
         college_id: "",

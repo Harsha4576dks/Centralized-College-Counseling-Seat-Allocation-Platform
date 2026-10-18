@@ -1,9 +1,8 @@
-import Navbar from "../components/Navbar";
 import Button from "../components/Button";
 import { usePreferenceDetails } from "../hooks/preferencesHook";
 import '../styles/preference.css';
 
-export default function PreferenceDetails() {
+export default function PreferenceDetails({ studentId }) {
     const {
         formData,
         handleChange,
@@ -11,12 +10,10 @@ export default function PreferenceDetails() {
         loading,
         success,
         error,
-    } = usePreferenceDetails();
+    } = usePreferenceDetails(studentId);
 
     return (
         <div>
-            <Navbar />
-
             <div className="student-preference">
                 <h2 className="preference-title">Enter Student College Preferences</h2>
 

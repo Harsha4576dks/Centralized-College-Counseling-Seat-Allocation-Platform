@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import LoginForm from './pages/loginForm';
 import Home from './pages/Home';
-import StudentDetails from './pages/StudentDetails';
-import PreferenceDetails from './pages/preference';
+import UserDashboard from './pages/userDashboard';
+
 
 function App() {
   return (
@@ -10,8 +10,7 @@ function App() {
       <Routes>
         <Route path="/login" element={<LoginForm />} />
         <Route path="/home" element={<Home />} />
-        <Route path="/student-details" element={<StudentDetails/>}/>
-        <Route path="/course-preferences" element={<PreferenceDetails/>}/>
+        <Route path="/user-dashboard" element={<UserDashboard />} />
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </Router>

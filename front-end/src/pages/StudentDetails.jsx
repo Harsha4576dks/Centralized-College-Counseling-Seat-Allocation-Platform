@@ -1,9 +1,8 @@
-import Navbar from "../components/Navbar";
 import Button from "../components/Button";
 import { useStudentDetails } from "../hooks/studentHook";
 import '../styles/studentDetails.css';
 
-export default function StudentDetails() {
+export default function StudentDetails({ onStudentSaved }) {
   const {
     formData,
     handleChange,
@@ -11,12 +10,10 @@ export default function StudentDetails() {
     loading,
     success,
     error,
-  } = useStudentDetails();
+  } = useStudentDetails(onStudentSaved);
 
   return (
     <div>
-      <Navbar />
-      
       <div className="student-container">
         <h2 className="student-title">Enter Student Details</h2>
         <p className="student-desc">Please fill out your credentials for the counseling allocation process.</p>
