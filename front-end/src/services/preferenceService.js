@@ -24,6 +24,7 @@ export const getPreferenceDetails = async (id) => {
         throw error.response?.data?.detail || 'Failed to fetch preferences';
     }
 };
+
 export const updatePreferenceDetails = async (preferenceId, preferenceData) => {
     try{
         const preferencePayload = {
