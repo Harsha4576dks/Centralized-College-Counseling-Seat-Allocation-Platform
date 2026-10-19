@@ -18,7 +18,7 @@ export const savePreferences = async (preferenceData) => {
 
 export const getPreferenceDetails = async (id) => {
     try {
-        const response = await apiClient.get(`/preferences/${id}`);
+        const response = await apiClient.get(`/course_preferences/${id}`);
         return response.data;
     } catch (error) {
         throw error.response?.data?.detail || 'Failed to fetch preferences';
@@ -27,10 +27,10 @@ export const getPreferenceDetails = async (id) => {
 export const updatePreferenceDetails = async (preferenceId, preferenceData) => {
     try{
         const preferencePayload = {
-            student_id: Number(preferenceData.studentId),
+            student_id: Number(preferenceData.student_id),
             college_id: Number(preferenceData.college_id),
             college_branch_id: Number(preferenceData.college_branch_id),
-            preference_order: Number(preferenceData),
+            preference_order: Number(preferenceData.preference_order),
         };
 
         const response = await apiClient.put(`/course_preferences/${preferenceId}`, preferencePayload);

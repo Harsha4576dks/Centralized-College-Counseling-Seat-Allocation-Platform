@@ -20,9 +20,9 @@ def update_studentpreferences(db:Session, student_preferences_id:int, update_dat
     for key, value in update_data.model_dump(exclude_unset=True).items():
         setattr(db_studentpreferences, key, value)
 
-        db.commit()
-        db.refresh(db_studentpreferences)
-        return db_studentpreferences
+    db.commit()
+    db.refresh(db_studentpreferences)
+    return db_studentpreferences
 
 def delete_studentpreferences(db:Session, studentpreferences):
     db.delete(studentpreferences)

@@ -16,11 +16,6 @@ def create_studentpreferences(db:Session, studentpreferences):
     return student_preferences_repository.create_studentpreferences(db, studentpreferences), None
 
 def update_studentpreferences(db:Session, student_preferences_id, studentpreferences):
-    db_studentpreferences = student_preferences_repository.update_studentpreferences(db, student_preferences_id, studentpreferences)
-    if db_studentpreferences is None:
-        return None
-
-    update_data = studentpreferences.model_dump(exclude_unset=True)
     return student_preferences_repository.update_studentpreferences(db, student_preferences_id, studentpreferences)
 
 def delete_studentpreferences(db:Session, student_preferences_id:int):
