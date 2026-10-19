@@ -2,6 +2,7 @@ import { useState } from "react";
 import Navbar from "../../components/Navbar";
 import StudentManagement from "../Admin/studentManagement";
 import "../../styles/adminPage.css";
+import PreferenceManagement from "./preferenceManagement";
 
 export default function AdminDashboard() {
     const [activeTab, setActiveTab] = useState("student");
@@ -60,7 +61,7 @@ export default function AdminDashboard() {
 
                     <div className="tab-content-area">
                         {activeTab === "student" && <StudentManagement />}
-                        {activeTab === "preferences" && <p></p>}
+                        {activeTab === "preferences" && <PreferenceManagement />}
                         {activeTab === "college" && <p></p>}
                         {activeTab === "collegeBranches" && <p></p>}
                         {activeTab === "counsellingRound" && <p></p>}

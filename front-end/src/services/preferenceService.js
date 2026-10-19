@@ -15,3 +15,36 @@ export const savePreferences = async (preferenceData) => {
     }
 };
 
+
+export const getPreferenceDetails = async (id) => {
+    try {
+        const response = await apiClient.get(`/preferences/${id}`);
+        return response.data;
+    } catch (error) {
+        throw error.response?.data?.detail || 'Failed to fetch preferences';
+    }
+};
+export const updatePreferenceDetails = async (preferenceId, preferenceData) => {
+    try{
+        const preferencePayload = {
+            student_id: Number(preferenceData.studentId),
+            college_id: Number(preferenceData.college_id),
+            college_branch_id: Number(preferenceData.college_branch_id),
+            preference_order: Number(preferenceData),
+        };
+
+        const response = await apiClient.put(`/course_preferences/${preferenceId}`, preferencePayload);
+        return response.data;
+    }catch(error) {
+        throw error.response?.data?.detail || 'Failed to  update student preferences';
+    }
+};
+
+export const deletePreferenceDetails = async (preferenceId)=> {
+    try{
+        const response = await apiClient.delete(`/course_preferences/${preferenceId}`);
+        return response.data;
+    }catch (error) {
+        throw error.response?.data?.detail ?? 'Failed to delete student preferences';
+    }
+};
