@@ -1,17 +1,10 @@
 import apiClient from "../api/client";
 
-export const saveCounsellingRoundDetails = async (counsellingRoundData) => {
+export const executeCounsellingRound = async () => {
     try{
-        const counsellingRoundPayload = {
-            round_Number: Number(counsellingRoundData.round_Number),
-            status: counsellingRoundData.status,
-            start_date: counsellingRoundData.start_date,
-            end_date: counsellingRoundData.end_date,
-        };
-
-        const response = await apiClient.post("/counselling_details/", counsellingRoundPayload);
+        const response = await apiClient.post("/counselling_details/execute");
         return response.data;
     } catch (error) {
-        throw error.response?.data?.detail ?? "Failed to fetch branch details";
+        throw error.response?.data?.detail ?? "Failed to execute counselling round";
     }
 };

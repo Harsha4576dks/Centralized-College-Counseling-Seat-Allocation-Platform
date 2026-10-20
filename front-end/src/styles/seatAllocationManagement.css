@@ -1,0 +1,132 @@
+.branch-managemnt-container {
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 8px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.branch-managemnt-container h3 {
+    margin-bottom: 20px;
+    color: #2d3748;
+    font-size: 20px;
+}
+
+.student-error {
+    background: #fed7d7;
+    color: #c53030;
+    padding: 10px 14px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    font-size: 14px;
+    border: 1px solid #feb2b2;
+}
+
+.student-success {
+    background: #c6f6d5;
+    color: #22543d;
+    padding: 10px 14px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    font-size: 14px;
+    border: 1px solid #9ae6b4;
+}
+
+.search-sections-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+@media (max-width: 768px) {
+    .search-sections-wrapper {
+        grid-template-columns: 1fr;
+    }
+}
+
+.edit-form {
+    background: #f7fafc;
+    padding: 20px;
+    border-radius: 6px;
+    border: 1px solid #cbd5e0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.edit-form h4 {
+    margin-top: 0;
+    color: #2d3748;
+    margin-bottom: 12px;
+    font-size: 15px;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 8px;
+}
+
+.form-group {
+    margin-bottom: 14px;
+}
+
+.form-input {
+    width: 100%;
+    padding: 9px 12px;
+    border: 1px solid #cbd5e0;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box;
+    background: #ffffff;
+    color: #2d3748;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #3182ce;
+    box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.15);
+}
+
+.button-group {
+    margin-top: 15px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.save-btn {
+    background: #3182ce;
+    color: #fff;
+    border: none;
+    padding: 9px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 13px;
+    transition: background 0.2s;
+}
+
+.save-btn:hover:not(:disabled) {
+    background: #2b6cb0;
+}
+
+.save-btn:disabled {
+    background: #a0aec0;
+    cursor: not-allowed;
+}
+
+.delete-btn {
+    background: #e53e3e;
+    color: #fff;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 13px;
+    transition: background 0.2s;
+}
+
+.delete-btn:hover:not(:disabled) {
+    background: #c53030;
+}
+
+.delete-btn:disabled {
+    background: #a0aec0;
+    cursor: not-allowed;
+}

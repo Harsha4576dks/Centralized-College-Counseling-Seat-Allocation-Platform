@@ -3,12 +3,11 @@ import "../../styles/counsellingRoundManagement.css";
 
 export default function CounsellingRoundManagement() {
     const {
-        formData,
-        handleChange,
-        handleSubmit,
+        handleExecute,
         loading,
         success,
         error,
+        allocationData,
     } = useCounsellingRoundDetails();
 
     return (
@@ -18,65 +17,35 @@ export default function CounsellingRoundManagement() {
             {error && <div className="student-error">{error}</div>}
             {success && <div className="student-success">{success}</div>}
 
-            <form onSubmit={handleSubmit} className="edit-form">
-                <h4>Add New Counselling Round</h4>
-
-                <div className="form-group">
-                    <label>Round Number</label>
-                    <input 
-                        type="number" 
-                        name="round_Number" 
-                        value={formData.round_Number} 
-                        onChange={handleChange} 
-                        required 
-                        className="form-input" 
-                        placeholder="Enter round number..."
-                    />
-                </div>
-
-                <div className="form-group">
-                    <label>Status</label>
-                    <input 
-                        type="text" 
-                        name="status" 
-                        value={formData.status} 
-                        onChange={handleChange} 
-                        required 
-                        className="form-input" 
-                        placeholder="e.g., Active, Completed"
-                    />
-                </div>
-
-                <div className="form-group">
-                    <label>Start Date</label>
-                    <input 
-                        type="date" 
-                        name="start_date" 
-                        value={formData.start_date} 
-                        onChange={handleChange} 
-                        required 
-                        className="form-input" 
-                    />
-                </div>
-
-                <div className="form-group">
-                    <label>End Date</label>
-                    <input 
-                        type="date" 
-                        name="end_date" 
-                        value={formData.end_date} 
-                        onChange={handleChange} 
-                        required 
-                        className="form-input" 
-                    />
-                </div>
+            <div className="edit-form">
+                <h4>Execute Counselling Round</h4>
+                <p style={{ fontSize: "14px", color: "#4a5568", marginBottom: "20px" }}>
+                    Clicking the button below will trigger the counselling round processing script in the background.
+                </p>
 
                 <div className="button-group">
-                    <button type="submit" className="save-btn" disabled={loading}>
-                        {loading ? "Saving..." : "Save Counselling Round"}
+                    <button 
+                        type="button" 
+                        onClick={handleExecute} 
+                        className="save-btn" 
+                        disabled={loading}
+                    >
+                        {loading ? "Executing..." : "Execute in Background"}
                     </button>
                 </div>
-            </form>
+            </div>
+
+            {allocationData && (
+                <div className="edit-form" style={{ marginTop: "20px" }}>
+                    <h4>Seat Allocation Results</h4>
+                    <div className="allocation-results-box">
+                        <p><strong>Status:</strong> Completed successfully</p>
+                        <pre style={{ background: "#edf2f7", padding: "10px", borderRadius: "4px", fontSize: "13px" }}>
+                            {JSON.stringify(allocationData, null, 2)}
+                        </pre>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

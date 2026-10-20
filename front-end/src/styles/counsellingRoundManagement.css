@@ -43,40 +43,10 @@
 .edit-form h4 {
     margin-top: 0;
     color: #2d3748;
-    margin-bottom: 18px;
+    margin-bottom: 12px;
     font-size: 16px;
     border-bottom: 1px solid #e2e8f0;
     padding-bottom: 8px;
-}
-
-.form-group {
-    margin-bottom: 16px;
-}
-
-.edit-form label {
-    display: block;
-    font-size: 13px;
-    font-weight: 600;
-    color: #4a5568;
-    margin-bottom: 6px;
-}
-
-.form-input {
-    width: 100%;
-    padding: 9px 12px;
-    border: 1px solid #cbd5e0;
-    border-radius: 4px;
-    font-size: 14px;
-    box-sizing: border-box;
-    background: #ffffff;
-    color: #2d3748;
-    transition: border-color 0.2s, box-shadow 0.2s;
-}
-
-.form-input:focus {
-    outline: none;
-    border-color: #3182ce;
-    box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.15);
 }
 
 .button-group {
@@ -86,7 +56,7 @@
 }
 
 .save-btn {
-    background: #38a169;
+    background: #3182ce;
     color: #fff;
     border: none;
     padding: 10px 20px;
@@ -98,7 +68,7 @@
 }
 
 .save-btn:hover:not(:disabled) {
-    background: #2f855a;
+    background: #2b6cb0;
 }
 
 .save-btn:disabled {

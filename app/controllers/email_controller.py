@@ -7,7 +7,7 @@ from ..services.email_services import execute_counseling_pipeline_service
 from ..security import security
 
 router = APIRouter(
-    prefix="/counseling",
+    prefix="/Email",
     tags=["Counseling Execution"],
     dependencies=[Depends(security)]
 )
