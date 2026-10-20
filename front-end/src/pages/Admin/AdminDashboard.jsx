@@ -6,7 +6,8 @@ import PreferenceManagement from "./preferenceManagement";
 import CollegeManagement from "./collegeManagement";
 import CollegeBranchManagement from "./collegeBranchManagement";
 import CounsellingRoundManagement from "./counsellingManagement";
-import SeatAllocationManagement from "./seatAllocationManagement"; 
+import SeatAllocationManagement from "./seatAllocationManagement";
+import EmailManagement from "./emailManagement"; 
 
 export default function AdminDashboard() {
     const [activeTab, setActiveTab] = useState("student");
@@ -61,6 +62,14 @@ export default function AdminDashboard() {
                         >
                             Seat Allocation
                         </button>
+
+                        
+                        <button 
+                            className={`tab-btn ${activeTab === "emailResponse" ? "active" : ""}`}
+                            onClick={() => setActiveTab("emailResponse")}
+                        >
+                            emailResponse
+                        </button>
                     </div>
 
                     <div className="tab-content-area">
@@ -70,6 +79,7 @@ export default function AdminDashboard() {
                         {activeTab === "collegeBranches" && <CollegeBranchManagement />}
                         {activeTab === "counsellingRound" && <CounsellingRoundManagement />}
                         {activeTab === "seatAllocation" && <SeatAllocationManagement />}
+                        {activeTab === "seatAllocation" && <EmailManagement />}
                     </div>
                 </div>
             </div>
