@@ -20,11 +20,18 @@ async def get_branch_name(db:db_dependency, branch_name:str):
         raise HTTPException(status_code=404, detail="branch not found")
     return result
 
-@router.get("/{branch_id}")
-async def get_college_branch(db:db_dependency, college_branch_id:int):
+@router.get("/id/{college_branch_id}")
+async def get_college_branch_by_id(db:db_dependency, college_branch_id:int):
     result = college_branches_services.get_college_branch(db, college_branch_id)
     if result is None:
-            raise HTTPException(status_code=404, detail="branch not found")
+        raise HTTPException(status_code=404, detail="branch not found")
+    return result
+
+@router.get("/{branch_id}")
+async def get_college_branch(db:db_dependency, branch_id:int):
+    result = college_branches_services.get_college_branch(db, branch_id)
+    if result is None:
+        raise HTTPException(status_code=404, detail="branch not found")
     return result
 
 @router.post("/")
