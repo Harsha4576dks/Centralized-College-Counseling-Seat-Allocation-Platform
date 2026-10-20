@@ -5,6 +5,7 @@ import "../../styles/adminPage.css";
 import PreferenceManagement from "./preferenceManagement";
 import CollegeManagement from "./collegeManagement";
 import CollegeBranchManagement from "./collegeBranchManagement";
+import CounsellingRoundManagement from "./counsellingManagement";
 
 export default function AdminDashboard() {
     const [activeTab, setActiveTab] = useState("student");
@@ -66,7 +67,7 @@ export default function AdminDashboard() {
                         {activeTab === "preferences" && <PreferenceManagement />}
                         {activeTab === "college" && <CollegeManagement />}
                         {activeTab === "collegeBranches" && <CollegeBranchManagement />}
-                        {activeTab === "counsellingRound" && <p></p>}
+                        {activeTab === "counsellingRound" && <CounsellingRoundManagement />}
                         {activeTab === "seatAllocation" && <p></p>}
                     </div>
                 </div>

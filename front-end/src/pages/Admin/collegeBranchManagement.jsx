@@ -94,30 +94,49 @@ export default function CollegeBranchManagement() {
                 
                 <div className="form-group">
                     <label>College ID</label>
-                    <input type="number" name="college_id" value={formData.college_id} onChange={handleChange} required className="form-input" />
+                    <input type="number" 
+                    name="college_id" 
+                    value={formData.college_id} 
+                    onChange={handleChange} 
+                    required className="form-input" />
                 </div>
                 
                 <div className="form-group">
                     <label>Branch Name</label>
-                    <input type="text" name="branch_name" value={formData.branch_name} onChange={handleChange} required className="form-input" />
+                    <input type="text" 
+                    name="branch_name" 
+                    value={formData.branch_name} 
+                    onChange={handleChange} 
+                    required className="form-input" />
                 </div>
                 
                 <div className="form-group">
                     <label>Total Seats</label>
-                    <input type="number" name="total_seats" value={formData.total_seats} onChange={handleChange} required className="form-input" />
+                    <input type="number" 
+                    name="total_seats" 
+                    value={formData.total_seats} 
+                    onChange={handleChange} 
+                    required className="form-input" />
                 </div>
                 
                 <div className="form-group">
                     <label>Available Seats</label>
-                    <input type="number" name="available_seats" value={formData.available_seats} onChange={handleChange} required className="form-input" />
+                    <input type="number" 
+                    name="available_seats" 
+                    value={formData.available_seats} 
+                    onChange={handleChange} 
+                    required className="form-input" />
                 </div>
 
                 <div className="button-group">
-                    <button type="submit" className="save-btn" disabled={loading}>
+                    <button type="submit" 
+                    className="save-btn" disabled={loading}>
                         {loading ? "Processing..." : isEditing ? "Update Branch" : "Save Branch"}
                     </button>
                     {isEditing && (
-                        <button type="button" className="cancel-btn" onClick={() => { setIsEditing(false); setBranchData(null); }}>
+                        <button type="button" 
+                        className="cancel-btn" 
+                        onClick={() => { setIsEditing(false); setBranchData(null); }}>
                             Cancel
                         </button>
                     )}
