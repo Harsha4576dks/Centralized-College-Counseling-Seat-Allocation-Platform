@@ -21,7 +21,7 @@ def execute_counseling_button_click( round_id: int, background_tasks: Background
 
         return {
             "status": "success",
-            "message": f"Counseling execution request initiated for Round {round_id}."
+            "message": f"Counselling execution request initiated for Round {round_id}."
         }
 
     except Exception as e:

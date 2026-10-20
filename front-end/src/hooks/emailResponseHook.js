@@ -6,17 +6,22 @@ export const useEmailResponse = () => {
     const [loading, setLoading ] = useState(false);
     const [success, setSuccess] = useState("");
     const [error, setError] = useState("");
-    const [emailData, emailResponseData] = useState(null);
+    const [emailResponseData, setEmailResponseData] = useState(null);
 
-    const handleExecute = async() => {
+    const handleExecute = async(roundId) => {
+        if (!roundId) {
+            setError("Please enter a counselling round ID.");
+            return;
+        }
+
         setLoading(true);
         setError("");
         setSuccess("");
 
         try {
-            const data = await executeEmailResponse();
-            emailResponseData(data);
-            setSuccess("email response execution triggered successfully");
+            const data = await executeEmailResponse(roundId);
+            setEmailResponseData(data);
+            setSuccess(data.message ?? "Email execution request accepted.");
         } catch (submitError) {
             setError(getErrorMessage(submitError));
         }finally {
@@ -25,6 +30,6 @@ export const useEmailResponse = () => {
     };
 
     return {
-        handleExecute, loading, success, error, emailData
+        handleExecute, loading, success, error, emailResponseData
     };
 };

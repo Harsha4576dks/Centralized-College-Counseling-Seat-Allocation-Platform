@@ -7,7 +7,7 @@ import CollegeManagement from "./collegeManagement";
 import CollegeBranchManagement from "./collegeBranchManagement";
 import CounsellingRoundManagement from "./counsellingManagement";
 import SeatAllocationManagement from "./seatAllocationManagement";
-import EmailManagement from "./emailManagement"; 
+import EmailManagement from "./emailManagement";
 
 export default function AdminDashboard() {
     const [activeTab, setActiveTab] = useState("student");
@@ -15,56 +15,56 @@ export default function AdminDashboard() {
     return (
         <div>
             <Navbar />
-            
+
             <div className="dashboard-container">
                 <h2>Admin Dashboard</h2>
 
                 <div className="admin-dashboard-layout">
                     <div className="tab-header vertical-tabs">
-                        <button 
+                        <button
                             className={`tab-btn ${activeTab === "student" ? "active" : ""}`}
                             onClick={() => setActiveTab("student")}
                         >
                             Student Details
                         </button>
 
-                        <button 
+                        <button
                             className={`tab-btn ${activeTab === "preferences" ? "active" : ""}`}
                             onClick={() => setActiveTab("preferences")}
                         >
                             Student Preferences
                         </button>
-                   
-                        <button 
+
+                        <button
                             className={`tab-btn ${activeTab === "college" ? "active" : ""}`}
                             onClick={() => setActiveTab("college")}
                         >
                             College Details
                         </button>
-                   
-                        <button 
+
+                        <button
                             className={`tab-btn ${activeTab === "collegeBranches" ? "active" : ""}`}
                             onClick={() => setActiveTab("collegeBranches")}
                         >
                             College Branches
                         </button>
-                   
-                        <button 
+
+                        <button
                             className={`tab-btn ${activeTab === "counsellingRound" ? "active" : ""}`}
                             onClick={() => setActiveTab("counsellingRound")}
                         >
                             Counselling Round
                         </button>
-                   
-                        <button 
+
+                        <button
                             className={`tab-btn ${activeTab === "seatAllocation" ? "active" : ""}`}
                             onClick={() => setActiveTab("seatAllocation")}
                         >
                             Seat Allocation
                         </button>
 
-                        
-                        <button 
+
+                        <button
                             className={`tab-btn ${activeTab === "emailResponse" ? "active" : ""}`}
                             onClick={() => setActiveTab("emailResponse")}
                         >
@@ -79,7 +79,7 @@ export default function AdminDashboard() {
                         {activeTab === "collegeBranches" && <CollegeBranchManagement />}
                         {activeTab === "counsellingRound" && <CounsellingRoundManagement />}
                         {activeTab === "seatAllocation" && <SeatAllocationManagement />}
-                        {activeTab === "seatAllocation" && <EmailManagement />}
+                        {activeTab === "emailResponse" && <EmailManagement />}
                     </div>
                 </div>
             </div>

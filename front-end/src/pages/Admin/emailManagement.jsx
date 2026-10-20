@@ -1,7 +1,9 @@
+import { useState } from "react";
 import { useEmailResponse } from "../../hooks/emailResponseHook";
 import "../../styles/emailManagement.css";
 
 export default function EmailManagement() {
+    const [roundId, setRoundId] = useState("");
     const {
         handleExecute,
         loading,
@@ -17,30 +19,49 @@ export default function EmailManagement() {
             {error && <div className="student-error">{error}</div>}
             {success && <div className="student-success">{success}</div>}
 
-            <div className="edit-form">
+            <form
+                className="edit-form"
+                onSubmit={(event) => {
+                    event.preventDefault();
+                    handleExecute(roundId);
+                }}
+            >
                 <h4>Execute Email Response</h4>
                 <p style={{ fontSize: "14px", color: "#4a5568", marginBottom: "20px" }}>
-                    Clicking the button below will trigger the email response script in the background.
+                    Enter the counselling round ID to send allotment emails in the background.
                 </p>
+
+                <div className="form-group">
+                    <label htmlFor="email-round-id">Counselling Round ID</label>
+                    <input
+                        id="email-round-id"
+                        type="number"
+                        min="1"
+                        value={roundId}
+                        onChange={(event) => setRoundId(event.target.value)}
+                        placeholder="Enter counselling round ID..."
+                        className="form-input"
+                        required
+                    />
+                </div>
 
             <div className="button-group">
                 <button
-                type="button"
-                onClick={handleExecute}
+                type="submit"
                 className="save-btn"
                 disabled={loading}
                 >
-                {loading ? "Executing..." : "Execute in Background"}
+                {loading ? "Submitting..." : "Send Allotment Emails"}
                 </button>
             </div>
 
-            </div>
+            </form>
 
            {emailResponseData && (
                 <div className="edit-form" style={{ marginTop: "20px" }}>
-                    <h4>Seat Allocation Results</h4>
+                    <h4>Email Execution Request</h4>
                     <div className="allocation-results-box">
-                        <p><strong>Status:</strong> Completed successfully</p>
+                        <p><strong>Status:</strong> {emailResponseData.status}</p>
                         <pre style={{ background: "#edf2f7", padding: "10px", borderRadius: "4px", fontSize: "13px" }}>
                             {JSON.stringify(emailResponseData, null, 2)}
                         </pre>
