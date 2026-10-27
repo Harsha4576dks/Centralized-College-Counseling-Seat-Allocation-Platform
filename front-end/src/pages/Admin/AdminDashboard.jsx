@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Navbar from "../../components/Navbar";
 import StudentManagement from "../Admin/studentManagement";
-import "../../styles/adminPage.css";
+import "../../styles/adminpage.css";
 import PreferenceManagement from "./preferenceManagement";
 import CollegeManagement from "./collegeManagement";
 import CollegeBranchManagement from "./collegeBranchManagement";
