@@ -42,6 +42,7 @@ Base.metadata.create_all(bind=engine)
 
 app.add_middleware(
     CORSMiddleware,
+    allow_origins=origins,
     allow_origin_regex=r"https://centralized-college-counseling-seat-allocation-platf-.*\.vercel\.app",
     allow_credentials=True,
     allow_methods=["*"],  
