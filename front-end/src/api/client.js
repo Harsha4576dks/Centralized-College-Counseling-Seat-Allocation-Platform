@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const apiClient = axios.create({
-  baseURL: 'https://expense-tracker-mvc.onrender.com',
+  baseURL: 'https://https://centralized-college-counseling-seat.onrender.com/-tracker-mvc.onrender.com',
   headers: {
     'Content-Type': 'application/json',
   },
