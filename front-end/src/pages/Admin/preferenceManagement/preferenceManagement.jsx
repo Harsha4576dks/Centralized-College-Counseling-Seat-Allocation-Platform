@@ -3,9 +3,9 @@ import {
     getPreferenceDetails, 
     updatePreferenceDetails, 
     deletePreferenceDetails 
-} from "../../services/preferenceService";
-import { getErrorMessage } from "../../utils/errorHandler";
-import "../../styles/preferenceManagement.css";
+} from "../../../services/preferenceService";
+import { getErrorMessage } from "../../../utils/errorHandler";
+import "./preferenceManagement.css";
 
 export default function PreferenceManagement() {
     const [searchId, setSearchId] = useState("");

@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
-import Navbar from "../../components/Navbar";
-import StudentDetails from "./StudentDetails";
-import PreferenceDetails from "./preference";
-import "../../styles/userPage.css";
+import Navbar from "../../../components/Navbar/Navbar";
+import StudentDetails from "../StudentDetails/StudentDetails";
+import PreferenceDetails from "../preference/preference";
+import "./userDashboard.css";
 
 export default function UserDashboard() {
   const location = useLocation();

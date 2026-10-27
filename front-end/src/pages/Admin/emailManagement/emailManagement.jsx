@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useEmailResponse } from "../../hooks/emailResponseHook";
-import "../../styles/emailManagement.css";
+import { useEmailResponse } from "../../../hooks/emailResponseHook";
+import "./emailManagement.css";
 
 export default function EmailManagement() {
     const [roundId, setRoundId] = useState("");

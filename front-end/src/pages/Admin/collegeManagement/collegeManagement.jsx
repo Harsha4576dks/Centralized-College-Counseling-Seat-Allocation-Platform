@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useCollegeDetails } from "../../hooks/collegeHook";
-import "../../styles/collegeManagement.css";
+import { useCollegeDetails } from "../../../hooks/collegeHook";
+import "./collegeManagement.css";
 
 export default function CollegeManagement() {
     const {

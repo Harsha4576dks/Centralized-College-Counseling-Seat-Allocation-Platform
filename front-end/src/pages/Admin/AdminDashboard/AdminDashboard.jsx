@@ -1,13 +1,13 @@
 import { useState } from "react";
-import Navbar from "../../components/Navbar";
-import StudentManagement from "../Admin/studentManagement";
-import "../../styles/adminpage.css";
-import PreferenceManagement from "./preferenceManagement";
-import CollegeManagement from "./collegeManagement";
-import CollegeBranchManagement from "./collegeBranchManagement";
-import CounsellingRoundManagement from "./counsellingManagement";
-import SeatAllocationManagement from "./seatAllocationManagement";
-import EmailManagement from "./emailManagement";
+import Navbar from "../../../components/Navbar/Navbar";
+import StudentManagement from "../studentManagement/studentManagement";
+import "./AdminDashboard.css";
+import PreferenceManagement from "../preferenceManagement/preferenceManagement";
+import CollegeManagement from "../collegeManagement/collegeManagement";
+import CollegeBranchManagement from "../collegeBranchManagement/collegeBranchManagement";
+import CounsellingRoundManagement from "../counsellingManagement/counsellingManagement";
+import SeatAllocationManagement from "../seatAllocationManagement/seatAllocationManagement";
+import EmailManagement from "../emailManagement/emailManagement";
 
 export default function AdminDashboard() {
     const [activeTab, setActiveTab] = useState("student");

@@ -3,9 +3,9 @@ import {
     getStudentbyId, 
     updateStudentDetails, 
     deleteStudentDetails 
-} from "../../services/StudentService";
-import { getErrorMessage } from "../../utils/errorHandler";
-import "../../styles/studentManagement.css";
+} from "../../../services/StudentService";
+import { getErrorMessage } from "../../../utils/errorHandler";
+import "./studentManagement.css";
 
 export default function StudentManagement() {
     const [searchId, setSearchId] = useState("");

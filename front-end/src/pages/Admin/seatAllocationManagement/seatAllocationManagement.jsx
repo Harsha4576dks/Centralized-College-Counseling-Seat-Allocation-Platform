@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useSeatAllocationDetails } from "../../hooks/seatAllocationHook";
-import "../../styles/seatAllocationManagement.css";
+import { useSeatAllocationDetails } from "../../../hooks/seatAllocationHook";
+import "./seatAllocationManagement.css";
 
 export default function SeatAllocationManagement() {
     const {

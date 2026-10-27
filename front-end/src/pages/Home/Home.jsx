@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
-import { logoutUser } from '../services/authService';
-import Navbar from '../components/Navbar';
-import Button from '../components/Button';
-import '../styles/Home.css';
+import { logoutUser } from '../../services/authService';
+import Navbar from '../../components/Navbar/Navbar';
+import Button from '../../components/Button/Button';
+import './Home.css';
 
 
 export default function Home() {

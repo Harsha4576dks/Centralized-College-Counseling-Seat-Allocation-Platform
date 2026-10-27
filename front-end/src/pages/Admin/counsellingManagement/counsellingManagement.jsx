@@ -1,5 +1,5 @@
-import { useCounsellingRoundDetails } from "../../hooks/counsellingRoundHook";
-import "../../styles/counsellingRoundManagement.css";
+import { useCounsellingRoundDetails } from "../../../hooks/counsellingRoundHook";
+import "./counsellingManagement.css";
 
 export default function CounsellingRoundManagement() {
     const {

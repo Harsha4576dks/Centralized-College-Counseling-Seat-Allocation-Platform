@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useCollegeBranchDetails } from "../../hooks/collegeBranchHook";
-import "../../styles/collegeBranchManagement.css";
+import { useCollegeBranchDetails } from "../../../hooks/collegeBranchHook";
+import "./collegeBranchManagement.css";
 
 export default function CollegeBranchManagement() {
     const {

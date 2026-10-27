@@ -1,6 +1,6 @@
-import Button from "../../components/Button";
-import { usePreferenceDetails } from "../../hooks/preferencesHook";
-import '../../styles/preference.css';
+import Button from "../../../components/Button/Button";
+import { usePreferenceDetails } from "../../../hooks/preferencesHook";
+import './preference.css';
 
 export default function PreferenceDetails({ studentId }) {
     const {
