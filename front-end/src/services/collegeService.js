@@ -1,4 +1,4 @@
-import apiClient from "../api/client";
+import apiClient from "../middleware/client";
 
 const createCollegePayload = (collegeData) => ({
     college_name: collegeData.college_name,
