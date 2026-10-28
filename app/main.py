@@ -39,6 +39,7 @@ origins = [
 
 Base.metadata.create_all(bind=engine)
 
+app.add_middleware(AuthorizationMiddleware)
 
 app.add_middleware(
     CORSMiddleware,
