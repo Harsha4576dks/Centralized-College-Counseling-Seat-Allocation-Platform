@@ -1,12 +1,9 @@
-from fastapi import APIRouter, HTTPException, Request, Depends
-from fastapi.security import HTTPAuthorizationCredentials
+from fastapi import APIRouter, HTTPException, Request, Response
 
 from ..database import db_dependency
 from ..schemas.auth_schemas import RegisterUser, LoginUser, UserResponse
 from ..services import auth_services
-from ..security import security
-from ..repositories import user_repository
-from ..user_auth import verify_access_token
+from ..user_auth import ACCESS_TOKEN_EXPIRE_MINUTES
 
 router = APIRouter(
     prefix="/auth",
@@ -24,21 +21,35 @@ def register(user: RegisterUser, db: db_dependency):
 
 
 @router.post("/login")
-def login( user: LoginUser, db: db_dependency):
+def login(user: LoginUser, db: db_dependency, response: Response):
     token, error = auth_services.login_user( db,  user.username, user.password)
     if error:
         raise HTTPException( status_code=401, detail=error )
 
-    return {"access_token": token, "token_type": "bearer" }
+    response.set_cookie(
+        key="access_token",
+        value=token,
+        max_age=ACCESS_TOKEN_EXPIRE_MINUTES * 60,
+        httponly=True,
+        secure=True,
+        samesite="none",
+        path="/",
+    )
+    return {"message": "Login successful"}
+
+
+@router.post("/logout")
+def logout(response: Response):
+    response.delete_cookie(
+        key="access_token",
+        path="/",
+        secure=True,
+        httponly=True,
+        samesite="none",
+    )
+    return {"message": "Logged out"}
+
 
 @router.get("/user", response_model=UserResponse)
-def get_logged_user(db: db_dependency, credentials: HTTPAuthorizationCredentials = Depends(security)):
-    user_id = verify_access_token(credentials.credentials)
-    if not user_id:
-        raise HTTPException(status_code=401, detail="Invalid or expired token")
-
-    user = user_repository.get_user_by_id(db, user_id)
-    if not user:
-        raise HTTPException(status_code=404, detail="User not found")
-
-    return user
+def get_logged_user(request: Request):
+    return request.state.user
