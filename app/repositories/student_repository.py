@@ -13,6 +13,9 @@ def create_student(db:Session, student):
 def get_student(db:Session, student_id:int):
     return db.query(models.Student).filter(models.Student.id == student_id).first()
 
+def get_students(db:Session):
+    return db.query(models.Student).order_by(models.Student.id).all()
+
 def search_student(db:Session, student_name:str):
     return db.query(models.Student).filter(models.Student.name == student_name).first()
 
@@ -34,7 +37,11 @@ def delete_student(db:Session, student):
     return {"message":"students deleted successfully", "deleted_student":student}
 
 def get_student_preferences(db:Session, student_preferences_id:int):
-    return db.query(models.StudentPreferences).filter(models.StudentPreferences.student_id == student_preferences_id)
+    return db.query(models.StudentPreferences.id).filter(
+        models.StudentPreferences.student_id == student_preferences_id
+    ).first() is not None
 
 def get_seat_allocation(db:Session, seat_allocation_id:int):
-    return db.query(models.SeatAllocation).filter(models.SeatAllocation.student_id == seat_allocation_id)
+    return db.query(models.SeatAllocation.id).filter(
+        models.SeatAllocation.student_id == seat_allocation_id
+    ).first() is not None
