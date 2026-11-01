@@ -1,91 +1,282 @@
 .student-preference {
-  max-width: 550px;
-  margin: 40px auto;
-  padding: 30px;
-  background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  position: relative;
+  width: min(100%, 840px);
+  margin: 0 auto;
+  padding: clamp(20px, 3vw, 30px) clamp(22px, 4vw, 38px);
+  overflow: hidden;
+  border: 1px solid rgba(221, 235, 226, 0.16);
+  border-radius: 16px;
+  background:
+    radial-gradient(ellipse at 100% 0%, rgba(215, 243, 106, 0.08), transparent 36%),
+    #172833;
+  box-shadow: 0 22px 58px rgba(0, 0, 0, 0.28);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-
-.preference-title { 
-  font-size: 1.5rem;
-  color: #0b1329;
-  margin-bottom: 8px;
+.student-preference::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #d7f36a, rgba(215, 243, 106, 0.08));
+  content: '';
 }
 
+.preference-heading {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 20px;
+}
 
-.student-success {
-  background-color: #def7ec;
-  color: #03543f;
+.preference-step-mark {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid rgba(215, 243, 106, 0.22);
+  border-radius: 12px 4px 12px 4px;
+  background: rgba(215, 243, 106, 0.12);
+  color: #d7f36a;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.preference-eyebrow {
+  margin-bottom: 3px;
+  color: #d7f36a;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.4px;
+}
+
+.preference-title {
+  font-size: clamp(1.25rem, 2.5vw, 1.6rem);
+  color: #f3f6f2;
+  letter-spacing: -0.5px;
+}
+
+.preference-description {
+  margin-top: 5px;
+  color: #aab9bd;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.student-preference .student-success {
+  margin-bottom: 12px;
+  background-color: rgba(60, 145, 96, 0.16);
+  color: #b8efca;
   padding: 12px 16px;
   border-radius: 6px;
   font-size: 14px;
   margin-bottom: 20px;
-  border: 1px solid #bcf0da;
+  border: 1px solid rgba(114, 204, 151, 0.32);
 }
 
-.student-error {
-  background-color: #fde8e8;
-  color: #9b1c1c;
+.student-preference .student-error {
+  margin-bottom: 12px;
+  background-color: rgba(166, 58, 52, 0.18);
+  color: #ffc1ba;
   padding: 12px 16px;
   border-radius: 6px;
   font-size: 14px;
   margin-bottom: 20px;
-  border: 1px solid #f8b4b4;
+  border: 1px solid rgba(239, 137, 127, 0.34);
 }
-
 
 .preference-form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 12px;
 }
 
-
-.form-group {
+.student-preference .form-group {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 5px;
 }
 
-
-.form-label {
-  font-size: 14px;
-  font-weight: 500;
-  color: #4a5568;
+.student-preference .form-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #e1e9e7;
 }
 
-
-.form-input {
-  padding: 10px 14px;
-  font-size: 15px;
-  border: 1px solid #cbd5e0;
+.student-preference .form-input {
+  min-height: 44px;
+  padding: 10px 13px;
+  font: inherit;
+  font-size: 13px;
+  border: 1px solid #40535b;
   border-radius: 6px;
   outline: none;
   transition: border-color 0.2s, box-shadow 0.2s;
-  background-color: #f8fafc;
+  background-color: #101d26;
+  color: #f3f6f2;
 }
 
-.form-input:focus {
-  border-color: #3182ce;
-  box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.15);
-  background-color: #ffffff;
+.student-preference .form-input::placeholder {
+  color: #84969c;
 }
 
+.student-preference .form-input:hover {
+  border-color: #71878d;
+}
 
-.form-button-wrapper {
-  margin-top: 10px;
+.student-preference .form-input:focus-visible {
+  border-color: #d7f36a;
+  box-shadow: 0 0 0 3px rgba(215, 243, 106, 0.2);
+  background-color: #13232d;
+}
+
+.student-preference .form-button-wrapper {
+  margin-top: 3px;
   display: flex;
-  justify-content: stretch;
+  justify-content: center;
+  padding-top: 14px;
+  border-top: 1px solid rgba(221, 235, 226, 0.13);
 }
 
-.form-button-wrapper button {
-  width: 100%;
-  padding: 12px;
-  font-size: 16px;
-  font-weight: 600;
-  border-radius: 6px;
+.student-preference .form-button-wrapper button {
+  width: min(100%, 240px);
+  min-height: 42px;
+  padding: 10px 16px;
+  background: #d7f36a;
+  color: #213c49;
+  font-size: 14px;
+  font-weight: 750;
+  border-radius: 8px;
   cursor: pointer;
+  transition: background-color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+}
+
+.student-preference .form-button-wrapper button:hover:not(:disabled) {
+  background: #e4fa8b;
+  box-shadow: 0 6px 18px rgba(215, 243, 106, 0.15);
+  transform: translateY(-1px);
+}
+
+.student-preference .form-button-wrapper button:focus-visible {
+  outline: 3px solid rgba(215, 243, 106, 0.5);
+  outline-offset: 3px;
+}
+
+@media (max-width: 560px) {
+  .student-preference {
+    padding: 20px 16px;
+  }
+
+  .preference-heading {
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .preference-step-mark {
+    width: 36px;
+    height: 36px;
+  }
+
+  .preference-description {
+    font-size: 11px;
+  }
+}
+
+@media (max-height: 820px) {
+  .student-preference {
+    padding: 16px 26px;
+  }
+
+  .preference-title {
+    font-size: 20px;
+  }
+
+  .preference-heading {
+    margin-bottom: 12px;
+  }
+
+  .preference-form {
+    gap: 7px;
+  }
+
+  .student-preference .form-group {
+    gap: 4px;
+  }
+
+  .student-preference .form-label {
+    font-size: 12px;
+  }
+
+  .student-preference .form-input {
+    min-height: 36px;
+    padding: 6px 11px;
+    font-size: 13px;
+  }
+
+  .student-preference .form-button-wrapper {
+    margin-top: 0;
+    padding-top: 9px;
+  }
+
+  .student-preference .form-button-wrapper button {
+    min-height: 36px;
+    padding: 7px 12px;
+    font-size: 13px;
+  }
+}
+
+@media (max-height: 600px) {
+  .student-preference {
+    padding: 10px 16px;
+    border-radius: 10px;
+  }
+
+  .preference-title {
+    font-size: 17px;
+  }
+
+  .preference-heading {
+    margin-bottom: 7px;
+  }
+
+  .preference-description {
+    font-size: 10px;
+  }
+
+  .student-preference .student-success,
+  .student-preference .student-error {
+    margin-bottom: 8px;
+    padding: 7px 10px;
+    font-size: 11px;
+  }
+
+  .preference-form {
+    gap: 4px;
+  }
+
+  .student-preference .form-group {
+    gap: 2px;
+  }
+
+  .student-preference .form-label {
+    font-size: 10px;
+  }
+
+  .student-preference .form-input {
+    min-height: 32px;
+    padding: 5px 9px;
+    font-size: 12px;
+  }
+
+  .student-preference .form-button-wrapper {
+    padding-top: 5px;
+  }
+
+  .student-preference .form-button-wrapper button {
+    min-height: 34px;
+    padding: 6px 10px;
+    font-size: 12px;
+  }
 }

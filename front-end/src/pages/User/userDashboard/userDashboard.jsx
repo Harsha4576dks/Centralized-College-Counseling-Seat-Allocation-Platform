@@ -11,23 +11,31 @@ export default function UserDashboard() {
   const [activeTab, setActiveTab] = useState("student"); 
 
   return (
-    <div>
+    <div className="user-dashboard-page">
       <Navbar />
       
       <div className="dashboard-container">
-        <h2> User Dashboard</h2>
-        
-
-        <div className="tab-header">
+        <div className="tab-header" role="tablist" aria-label="Counselling steps">
           <button 
             className={`tab-btn ${activeTab === "student" ? "active" : ""}`}
+            id="student-details-tab"
+            type="button"
+            role="tab"
+            aria-selected={activeTab === "student"}
+            aria-controls="student-details-panel"
             onClick={() => setActiveTab("student")}
           >
-             Student Details
+            <span className="tab-step">01</span>
+            <span>Student details</span>
           </button>
           
           <button 
             className={`tab-btn ${activeTab === "preference" ? "active" : ""}`}
+            id="student-preferences-tab"
+            type="button"
+            role="tab"
+            aria-selected={activeTab === "preference"}
+            aria-controls="student-preferences-panel"
             onClick={() => {
               if (!studentId) {
                 alert("Please save your student details first to unlock preferences!");
@@ -37,12 +45,13 @@ export default function UserDashboard() {
               setActiveTab("preference");
             }}
           >
-         student Preferences
+            <span className="tab-step">02</span>
+            <span>College preferences</span>
           </button>
         </div>
 
 
-        <div className="tab-content">
+        <div className="tab-content" role="tabpanel" id={activeTab === "student" ? "student-details-panel" : "student-preferences-panel"} aria-labelledby={activeTab === "student" ? "student-details-tab" : "student-preferences-tab"}>
           {activeTab === "student" && (
             <StudentDetails 
               onStudentSaved={(newId) => {
