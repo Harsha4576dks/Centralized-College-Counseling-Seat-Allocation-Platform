@@ -75,3 +75,117 @@
     background: #a0aec0;
     cursor: not-allowed;
 }
+
+.admin-workspace .counselling-results-panel {
+    margin-top: 20px;
+    padding: clamp(18px, 2.4vw, 28px);
+    border: 1px solid var(--admin-border);
+    border-radius: 14px;
+    background:
+        radial-gradient(ellipse at 100% 0%, rgba(215, 243, 106, 0.06), transparent 38%),
+        #30434f;
+    box-shadow: 0 8px 24px rgba(8, 16, 22, 0.14);
+}
+
+.admin-workspace .counselling-results-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 18px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--admin-border);
+}
+
+.admin-workspace .counselling-results-eyebrow {
+    margin: 0 0 5px;
+    color: var(--admin-accent);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.15px;
+}
+
+.admin-workspace .counselling-results-header h4 {
+    margin: 0;
+    color: var(--admin-text);
+    font-size: 19px;
+}
+
+.admin-workspace .counselling-results-header p:last-child {
+    margin: 7px 0 0;
+    color: var(--admin-muted);
+    font-size: 13px;
+}
+
+.admin-workspace .counselling-results-status {
+    flex: 0 0 auto;
+    padding: 7px 11px;
+    border: 1px solid rgba(215, 243, 106, 0.24);
+    border-radius: 999px;
+    background: rgba(215, 243, 106, 0.1);
+    color: var(--admin-accent);
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: capitalize;
+}
+
+.admin-workspace .counselling-results-count {
+    display: flex;
+    align-items: baseline;
+    gap: 9px;
+    margin: 18px 0;
+    color: var(--admin-muted);
+    font-size: 13px;
+}
+
+.admin-workspace .counselling-results-count strong {
+    color: var(--admin-text);
+    font-size: 25px;
+    line-height: 1;
+}
+
+.admin-workspace .counselling-allocation-table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--admin-border);
+    border-radius: 9px;
+}
+
+.admin-workspace .counselling-allocation-table {
+    width: 100%;
+    border-collapse: collapse;
+    color: var(--admin-text);
+    font-size: 13px;
+    text-align: left;
+}
+
+.admin-workspace .counselling-allocation-table th {
+    padding: 11px 13px;
+    background: #354c58;
+    color: #eaf0ee;
+    font-weight: 750;
+    white-space: nowrap;
+}
+
+.admin-workspace .counselling-allocation-table td {
+    padding: 11px 13px;
+    border-top: 1px solid var(--admin-border);
+}
+
+.admin-workspace .counselling-allocation-table tbody tr:nth-child(even) {
+    background: rgba(32, 47, 57, 0.45);
+}
+
+.admin-workspace .counselling-no-allocations {
+    margin: 0;
+    padding: 16px;
+    border: 1px dashed var(--admin-border);
+    border-radius: 9px;
+    color: var(--admin-muted);
+    font-size: 13px;
+    text-align: center;
+}
+
+@media (max-width: 520px) {
+    .admin-workspace .counselling-results-header {
+        flex-direction: column;
+    }
+}

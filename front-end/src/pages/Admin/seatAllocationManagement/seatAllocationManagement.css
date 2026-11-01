@@ -138,10 +138,124 @@
     font-size: 12px;
 }
 
+.admin-workspace .allocation-details-panel {
+    margin-top: 20px;
+    padding: clamp(18px, 2.4vw, 28px);
+    border: 1px solid var(--admin-border);
+    border-radius: 14px;
+    background:
+        radial-gradient(ellipse at 100% 0%, rgba(215, 243, 106, 0.06), transparent 38%),
+        #30434f;
+    box-shadow: 0 8px 24px rgba(8, 16, 22, 0.14);
+}
+
+.admin-workspace .allocation-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--admin-border);
+}
+
+.admin-workspace .allocation-panel-eyebrow {
+    margin: 0 0 5px;
+    color: var(--admin-accent);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.15px;
+}
+
+.admin-workspace .allocation-panel-header h4 {
+    margin: 0;
+    color: var(--admin-text);
+    font-size: 19px;
+    letter-spacing: -0.25px;
+}
+
+.admin-workspace .allocation-panel-description {
+    margin: 6px 0 0;
+    color: var(--admin-muted);
+    font-size: 12px;
+}
+
+.admin-workspace .allocation-id-badge {
+    flex: 0 0 auto;
+    padding: 8px 12px;
+    border: 1px solid rgba(215, 243, 106, 0.24);
+    border-radius: 999px;
+    background: rgba(215, 243, 106, 0.1);
+    color: var(--admin-accent);
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.admin-workspace .allocation-details-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.admin-workspace .allocation-detail-item {
+    display: grid;
+    align-content: start;
+    gap: 7px;
+    min-width: 0;
+    min-height: 76px;
+    padding: 13px 14px;
+    border: 1px solid rgba(204, 220, 222, 0.14);
+    border-radius: 9px;
+    background: rgba(26, 42, 51, 0.54);
+}
+
+.admin-workspace .allocation-detail-item span {
+    color: var(--admin-muted);
+    font-size: 10px;
+    font-weight: 750;
+    letter-spacing: 0.55px;
+    text-transform: uppercase;
+}
+
+.admin-workspace .allocation-detail-item strong {
+    overflow-wrap: anywhere;
+    color: #f3f7f5;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+.admin-workspace .allocation-detail-item .allocation-status {
+    width: fit-content;
+    padding: 4px 9px;
+    border: 1px solid rgba(215, 243, 106, 0.22);
+    border-radius: 999px;
+    background: rgba(215, 243, 106, 0.1);
+    color: var(--admin-accent);
+    font-size: 11px;
+    text-transform: capitalize;
+}
+
+.admin-workspace .allocation-actions {
+    justify-content: flex-start;
+    margin-top: 18px;
+}
+
 .button-group {
     margin-top: 15px;
     display: flex;
     justify-content: flex-end;
+}
+
+@media (max-width: 520px) {
+    .admin-workspace .allocation-details-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .admin-workspace .allocation-panel-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
 }
 
 .save-btn {

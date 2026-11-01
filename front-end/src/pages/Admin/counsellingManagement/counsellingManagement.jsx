@@ -36,15 +36,52 @@ export default function CounsellingRoundManagement() {
             </div>
 
             {allocationData && (
-                <div className="edit-form" style={{ marginTop: "20px" }}>
-                    <h4>Seat Allocation Results</h4>
-                    <div className="allocation-results-box">
-                        <p><strong>Status:</strong> Completed successfully</p>
-                        <pre style={{ background: "#edf2f7", padding: "10px", borderRadius: "4px", fontSize: "13px" }}>
-                            {JSON.stringify(allocationData, null, 2)}
-                        </pre>
+                <section className="counselling-results-panel" aria-labelledby="counselling-results-title">
+                    <header className="counselling-results-header">
+                        <div>
+                            <p className="counselling-results-eyebrow">ROUND SUMMARY</p>
+                            <h4 id="counselling-results-title">Seat allocation results</h4>
+                            <p>{allocationData.message || "The counselling round has finished processing."}</p>
+                        </div>
+                        <span className="counselling-results-status">
+                            {allocationData.status || "Completed"}
+                        </span>
+                    </header>
+
+                    <div className="counselling-results-count">
+                        <strong>{Array.isArray(allocationData.allocations) ? allocationData.allocations.length : 0}</strong>
+                        <span>
+                            {Array.isArray(allocationData.allocations) && allocationData.allocations.length === 1
+                                ? "seat allocated"
+                                : "seats allocated"}
+                        </span>
                     </div>
-                </div>
+
+                    {Array.isArray(allocationData.allocations) && allocationData.allocations.length > 0 ? (
+                        <div className="counselling-allocation-table-wrap">
+                            <table className="counselling-allocation-table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Allocation ID</th>
+                                        <th scope="col">Student ID</th>
+                                        <th scope="col">College branch ID</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {allocationData.allocations.map((allocation) => (
+                                        <tr key={allocation.id}>
+                                            <td>{allocation.id}</td>
+                                            <td>{allocation.student_id}</td>
+                                            <td>{allocation.college_branch_id}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    ) : (
+                        <p className="counselling-no-allocations">No seats were allocated in this round.</p>
+                    )}
+                </section>
             )}
         </div>
     );

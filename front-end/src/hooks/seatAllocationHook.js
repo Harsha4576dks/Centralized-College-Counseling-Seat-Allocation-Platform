@@ -33,7 +33,7 @@ export const useSeatAllocationDetails = () => {
 
 
 
-    const handleFetchByStudentName = async (studentName) => {
+    const handleFetchByStudentName = async (studentName, studentId) => {
         const name = studentName.trim();
         if (!name) {
             setError("Please enter a Student Name.");
@@ -46,7 +46,7 @@ export const useSeatAllocationDetails = () => {
         setAllocationData(null);
 
         try {
-            const data = await getSeatbyStudentName(name);
+            const data = await getSeatbyStudentName(name, studentId);
             setAllocationData(data);
             setSuccess("Seat allocation details fetched successfully by Student Name.");
         } catch (err) {

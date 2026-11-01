@@ -1,3 +1,4 @@
+from sqlalchemy import func
 from sqlalchemy.orm import Session
 from .. import models
 
@@ -31,7 +32,9 @@ def get_student(db: Session, student_id: int):
     return db.query(models.Student).filter(models.Student.id == student_id).first()
 
 def get_student_by_name(db: Session, student_name: str):
-    return db.query(models.Student).filter(models.Student.name == student_name).first()
+    return db.query(models.Student).filter(
+        func.lower(models.Student.name) == student_name.strip().lower()
+    ).first()
 
 def get_college_branch(db: Session, college_branch_id: int):
     return db.query(models.CollegeBranches).filter(models.CollegeBranches.id == college_branch_id).first()

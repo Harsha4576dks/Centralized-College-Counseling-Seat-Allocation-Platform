@@ -61,7 +61,7 @@ export default function SeatAllocationManagement() {
     const selectStudent = (student) => {
         setStudentNameInput(student.name);
         setShowStudentSuggestions(false);
-        handleFetchByStudentName(student.name);
+        handleFetchByStudentName(student.name, student.id);
     };
 
     return (
@@ -100,8 +100,16 @@ export default function SeatAllocationManagement() {
                             type="text" 
                             value={studentNameInput} 
                             onChange={(e) => {
-                                setStudentNameInput(e.target.value);
+                                const value = e.target.value;
+                                setStudentNameInput(value);
                                 setShowStudentSuggestions(true);
+                                const exactMatch = students.find(
+                                    (student) => student.name?.toLocaleLowerCase() === value.trim().toLocaleLowerCase()
+                                );
+                                if (exactMatch && value === value.trim()) {
+                                    setShowStudentSuggestions(false);
+                                    handleFetchByStudentName(exactMatch.name, exactMatch.id);
+                                }
                             }} 
                             onFocus={() => setShowStudentSuggestions(true)}
                             onBlur={() => window.setTimeout(() => setShowStudentSuggestions(false), 120)}
@@ -138,27 +146,56 @@ export default function SeatAllocationManagement() {
 
 
             {allocationData && (
-                <div className="edit-form results-panel" style={{ marginTop: "20px" }}>
-                    <h4>Allocation Details</h4>
-                    <div className="allocation-results-box">
-                        <pre style={{ background: "#edf2f7", padding: "12px", borderRadius: "4px", fontSize: "13px", overflowX: "auto" }}>
-                            {JSON.stringify(allocationData, null, 2)}
-                        </pre>
-                        
-                        {allocationData.id && (
-                            <div className="button-group" style={{ marginTop: "15px" }}>
-                                <button 
-                                    type="button" 
-                                    onClick={() => handleDeleteAllocation(allocationData.id)} 
-                                    className="delete-btn"
-                                    disabled={loading}
-                                >
-                                    Delete Allocation
-                                </button>
-                            </div>
-                        )}
+                <section className="allocation-details-panel" aria-labelledby="allocation-details-title">
+                    <header className="allocation-panel-header">
+                        <div>
+                            <p className="allocation-panel-eyebrow">COUNSELLING RESULT</p>
+                            <h4 id="allocation-details-title">Seat allocation</h4>
+                            <p className="allocation-panel-description">Summary of the student’s allocated seat.</p>
+                        </div>
+                        <span className="allocation-id-badge">Allocation #{allocationData.id}</span>
+                    </header>
+                    <div className="allocation-details-grid">
+                        <article className="allocation-detail-item">
+                            <span>Student</span>
+                            <strong>{allocationData.student?.name || "—"}</strong>
+                        </article>
+                        <article className="allocation-detail-item">
+                            <span>Student ID</span>
+                            <strong>{allocationData.student?.id ?? "—"}</strong>
+                        </article>
+                        <article className="allocation-detail-item">
+                            <span>Rank</span>
+                            <strong>{allocationData.student?.rank ?? "—"}</strong>
+                        </article>
+                        <article className="allocation-detail-item">
+                            <span>College</span>
+                            <strong>{allocationData.college?.college_name || "—"}</strong>
+                        </article>
+                        <article className="allocation-detail-item">
+                            <span>Branch</span>
+                            <strong>{allocationData.allocated_at || "—"}</strong>
+                        </article>
+                        <article className="allocation-detail-item">
+                            <span>Counselling round</span>
+                            <strong>{allocationData.counselling_round_id}</strong>
+                        </article>
+                        <article className="allocation-detail-item">
+                            <span>Status</span>
+                            <strong className="allocation-status">{allocationData.status}</strong>
+                        </article>
                     </div>
-                </div>
+                    <div className="button-group allocation-actions">
+                        <button
+                            type="button"
+                            onClick={() => handleDeleteAllocation(allocationData.id)}
+                            className="delete-btn"
+                            disabled={loading}
+                        >
+                            Delete Allocation
+                        </button>
+                    </div>
+                </section>
             )}
         </div>
     );
