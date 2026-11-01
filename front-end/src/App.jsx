@@ -4,6 +4,8 @@ import RegisterForm from './pages/registerForm/RegisterForm';
 import Home from './pages/Home/Home';
 import UserDashboard from './pages/User/userDashboard/userDashboard';
 import AdminDashboard from './pages/Admin/AdminDashboard/AdminDashboard';
+import AdminLoginForm from './pages/AdminAuth/AdminLoginForm';
+import RequireAdmin from './components/RequireAdmin/RequireAdmin';
 
 
 function App() {
@@ -14,7 +16,15 @@ function App() {
         <Route path="/register" element={<RegisterForm />} />
         <Route path="/home" element={<Home />} />
         <Route path="/user-dashboard" element={<UserDashboard />} />
-        <Route path="/admin-dashboard" element={<AdminDashboard />} />
+        <Route path="/admin/login" element={<AdminLoginForm />} />
+        <Route
+          path="/admin-dashboard"
+          element={
+            <RequireAdmin>
+              <AdminDashboard />
+            </RequireAdmin>
+          }
+        />
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </Router>

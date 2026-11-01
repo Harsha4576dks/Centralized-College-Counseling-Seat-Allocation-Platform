@@ -1,9 +1,44 @@
+import { useEffect, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
+import { getAdminSession, getCurrentUser } from '../../services/authService';
 import './Navbar.css';
 
 export default function Navbar() {
   const { pathname } = useLocation();
   const isDashboard = pathname === '/admin-dashboard' || pathname === '/user-dashboard';
+  const isAdminRoute = pathname === '/admin-dashboard';
+  const [sessionRole, setSessionRole] = useState('checking');
+
+  useEffect(() => {
+    let active = true;
+
+    const checkSession = async () => {
+      try {
+        await getAdminSession();
+        if (active) {
+          setSessionRole('admin');
+        }
+      } catch {
+        try {
+          await getCurrentUser();
+          if (active) {
+            setSessionRole('student');
+          }
+        } catch {
+          if (active) {
+            setSessionRole('signed-out');
+          }
+        }
+      }
+    };
+
+    checkSession();
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  const showAdminLink = isAdminRoute || sessionRole === 'admin';
 
   return (
     <nav className={`navbar${isDashboard ? ' navbar-dashboard' : ''}`}>
@@ -18,18 +53,18 @@ export default function Navbar() {
         </div>
       )}
       <div className="navbar-links" aria-label="Dashboard navigation">
-        <NavLink
-          to="/admin-dashboard"
-          className={({ isActive }) => `nav-link${isActive ? ' nav-link-active' : ''}`}
-        >
-          <span className="nav-link-icon" aria-hidden="true">01</span>
-          Admin
-        </NavLink>
+        {showAdminLink && (
+          <NavLink
+            to="/admin-dashboard"
+            className={({ isActive }) => `nav-link${isActive ? ' nav-link-active' : ''}`}
+          >
+            Admin
+          </NavLink>
+        )}
         <NavLink
           to="/user-dashboard"
           className={({ isActive }) => `nav-link${isActive ? ' nav-link-active' : ''}`}
         >
-          <span className="nav-link-icon" aria-hidden="true">02</span>
           User
         </NavLink>
       </div>

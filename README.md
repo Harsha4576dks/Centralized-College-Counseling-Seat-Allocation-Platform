@@ -129,7 +129,7 @@ Centralized-College-Counseling-Seat-Allocation-Platform/
 
 The API is organized around these endpoint groups:
 
-- Authentication: `/auth/register`, `/auth/login`, `/auth/logout`, `/auth/user`
+- Authentication: `/auth/register`, `/auth/login`, `/auth/logout`, `/auth/user`, `/auth/admin/login`, `/auth/admin/session`, `/auth/admin/logout`
 - Colleges: `/colleges/`, `/colleges/search`, `/colleges/{college_id}`
 - Branches: `/branches/`, `/branches/search`, `/branches/{branch_id}`
 - Students: `/students/`, `/students/search`, `/students/{student_id}`
@@ -163,12 +163,15 @@ SMTP_HOST=smtp.gmail.com
 SMTP_PORT=587
 SMTP_USERNAME=your-sender@example.com
 SMTP_PASSWORD=your-email-app-password
+ADMIN_USERNAME=CET cell
+ADMIN_PASSWORD=use-the-requested-password
+ADMIN_AUTH_SECRET=generate-at-least-32-random-characters
 
 # Optional: comma-separated allowed browser origins
 CORS_ALLOWED_ORIGINS=http://localhost:5173,http://127.0.0.1:5173
 ```
 
-`DATABASE_URL` must point to a PostgreSQL database. SMTP credentials are needed to send allotment emails. The application also supports `CORS_ALLOWED_ORIGIN_REGEX` for configuring an allowed-origin pattern.
+`DATABASE_URL` must point to a PostgreSQL database. SMTP credentials are needed to send allotment emails. Admin sign-in requires the three admin variables; set `ADMIN_PASSWORD` to the password supplied for the CET cell account and use a private random `ADMIN_AUTH_SECRET` of at least 32 characters. Keep these values in the private `.env` file or deployment environment settings, never in frontend code or committed files. The application also supports `CORS_ALLOWED_ORIGIN_REGEX` for configuring an allowed-origin pattern.
 
 For local frontend development, create `front-end/.env` and set the API URL:
 
@@ -225,6 +228,7 @@ The local application is available at:
 - CORS allows the local Vite development origins by default; configure `CORS_ALLOWED_ORIGINS` when using a different frontend origin.
 - The frontend API client includes credentials so browser requests can send the authentication cookie.
 - The login cookie is HTTP-only and marked secure; use an HTTPS deployment for production.
+- The admin dashboard redirects unauthenticated visitors to `/admin/login`; the backend validates the configured credentials and issues an HTTP-only admin cookie that expires after eight hours.
 - The hosted frontend and backend URLs are configured in the CORS and frontend API-client settings and may change independently of this README.
 
 ## Project Strengths

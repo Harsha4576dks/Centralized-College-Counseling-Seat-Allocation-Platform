@@ -115,6 +115,9 @@ export default function LoginForm() {
           <p className="auth-switch">
             New here? <Link to="/register">Create an account</Link>
           </p>
+          <p className="auth-switch">
+            CET Cell administrator? <Link to="/admin/login">Admin sign in</Link>
+          </p>
         </div>
       </section>
     </main>

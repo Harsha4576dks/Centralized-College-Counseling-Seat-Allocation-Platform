@@ -2,6 +2,7 @@ from fastapi import Request
 from fastapi.responses import JSONResponse
 from starlette.middleware.base import BaseHTTPMiddleware
 
+from ..admin_auth import ADMIN_TOKEN_COOKIE, verify_admin_token
 from ..cors_config import is_allowed_origin
 from ..database import sessionLocal
 from ..models.user import User
@@ -24,12 +25,21 @@ class AuthorizationMiddleware(BaseHTTPMiddleware):
             "/auth/register",
             "/auth/login",
             "/auth/logout",
+            "/auth/admin/login",
+            "/auth/admin/session",
+            "/auth/admin/logout",
             "/docs",
             "/openapi.json",
             "/redoc"
         ]
 
         if path in public_routes:
+            return await call_next(request)
+
+        admin_token = request.cookies.get(ADMIN_TOKEN_COOKIE)
+        admin_username = verify_admin_token(admin_token) if admin_token else None
+        if admin_username:
+            request.state.user = {"username": admin_username, "role": "admin"}
             return await call_next(request)
 
         token = request.cookies.get("access_token")

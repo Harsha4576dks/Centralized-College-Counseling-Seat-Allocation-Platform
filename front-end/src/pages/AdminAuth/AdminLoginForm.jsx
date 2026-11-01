@@ -8,7 +8,7 @@ import './AdminAuth.css';
 
 export default function AdminLoginForm() {
   const navigate = useNavigate();
-  const [username, setUsername] = useState('cet cell');
+  const username = 'CET cell';
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -67,7 +67,7 @@ export default function AdminLoginForm() {
                 id="admin-username"
                 type="text"
                 value={username}
-                onChange={(event) => setUsername(event.target.value)}
+                readOnly
                 autoComplete="username"
                 required
                 className="form-input"
@@ -94,9 +94,6 @@ export default function AdminLoginForm() {
             />
           </form>
 
-          <p className="auth-switch">
-            Need to set up the admin account? <Link to="/admin/register">Admin registration</Link>
-          </p>
           <p className="auth-switch">
             Not an administrator? <Link to="/login">Student sign in</Link>
           </p>
