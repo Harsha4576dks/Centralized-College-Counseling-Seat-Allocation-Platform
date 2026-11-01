@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useSeatAllocationDetails } from "../../../hooks/seatAllocationHook";
+import { getStudentDetails } from "../../../services/StudentService";
+import { getErrorMessage } from "../../../utils/errorHandler";
 import "./seatAllocationManagement.css";
 
 export default function SeatAllocationManagement() {
@@ -9,21 +11,57 @@ export default function SeatAllocationManagement() {
         success,
         error,
         handleFetchByAllocationId,
-        handleFetchByStudentId,
+        handleFetchByStudentName,
         handleDeleteAllocation,
     } = useSeatAllocationDetails();
 
     const [allocationIdInput, setAllocationIdInput] = useState("");
-    const [studentIdInput, setStudentIdInput] = useState("");
+    const [studentNameInput, setStudentNameInput] = useState("");
+    const [students, setStudents] = useState([]);
+    const [studentListError, setStudentListError] = useState("");
+    const [showStudentSuggestions, setShowStudentSuggestions] = useState(false);
+
+    useEffect(() => {
+        let isCurrent = true;
+
+        const fetchStudents = async () => {
+            try {
+                const studentRecords = await getStudentDetails();
+                if (isCurrent) setStudents(studentRecords);
+            } catch (fetchError) {
+                if (isCurrent) setStudentListError(getErrorMessage(fetchError));
+            }
+        };
+
+        fetchStudents();
+        return () => {
+            isCurrent = false;
+        };
+    }, []);
+
+    const matchingStudents = useMemo(() => {
+        const query = studentNameInput.trim().toLocaleLowerCase();
+        if (!query || !showStudentSuggestions) return [];
+        return students
+            .filter((student) => student.name?.toLocaleLowerCase().startsWith(query))
+            .slice(0, 8);
+    }, [showStudentSuggestions, studentNameInput, students]);
 
     const onSearchByAllocationId = (e) => {
         e.preventDefault();
         handleFetchByAllocationId(allocationIdInput);
     };
 
-    const onSearchByStudentId = (e) => {
+    const onSearchByStudentName = (e) => {
         e.preventDefault();
-        handleFetchByStudentId(studentIdInput);
+        setShowStudentSuggestions(false);
+        handleFetchByStudentName(studentNameInput);
+    };
+
+    const selectStudent = (student) => {
+        setStudentNameInput(student.name);
+        setShowStudentSuggestions(false);
+        handleFetchByStudentName(student.name);
     };
 
     return (
@@ -55,23 +93,46 @@ export default function SeatAllocationManagement() {
                 </form>
 
 
-                <form onSubmit={onSearchByStudentId} className="edit-form search-box">
-                    <h4>Search by Student ID</h4>
-                    <div className="form-group">
+                <form onSubmit={onSearchByStudentName} className="edit-form search-box">
+                    <h4>Search by Student Name</h4>
+                    <div className="form-group student-name-autocomplete">
                         <input 
                             type="text" 
-                            value={studentIdInput} 
-                            onChange={(e) => setStudentIdInput(e.target.value)} 
-                            placeholder="Enter Student ID..."
+                            value={studentNameInput} 
+                            onChange={(e) => {
+                                setStudentNameInput(e.target.value);
+                                setShowStudentSuggestions(true);
+                            }} 
+                            onFocus={() => setShowStudentSuggestions(true)}
+                            onBlur={() => window.setTimeout(() => setShowStudentSuggestions(false), 120)}
+                            placeholder="Enter Student Name..."
                             className="form-input"
+                            autoComplete="off"
+                            role="combobox"
+                            aria-autocomplete="list"
+                            aria-expanded={matchingStudents.length > 0}
+                            aria-controls="seat-allocation-student-suggestions"
                             required
                         />
+                        {matchingStudents.length > 0 && (
+                            <ul id="seat-allocation-student-suggestions" className="student-name-suggestions" role="listbox">
+                                {matchingStudents.map((student) => (
+                                    <li key={student.id} role="option" aria-selected="false">
+                                        <button type="button" onMouseDown={(event) => event.preventDefault()} onClick={() => selectStudent(student)}>
+                                            <span>{student.name}</span>
+                                            <small>Student ID {student.id}</small>
+                                        </button>
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
                     </div>
                     <div className="button-group">
                         <button type="submit" className="save-btn" disabled={loading}>
-                            {loading ? "Searching..." : "Fetch by Student ID"}
+                            {loading ? "Searching..." : "Fetch by Student Name"}
                         </button>
                     </div>
+                    {studentListError && <p className="student-list-error" role="alert">{studentListError}</p>}
                 </form>
             </div>
 

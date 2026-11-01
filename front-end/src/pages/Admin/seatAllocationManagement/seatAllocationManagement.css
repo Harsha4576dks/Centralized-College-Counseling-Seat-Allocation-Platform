@@ -83,6 +83,61 @@
     box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.15);
 }
 
+.admin-workspace .student-name-autocomplete {
+    position: relative;
+}
+
+.admin-workspace .student-name-suggestions {
+    position: absolute;
+    z-index: 20;
+    top: calc(100% - 8px);
+    right: 0;
+    left: 0;
+    max-height: 240px;
+    overflow-y: auto;
+    margin: 0;
+    padding: 5px;
+    border: 1px solid var(--admin-border);
+    border-radius: 9px;
+    background: #20313b;
+    box-shadow: 0 14px 30px rgba(7, 16, 22, 0.38);
+    list-style: none;
+}
+
+.admin-workspace .student-name-suggestions button {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 11px;
+    border: 0;
+    border-radius: 6px;
+    background: transparent;
+    color: var(--admin-text);
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+.admin-workspace .student-name-suggestions button:hover,
+.admin-workspace .student-name-suggestions button:focus-visible {
+    outline: none;
+    background: rgba(215, 243, 106, 0.12);
+}
+
+.admin-workspace .student-name-suggestions small {
+    color: var(--admin-muted);
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+.admin-workspace .student-list-error {
+    margin: 8px 0 0;
+    color: #ffb8b3;
+    font-size: 12px;
+}
+
 .button-group {
     margin-top: 15px;
     display: flex;

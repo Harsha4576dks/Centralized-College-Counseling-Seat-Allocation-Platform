@@ -10,12 +10,14 @@ export const getSeatAllocationbyId =async (allocationId) => {
             }
         };
 
-export const getSeatbyStudentId = async (studentId) => {
+export const getSeatbyStudentName = async (studentName) => {
     try{
-        const response = await apiClient.get(`/seat_allocations/search/student/${studentId}`);
+        const response = await apiClient.get("/seat_allocations/search/student-name", {
+            params: { student_name: studentName },
+        });
         return response.data;
      } catch (error) {
-        throw error.response?.data?.detail ?? "Failed to fetch seat allocation details by student ID";
+        throw error.response?.data?.detail ?? "Failed to fetch seat allocation details by student name";
      }
 };
 

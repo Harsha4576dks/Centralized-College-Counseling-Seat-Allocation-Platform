@@ -30,6 +30,8 @@ def delete_seat_allocation(db: Session, seat_allocation):
 def get_student(db: Session, student_id: int):
     return db.query(models.Student).filter(models.Student.id == student_id).first()
 
+def get_student_by_name(db: Session, student_name: str):
+    return db.query(models.Student).filter(models.Student.name == student_name).first()
 
 def get_college_branch(db: Session, college_branch_id: int):
     return db.query(models.CollegeBranches).filter(models.CollegeBranches.id == college_branch_id).first()

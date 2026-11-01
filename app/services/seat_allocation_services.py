@@ -15,6 +15,17 @@ def search_seat_allocation_by_student_service(db: Session, student_id: int):
         
     return allocation, None
 
+def search_seat_allocation_by_student_name_service(db: Session, student_name: str):
+    student = seat_allocation_repository.get_student_by_name(db, student_name)
+    if not student:
+        return None, "student not found"
+
+    allocation = seat_allocation_repository.search_seat_allocation_by_student(db, student.id)
+    if not allocation:
+        return None, "seat allocation details not found"
+
+    return allocation, None
+
 def delete_seat_allocation_service(db: Session, seat_allocation_id: int):
     allocation = seat_allocation_repository.get_seat_allocation(db, seat_allocation_id)
     if not allocation:

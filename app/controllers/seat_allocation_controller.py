@@ -13,13 +13,16 @@ router = APIRouter(
     dependencies=[Depends(security)]
 )
 
-@router.get("/{counselling_id}", response_model=SeatAllocationResponse)
-async def get_seat_allocation(counselling_id: int, db: db_dependency):
-    result = seat_allocation_services.get_seat_allocation_service(db, counselling_id)
-    if result is None:
-        raise HTTPException(status_code=404, detail="seat allocation details not found")
-    return result
+@router.get("/search/student-name", response_model=SeatAllocationResponse)
+async def search_allocation_by_student_name(student_name: str, db: db_dependency):
+    allocation, error = seat_allocation_services.search_seat_allocation_by_student_name_service(db, student_name.strip())
 
+    if error == "student not found":
+        raise HTTPException(status_code=404, detail="Student not found")
+    if error == "seat allocation details not found":
+        raise HTTPException(status_code=404, detail="Seat allocation details not found for this student")
+
+    return allocation
 
 
 @router.get("/search/student/{student_id}", response_model=SeatAllocationResponse)
@@ -32,6 +35,14 @@ async def search_allocation_by_student(student_id: int, db: db_dependency):
         raise HTTPException(status_code=404, detail="Seat allocation details not found for this student")
         
     return allocation
+
+
+@router.get("/{counselling_id}", response_model=SeatAllocationResponse)
+async def get_seat_allocation(counselling_id: int, db: db_dependency):
+    result = seat_allocation_services.get_seat_allocation_service(db, counselling_id)
+    if result is None:
+        raise HTTPException(status_code=404, detail="seat allocation details not found")
+    return result
 
 
 @router.delete("/{seat_allocation_id}")

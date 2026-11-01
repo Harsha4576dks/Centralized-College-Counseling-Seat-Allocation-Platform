@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getSeatAllocationbyId, getSeatbyStudentId, deleteSeatAllocationDetails } from "../services/seatAllocationService";
+import { getSeatAllocationbyId, getSeatbyStudentName, deleteSeatAllocationDetails } from "../services/seatAllocationService";
 import { getErrorMessage } from "../utils/errorHandler";
 
 export const useSeatAllocationDetails = () => {
@@ -33,9 +33,10 @@ export const useSeatAllocationDetails = () => {
 
 
 
-    const handleFetchByStudentId = async (studentId) => {
-        if (!studentId) {
-            setError("Please enter a Student ID.");
+    const handleFetchByStudentName = async (studentName) => {
+        const name = studentName.trim();
+        if (!name) {
+            setError("Please enter a Student Name.");
             return;
         }
 
@@ -45,9 +46,9 @@ export const useSeatAllocationDetails = () => {
         setAllocationData(null);
 
         try {
-            const data = await getSeatbyStudentId(studentId);
+            const data = await getSeatbyStudentName(name);
             setAllocationData(data);
-            setSuccess("Seat allocation details fetched successfully by Student ID.");
+            setSuccess("Seat allocation details fetched successfully by Student Name.");
         } catch (err) {
             setError(getErrorMessage(err));
         } finally {
@@ -78,7 +79,7 @@ export const useSeatAllocationDetails = () => {
         success,
         error,
         handleFetchByAllocationId,
-        handleFetchByStudentId,
+        handleFetchByStudentName,
         handleDeleteAllocation,
     };
 };
