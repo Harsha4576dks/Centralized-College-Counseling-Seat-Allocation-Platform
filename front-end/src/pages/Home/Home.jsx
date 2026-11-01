@@ -4,16 +4,10 @@ import { logoutUser } from '../../services/authService';
 import { getErrorMessage } from '../../utils/errorHandler';
 import Navbar from '../../components/Navbar/Navbar';
 import Button from '../../components/Button/Button';
-import campusOne from '../../assets/campus-one.svg';
-import campusTwo from '../../assets/campus-two.svg';
-import campusThree from '../../assets/campus-three.svg';
+import campusOne from '../../assets/image1.png';
+import campusTwo from '../../assets/image2.jpg';
+import campusThree from '../../assets/image3.jpg';
 import './Home.css';
-
-const featuredColleges = [
-  'COEP Technological University',
-  'Government College of Engineering, Pune',
-  'Pimpri Chinchwad College of Engineering',
-];
 
 const campusImages = [campusOne, campusTwo, campusThree];
 
@@ -76,19 +70,10 @@ export default function Home() {
                 <Link className="home-action-link" to="/user-dashboard">
                   Continue to student details <span aria-hidden="true">↗</span>
                 </Link>
-                <span className="home-action-caption">YOUR JOURNEY, YOUR DIRECTION</span>
               </div>
             </div>
           </section>
         </div>
-
-        <section className="featured-colleges" aria-labelledby="featured-colleges-title">
-          <p>START EXPLORING</p>
-          <h2 id="featured-colleges-title">Colleges to discover</h2>
-          <ul>
-            {featuredColleges.map((collegeName) => <li key={collegeName}>{collegeName}</li>)}
-          </ul>
-        </section>
 
         <section className="home-next-step" aria-label="Getting started">
           <div className="next-step-number">01</div>

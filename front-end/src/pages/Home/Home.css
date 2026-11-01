@@ -176,57 +176,6 @@
   letter-spacing: 1.2px;
 }
 
-.featured-colleges {
-  width: min(900px, 100%);
-  padding: 15px 22px 17px;
-  border: 1px solid rgba(226, 239, 223, 0.18);
-  border-radius: 12px;
-  background: rgba(10, 25, 38, 0.48);
-  color: #fff;
-  text-align: center;
-  backdrop-filter: blur(8px);
-}
-
-.featured-colleges > p {
-  margin-bottom: 5px;
-  color: var(--home-accent);
-  font-size: 8px;
-  font-weight: 800;
-  letter-spacing: 1.5px;
-}
-
-.featured-colleges h2 {
-  margin-bottom: 10px;
-  font-size: 16px;
-}
-
-.featured-colleges ul {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 8px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.featured-colleges li {
-  padding: 7px 11px;
-  border: 1px solid rgba(215, 243, 106, 0.28);
-  border-radius: 999px;
-  background: rgba(215, 243, 106, 0.09);
-  color: #f2f5ec;
-  font-size: 10px;
-  line-height: 1.4;
-}
-
-.featured-colleges-note {
-  display: block;
-  margin-top: 8px;
-  color: #c1d0d0;
-  font-size: 9px;
-}
-
 .home-next-step {
   display: flex;
   align-items: center;
@@ -386,19 +335,6 @@
     margin-top: 18px;
   }
 
-  .featured-colleges {
-    padding: 10px 16px;
-  }
-
-  .featured-colleges h2 {
-    margin-bottom: 7px;
-    font-size: 14px;
-  }
-
-  .featured-colleges li {
-    padding: 5px 9px;
-  }
-
   .home-next-step {
     gap: 12px;
     padding: 12px 16px;
@@ -428,14 +364,6 @@
 
   .home-action-caption {
     display: none;
-  }
-
-  .featured-colleges {
-    padding: 13px 12px;
-  }
-
-  .featured-colleges li {
-    font-size: 9px;
   }
 
   .home-next-step {
