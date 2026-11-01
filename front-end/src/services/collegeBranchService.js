@@ -1,5 +1,9 @@
 import apiClient from "../middleware/client";
 
+export const getAllCollegeBranchDetails = async () => {
+    const response = await apiClient.get("/branches/");
+    return response.data;
+};
 
 export const saveCollegeBranchDetails = async (collegeBranchData) => {
     try{

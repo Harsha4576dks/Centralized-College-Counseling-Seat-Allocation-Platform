@@ -20,6 +20,10 @@ async def get_branch_name(db:db_dependency, branch_name:str):
         raise HTTPException(status_code=404, detail="branch not found")
     return result
 
+@router.get("/")
+async def get_college_branches(db:db_dependency):
+    return college_branches_services.get_college_branches(db)
+
 @router.get("/id/{college_branch_id}")
 async def get_college_branch_by_id(db:db_dependency, college_branch_id:int):
     result = college_branches_services.get_college_branch(db, college_branch_id)

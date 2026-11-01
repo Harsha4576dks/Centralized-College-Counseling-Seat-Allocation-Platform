@@ -1,0 +1,41 @@
+.admin-auth-page .login-showcase {
+  background:
+    radial-gradient(ellipse at 87% 14%, rgba(52, 94, 103, 0.55), transparent 34%),
+    linear-gradient(145deg, #102436 3%, #172f42 55%, #214550 100%);
+}
+
+.admin-auth-page .form-eyebrow {
+  color: #788f5a;
+}
+
+.admin-auth-page .login-heading h2 {
+  font-size: clamp(32px, 3.2vw, 42px);
+}
+
+.admin-auth-page .login-form .form-input[readonly] {
+  border-color: #e7ebdf;
+  background: #f3f6eb;
+  color: #34504b;
+  font-weight: 700;
+}
+
+.admin-auth-page .login-form .custom-btn.primary {
+  background: #344f3c;
+}
+
+.admin-auth-page .login-form .custom-btn.primary:hover:not(:disabled) {
+  background: #44634a;
+}
+
+.admin-auth-page .auth-switch a,
+.admin-auth-page .login-success a {
+  color: #506d39;
+}
+
+@media (max-width: 640px) {
+  .admin-auth-page {
+    background:
+      radial-gradient(ellipse at 88% 0%, rgba(52, 94, 103, 0.5), transparent 38%),
+      linear-gradient(145deg, #102436 0, #172f42 215px, #f8f9f6 215px);
+  }
+}

@@ -39,6 +39,43 @@
   font-weight: 600;
 }
 
+.navbar-back-link {
+  display: inline-flex;
+  min-height: 46px;
+  align-items: center;
+  gap: 10px;
+  padding: 0 16px;
+  border: 1px solid rgba(215, 243, 106, 0.5);
+  border-radius: 9px 4px 9px 4px;
+  background: rgba(215, 243, 106, 0.12);
+  color: #eff5e8;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background-color 160ms ease, color 160ms ease, transform 160ms ease;
+}
+
+.navbar-back-link > span {
+  color: #d7f36a;
+  font-size: 19px;
+  line-height: 1;
+}
+
+.navbar-back-link:hover {
+  background: #d7f36a;
+  color: #213c49;
+  transform: translateX(-2px);
+}
+
+.navbar-back-link:hover > span {
+  color: #213c49;
+}
+
+.navbar-back-link:focus-visible {
+  outline: 3px solid rgba(215, 243, 106, 0.7);
+  outline-offset: 3px;
+}
+
 .navbar-links {
   display: flex;
   flex-direction: row;
@@ -132,6 +169,13 @@
   .navbar-brand-mark {
     width: 33px;
     height: 33px;
+  }
+
+  .navbar-back-link {
+    min-height: 40px;
+    gap: 6px;
+    padding: 0 10px;
+    font-size: 11px;
   }
 
   .navbar-links {

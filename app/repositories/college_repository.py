@@ -12,6 +12,9 @@ def create_college(db:Session, college):
 def get_college(db:Session, college_id:int):
     return db.query(models.College).filter(models.College.id == college_id).first()
 
+def get_colleges(db:Session):
+    return db.query(models.College).order_by(models.College.id).all()
+
 def delete_college(db:Session, college):
     db.delete(college)
     db.commit()

@@ -2,7 +2,7 @@ from sqlalchemy.orm import Session
 from ..import models
 
 def create_branches(db:Session, college_branch):
-    db_collegeBranch = models.CollegeBranches(college_id = college_branch.college_id, branch_name=college_branch.branch_name, 
+    db_collegeBranch = models.CollegeBranches(college_id = college_branch.college_id, branch_name=college_branch.branch_name,
                                               total_seats=college_branch.total_seats, available_seats=college_branch.available_seats)
 
     db.add(db_collegeBranch)
@@ -12,6 +12,9 @@ def create_branches(db:Session, college_branch):
 
 def get_collegeBranch(db:Session, college_branch_id:int):
     return db.query(models.CollegeBranches).filter(models.CollegeBranches.id == college_branch_id).first()
+
+def get_college_branches(db:Session):
+    return db.query(models.CollegeBranches).order_by(models.CollegeBranches.id).all()
 
 def search_college_branch(db:Session, college_branch_name:str):
     return db.query(models.CollegeBranches).filter(models.CollegeBranches.branch_name == college_branch_name).first()

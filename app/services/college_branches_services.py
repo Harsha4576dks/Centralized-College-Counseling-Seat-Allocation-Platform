@@ -4,6 +4,9 @@ from ..repositories import college_branch_repository
 def get_college_branch(db:Session, college_branch_id:int):
     return college_branch_repository.get_collegeBranch(db, college_branch_id)
 
+def get_college_branches(db:Session):
+    return college_branch_repository.get_college_branches(db)
+
 def get_branch_name(db:Session, branch_name:str):
     return college_branch_repository.search_college_branch(db, branch_name)
 

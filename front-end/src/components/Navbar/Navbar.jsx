@@ -1,13 +1,22 @@
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import './Navbar.css';
 
 export default function Navbar() {
+  const { pathname } = useLocation();
+  const isDashboard = pathname === '/admin-dashboard' || pathname === '/user-dashboard';
+
   return (
-    <nav className="navbar">
-      <div className="navbar-brand">
-        <span className="navbar-brand-mark" aria-hidden="true">✳</span>
-        <span>CET <span className="navbar-brand-light">Counselling portal</span></span>
-      </div>
+    <nav className={`navbar${isDashboard ? ' navbar-dashboard' : ''}`}>
+      {isDashboard ? (
+        <Link className="navbar-back-link" to="/home">
+          <span aria-hidden="true">←</span> Back
+        </Link>
+      ) : (
+        <div className="navbar-brand">
+          <span className="navbar-brand-mark" aria-hidden="true">✳</span>
+          <span>CET <span className="navbar-brand-light">Counselling portal</span></span>
+        </div>
+      )}
       <div className="navbar-links" aria-label="Dashboard navigation">
         <NavLink
           to="/admin-dashboard"

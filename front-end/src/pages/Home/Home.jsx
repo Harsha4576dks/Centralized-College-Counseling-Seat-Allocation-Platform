@@ -1,15 +1,38 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { logoutUser } from '../../services/authService';
 import { getErrorMessage } from '../../utils/errorHandler';
 import Navbar from '../../components/Navbar/Navbar';
 import Button from '../../components/Button/Button';
+import campusOne from '../../assets/campus-one.svg';
+import campusTwo from '../../assets/campus-two.svg';
+import campusThree from '../../assets/campus-three.svg';
 import './Home.css';
+
+const featuredColleges = [
+  'COEP Technological University',
+  'Government College of Engineering, Pune',
+  'Pimpri Chinchwad College of Engineering',
+];
+
+const campusImages = [campusOne, campusTwo, campusThree];
 
 export default function Home() {
   const navigate = useNavigate();
   const [logoutError, setLogoutError] = useState(null);
   const [loggingOut, setLoggingOut] = useState(false);
+  const [backgroundIndex, setBackgroundIndex] = useState(0);
+
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return undefined;
+    }
+
+    const timer = window.setInterval(() => {
+      setBackgroundIndex((index) => (index + 1) % campusImages.length);
+    }, 5000);
+    return () => window.clearInterval(timer);
+  }, []);
 
   const handleLogout = async () => {
     setLoggingOut(true);
@@ -26,44 +49,45 @@ export default function Home() {
 
   return (
     <div className="home-page">
+      <div className="home-background" aria-hidden="true">
+        {campusImages.map((image, index) => (
+          <div
+            className={`home-background-scene${index === backgroundIndex ? ' is-active' : ''}`}
+            key={image}
+            style={{ backgroundImage: `url("${image}")` }}
+          />
+        ))}
+      </div>
       <Navbar />
 
       <main className="home-container">
-        <section className="home-hero" aria-labelledby="home-title">
-          <div className="home-hero-copy">
-            <p className="home-eyebrow"><span /> YOUR NEXT CHAPTER STARTS HERE</p>
-            <h1 id="home-title">
-              <span>Find your place.</span>
-              <span>Shape your future.</span>
-            </h1>
-            <p className="home-description">
-              Explore colleges, set your preferences, and find your path.
-            </p>
-            <div className="home-hero-actions">
-              <Link className="home-action-link" to="/user-dashboard">
-                Continue to student details <span aria-hidden="true">↗</span>
-              </Link>
-              <span className="home-action-caption">YOUR JOURNEY, YOUR DIRECTION</span>
+        <div className="home-content-layout">
+          <section className="home-hero" aria-labelledby="home-title">
+            <div className="home-hero-copy">
+              <p className="home-eyebrow"><span /> YOUR NEXT CHAPTER STARTS HERE</p>
+              <h1 id="home-title">
+                <span>Find your place.</span>
+                <span>Shape your future.</span>
+              </h1>
+              <p className="home-description">
+                Explore colleges, set your preferences, and find your path.
+              </p>
+              <div className="home-hero-actions">
+                <Link className="home-action-link" to="/user-dashboard">
+                  Continue to student details <span aria-hidden="true">↗</span>
+                </Link>
+                <span className="home-action-caption">YOUR JOURNEY, YOUR DIRECTION</span>
+              </div>
             </div>
-          </div>
+          </section>
+        </div>
 
-          <div className="home-visual" aria-hidden="true">
-            <div className="home-orbit home-orbit-outer" />
-            <div className="home-orbit home-orbit-inner" />
-            <div className="home-compass">
-              <span className="compass-north">N</span>
-              <span className="compass-east">E</span>
-              <span className="compass-south">S</span>
-              <span className="compass-west">W</span>
-              <span className="compass-center">✳</span>
-            </div>
-            <div className="home-note-card">
-              <span className="home-note-mark">✳</span>
-              <p>Every great destination<br />starts with a first step.</p>
-              <span className="home-note-caption">LET’S FIND YOUR WAY</span>
-            </div>
-            <span className="home-visual-index">01 <span /> 03</span>
-          </div>
+        <section className="featured-colleges" aria-labelledby="featured-colleges-title">
+          <p>START EXPLORING</p>
+          <h2 id="featured-colleges-title">Colleges to discover</h2>
+          <ul>
+            {featuredColleges.map((collegeName) => <li key={collegeName}>{collegeName}</li>)}
+          </ul>
         </section>
 
         <section className="home-next-step" aria-label="Getting started">

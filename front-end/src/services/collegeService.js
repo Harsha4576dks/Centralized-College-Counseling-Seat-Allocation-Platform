@@ -26,6 +26,10 @@ export const getCollegeDetailsById = async (collegeId) => {
     }
 };
 
+export const getAllCollegeDetails = async () => {
+    const response = await apiClient.get("/colleges/");
+    return response.data;
+};
 
 export const deleteCollegeDetails = async (collegeId) => {
     try {
