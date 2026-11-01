@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 620" fill="none">
+  <defs>
+    <linearGradient id="background" x1="30" y1="0" x2="700" y2="620" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#335966"/>
+      <stop offset="1" stop-color="#172A3D"/>
+    </linearGradient>
+    <linearGradient id="jacket" x1="311" y1="310" x2="502" y2="542" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#D7F36A"/>
+      <stop offset="1" stop-color="#A7C74E"/>
+    </linearGradient>
+    <linearGradient id="book" x1="454" y1="323" x2="594" y2="445" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF1C9"/>
+      <stop offset="1" stop-color="#D9D4B8"/>
+    </linearGradient>
+    <linearGradient id="path" x1="478" y1="511" x2="669" y2="632" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#D7F36A" stop-opacity=".45"/>
+      <stop offset="1" stop-color="#D7F36A" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <path fill="url(#background)" d="M0 0h760v620H0z"/>
+  <circle cx="595" cy="104" r="52" fill="#D7F36A" fill-opacity=".72"/>
+  <circle cx="595" cy="104" r="79" stroke="#D7F36A" stroke-opacity=".22"/>
+  <circle cx="595" cy="104" r="115" stroke="#fff" stroke-opacity=".11"/>
+  <path d="M0 396c116-67 219-56 311-16 127 55 274 64 449-4v244H0V396Z" fill="#244650"/>
+  <path d="M0 474c130-64 249-46 357-1 135 56 255 55 403-3v150H0V474Z" fill="#1B3945"/>
+  <path d="M0 566c156-51 289-31 414 15 104 38 218 42 346 5v34H0v-54Z" fill="url(#path)"/>
+
+  <g opacity=".8">
+    <path d="m505 250 77-47 112 20v173H505V250Z" fill="#E5E7D7" fill-opacity=".8"/>
+    <path d="m582 203 112 20-23 23-89-16v-27Z" fill="#D0D9C9"/>
+    <path d="M529 273h40v40h-40zM529 330h40v40h-40zM596 266h72v104h-72z" fill="#64838A"/>
+    <path d="M608 281h48M608 302h48M608 323h48M608 344h48M628 266v104M644 266v104" stroke="#D5E4D6" stroke-opacity=".65" stroke-width="3"/>
+  </g>
+
+  <path d="M237 355c-21 25-30 70-26 132l10 80h72l-6-94 19-90-69-28Z" fill="#537987"/>
+  <path d="M227 388c-16 51-16 116-4 179l11 22 17-11-7-78 20-96-37-16Z" fill="#D7F36A"/>
+  <path d="M260 352c-29 17-49 57-55 114l-8 103h201l-17-116c-8-51-26-83-60-101h-61Z" fill="url(#jacket)"/>
+  <path d="M293 355c2 35 23 54 46 57 23-3 43-22 46-57l-14-20h-64l-14 20Z" fill="#D99D76"/>
+  <path d="M295 351c-8-19-3-54 15-70 11-11 28-17 45-14 25 4 43 26 41 52-1 18-9 29-20 38-2-17-12-27-23-33-14 13-34 19-58 18Z" fill="#302C3B"/>
+  <path d="M310 344c11 9 23 14 35 14s25-5 36-14c-2 17-17 32-37 34-17-2-31-16-34-34Z" fill="#C98B68"/>
+  <path d="M275 362c17 18 42 28 70 28s55-10 72-28l-18 72-52 28-53-28-19-72Z" fill="#F2EBD8"/>
+  <path d="m326 397 19 41 20-41-20-11-19 11Z" fill="#426878"/>
+
+  <path d="M378 377c34 7 62 22 85 48l-44 64c-22-20-44-31-68-35l27-77Z" fill="#D99D76"/>
+  <path d="M417 427c24 8 51 24 76 48l-30 31c-22-17-43-28-65-34l19-45Z" fill="#D99D76"/>
+  <path d="M420 444c30-1 68 8 103 25l-26 69c-33-10-66-14-102-13l25-81Z" fill="url(#book)"/>
+  <path d="M523 469c20 8 41 18 58 31l-23 66c-19-12-39-21-61-28l26-69Z" fill="#ECE5CC"/>
+  <path d="M429 460c32-1 60 7 84 19M421 482c34-1 64 8 90 21M413 505c32-1 62 7 89 21" stroke="#8A9B82" stroke-opacity=".65" stroke-width="3" stroke-linecap="round"/>
+
+  <path d="M258 404c-17 17-27 41-31 70" stroke="#8CA958" stroke-width="7" stroke-linecap="round"/>
+  <path d="M248 457c20 6 36 18 46 37" stroke="#8CA958" stroke-width="7" stroke-linecap="round"/>
+  <path d="M218 552h64M231 571h53" stroke="#345564" stroke-width="8" stroke-linecap="round"/>
+
+  <g fill="#D7F36A">
+    <path d="m137 188 9 23 24 1-19 14 7 23-21-14-20 14 7-23-19-14 24-1 8-23Z" opacity=".8"/>
+    <circle cx="450" cy="159" r="4"/>
+    <circle cx="476" cy="183" r="3"/>
+    <circle cx="115" cy="342" r="4"/>
+    <circle cx="661" cy="460" r="4"/>
+    <circle cx="624" cy="501" r="3"/>
+  </g>
+  <path d="m179 270 38-20-11 26 36 4-36 9 4 29-16-26-24 13 14-26-5-9Z" stroke="#D8E7C3" stroke-opacity=".45" stroke-width="2"/>
+  <path d="M508 555c50 0 111 11 163 37" stroke="#D7F36A" stroke-opacity=".45" stroke-width="2" stroke-dasharray="4 10"/>
+</svg>

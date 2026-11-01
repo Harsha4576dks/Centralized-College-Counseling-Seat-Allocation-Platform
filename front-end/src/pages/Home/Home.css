@@ -1,14 +1,427 @@
-.home-container {
-  text-align: center;
-  margin-top: 100px;
+.home-page {
+  --home-ink: #17243b;
+  --home-muted: #687789;
+  --home-accent: #d7f36a;
   position: relative;
-  min-height: 80vh; 
+  isolation: isolate;
+  min-height: 100vh;
+  overflow: hidden;
+  background: #172a3d;
+}
+
+.home-page::before {
+  position: fixed;
+  z-index: -1;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(12, 27, 40, 0.78) 0%, rgba(14, 33, 47, 0.48) 52%, rgba(14, 33, 47, 0.2) 100%),
+    linear-gradient(0deg, rgba(11, 27, 39, 0.45), rgba(11, 27, 39, 0.08)),
+    url('../../assets/counselling-campus.svg') center 43% / cover no-repeat;
+  content: '';
+  pointer-events: none;
+}
+
+.home-container {
+  position: relative;
+  z-index: 1;
+  width: min(1120px, calc(100% - 64px));
+  margin: 0 auto;
+  padding: clamp(34px, 6vh, 64px) 0 110px;
+}
+
+.home-hero {
+  position: relative;
+  display: grid;
+  min-height: min(58vh, 560px);
+  grid-template-columns: minmax(0, 1fr);
+  color: #fff;
+}
+
+.home-hero-copy {
+  position: relative;
+  z-index: 1;
+  align-self: center;
+  max-width: 760px;
+  padding: clamp(28px, 5vw, 56px) clamp(24px, 4vw, 48px);
+  border-left: 3px solid var(--home-accent);
+  border-radius: 0 16px 16px 0;
+  background: linear-gradient(90deg, rgba(10, 25, 38, 0.74), rgba(10, 25, 38, 0.08));
+  box-shadow: 0 18px 50px rgba(7, 18, 27, 0.12);
+  backdrop-filter: blur(2px);
+}
+
+.home-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 22px;
+  color: #d2dbe1;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.home-eyebrow > span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--home-accent);
+  box-shadow: 0 0 14px rgba(215, 243, 106, 0.7);
+}
+
+.home-hero h1 {
+  display: flex;
+  flex-direction: column;
+  font-size: clamp(40px, 5vw, 66px);
+  font-weight: 650;
+  letter-spacing: -2.8px;
+  line-height: 1.03;
+}
+
+.home-hero h1 > span:last-child {
+  color: var(--home-accent);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: -2px;
+}
+
+.home-hero h1 > span {
+  white-space: nowrap;
+}
+
+.home-description {
+  max-width: 510px;
+  margin-top: 21px;
+  color: #e0e8e9;
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+.home-hero-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 30px;
+}
+
+.home-action-link {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 18px;
+  padding: 0 16px;
+  border-radius: 7px;
+  background: var(--home-accent);
+  color: #213c49;
+  font-size: 11px;
+  font-weight: 800;
+  text-decoration: none;
+  transition: background-color 160ms ease, transform 160ms ease;
+}
+
+.home-action-link span {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.home-action-link:hover {
+  background: #e4fa8b;
+  transform: translateY(-1px);
+}
+
+.home-action-caption {
+  color: #aebdc5;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+}
+
+.home-visual {
+  display: none;
+}
+
+.home-orbit {
+  position: absolute;
+  aspect-ratio: 1;
+  border: 1px solid rgba(215, 243, 106, 0.19);
+  border-radius: 50%;
+}
+
+.home-orbit-outer {
+  width: min(34vw, 390px);
+}
+
+.home-orbit-inner {
+  width: min(24vw, 280px);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.home-compass {
+  position: relative;
+  display: grid;
+  width: 176px;
+  height: 176px;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.055);
+  box-shadow: 0 0 0 15px rgba(255, 255, 255, 0.025), 0 20px 60px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+}
+
+.compass-center {
+  color: var(--home-accent);
+  font-size: 66px;
+  line-height: 1;
+}
+
+.compass-north,
+.compass-east,
+.compass-south,
+.compass-west {
+  position: absolute;
+  color: #d2dbe1;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.compass-north { top: 13px; }
+.compass-east { right: 14px; }
+.compass-south { bottom: 13px; }
+.compass-west { left: 14px; }
+
+.home-note-card {
+  position: absolute;
+  right: 43%;
+  bottom: 15%;
+  width: 205px;
+  padding: 15px 17px 13px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.09);
+  backdrop-filter: blur(10px);
+  transform: rotate(3deg);
+}
+
+.home-note-mark {
+  color: var(--home-accent);
+  font-size: 17px;
+}
+
+.home-note-card p {
+  margin: 5px 0 10px;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 15px;
+  line-height: 1.35;
+}
+
+.home-note-caption {
+  color: #aebdc5;
+  font-size: 7px;
+  font-weight: 700;
+  letter-spacing: 1.3px;
+}
+
+.home-visual-index {
+  position: absolute;
+  bottom: 25px;
+  left: 25px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #aebdc5;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.home-visual-index span {
+  width: 22px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.home-next-step {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  max-width: 610px;
+  margin: 24px auto 0;
+  padding: 20px 22px;
+  border: 1px solid rgba(233, 239, 230, 0.32);
+  border-radius: 12px;
+  background: rgba(230, 237, 228, 0.94);
+  box-shadow: 0 14px 36px rgba(7, 18, 27, 0.2);
+}
+
+.next-step-number {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 12px 5px 12px 5px;
+  background: #edf5d5;
+  color: #516339;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.next-step-copy {
+  flex: 1;
+}
+
+.next-step-label {
+  color: #899450;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.next-step-copy h2 {
+  margin-top: 3px;
+  color: var(--home-ink);
+  font-size: 15px;
+  letter-spacing: -0.3px;
+}
+
+.next-step-copy > p:last-child {
+  margin-top: 3px;
+  color: var(--home-muted);
+  font-size: 11px;
+}
+
+.next-step-link {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 50%;
+  background: #213c49;
+  color: #fff;
+  font-size: 18px;
+  text-decoration: none;
+  transition: background-color 160ms ease, transform 160ms ease;
+}
+
+.next-step-link:hover {
+  background: #345b54;
+  transform: translate(2px, -2px);
 }
 
 .logout-wrapper {
-  position: absolute;
-  bottom: 20px;
-  right: 30px;
-  width: 180px;
+  position: fixed;
+  z-index: 5;
+  right: 28px;
+  bottom: 24px;
+  width: 150px;
 }
 
+.logout-wrapper .custom-btn.danger {
+  min-height: 44px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 8px;
+  background: #d94852;
+  box-shadow: 0 8px 24px rgba(86, 39, 43, 0.2);
+}
+
+.logout-wrapper .custom-btn.danger:hover:not(:disabled) {
+  background: #bd3742;
+}
+
+.home-logout-error {
+  position: fixed;
+  z-index: 5;
+  right: 28px;
+  bottom: 78px;
+  max-width: min(360px, calc(100% - 48px));
+  padding: 10px 12px;
+  border: 1px solid #efc1b9;
+  border-radius: 8px;
+  background: #fff1ee;
+  color: #9c3d31;
+  font-size: 12px;
+}
+
+@media (max-width: 760px) {
+  .home-container {
+    width: min(100% - 32px, 600px);
+    padding-top: 36px;
+  }
+
+  .home-hero {
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 54vh;
+  }
+
+  .home-hero-copy {
+    padding: 34px 24px;
+  }
+
+  .home-hero h1 {
+    font-size: clamp(26px, 8.2vw, 36px);
+    letter-spacing: -2.5px;
+  }
+
+  .home-hero h1 > span {
+    white-space: nowrap;
+  }
+
+}
+
+@media (max-width: 480px) {
+  .home-container {
+    width: calc(100% - 24px);
+    padding-top: 22px;
+  }
+
+  .home-page::before {
+    background:
+      linear-gradient(180deg, rgba(12, 27, 40, 0.66), rgba(12, 27, 40, 0.58)),
+      url('../../assets/counselling-campus.svg') 53% center / cover no-repeat;
+  }
+
+  .home-hero-copy {
+    padding: 28px 18px;
+  }
+
+  .home-eyebrow {
+    font-size: 8px;
+    letter-spacing: 1.5px;
+  }
+
+  .home-action-caption {
+    display: none;
+  }
+
+  .home-next-step {
+    gap: 12px;
+    padding: 15px 13px;
+  }
+
+  .next-step-copy h2 {
+    font-size: 13px;
+  }
+
+  .next-step-copy > p:last-child {
+    font-size: 10px;
+  }
+
+  .logout-wrapper {
+    right: 16px;
+    bottom: 16px;
+    width: 132px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-action-link,
+  .next-step-link,
+  .logout-wrapper .custom-btn.danger {
+    transition: none;
+  }
+}

@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import LoginForm from './pages/loginForm/loginForm';
+import RegisterForm from './pages/registerForm/RegisterForm';
 import Home from './pages/Home/Home';
 import UserDashboard from './pages/User/userDashboard/userDashboard';
 import AdminDashboard from './pages/Admin/AdminDashboard/AdminDashboard';
@@ -10,6 +11,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/login" element={<LoginForm />} />
+        <Route path="/register" element={<RegisterForm />} />
         <Route path="/home" element={<Home />} />
         <Route path="/user-dashboard" element={<UserDashboard />} />
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
