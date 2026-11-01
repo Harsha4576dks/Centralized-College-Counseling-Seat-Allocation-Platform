@@ -8,8 +8,22 @@ export default function PreferenceDetails({ studentId }) {
         handleChange,
         handleSubmit,
         loading,
+        loadingColleges,
         success,
         error,
+        collegeSuggestions,
+        collegeError,
+        activeCollegeIndex,
+        selectedCollege,
+        handleCollegeSelect,
+        handleCollegeKeyDown,
+        branchSuggestions,
+        branchError,
+        loadingBranches,
+        activeBranchIndex,
+        selectedBranch,
+        handleBranchSelect,
+        handleBranchKeyDown,
     } = usePreferenceDetails(studentId);
 
     return (
@@ -27,6 +41,8 @@ export default function PreferenceDetails({ studentId }) {
 
             {success && <div className="student-success" role="status">{success}</div>}
             {error && <div className="student-error" role="alert">{error}</div>}
+            {collegeError && <div className="student-error" role="alert">{collegeError}</div>}
+            {branchError && <div className="student-error" role="alert">{branchError}</div>}
 
             <form onSubmit={handleSubmit} className="preference-form">
                 <div className="form-group">
@@ -45,36 +61,115 @@ export default function PreferenceDetails({ studentId }) {
                     />
                 </div>
 
-                <div className="form-group">
-                    <label className="form-label" htmlFor="preference-college-id">College ID</label>
+                <div className="form-group college-autocomplete">
+                    <label className="form-label" htmlFor="preference-college-name">College name</label>
                     <input
-                        id="preference-college-id"
-                        type="number"
-                        name="college_id"
-                        value={formData.college_id}
+                        id="preference-college-name"
+                        type="text"
+                        name="college_name"
+                        value={formData.college_name}
                         onChange={handleChange}
-                        min="1"
-                        step="1"
-                        placeholder="Enter the college ID"
+                        onKeyDown={handleCollegeKeyDown}
+                        autoComplete="off"
+                        role="combobox"
+                        aria-autocomplete="list"
+                        aria-expanded={collegeSuggestions.length > 0 && !selectedCollege}
+                        aria-controls={
+                            collegeSuggestions.length > 0 && !selectedCollege
+                                ? "college-suggestions"
+                                : undefined
+                        }
+                        aria-activedescendant={
+                            activeCollegeIndex >= 0 && collegeSuggestions[activeCollegeIndex]
+                                ? `college-suggestion-${collegeSuggestions[activeCollegeIndex].id}`
+                                : undefined
+                        }
+                        placeholder={loadingColleges ? "Loading colleges..." : "Start typing a college name"}
                         required
                         className="form-input"
                     />
+                    {collegeSuggestions.length > 0 && !selectedCollege && (
+                        <ul className="college-suggestions" id="college-suggestions" role="listbox" aria-label="Colleges">
+                            {collegeSuggestions.map((college, index) => (
+                                <li key={college.id} role="presentation">
+                                    <button
+                                        id={`college-suggestion-${college.id}`}
+                                        type="button"
+                                        role="option"
+                                        aria-selected={index === activeCollegeIndex}
+                                        onMouseDown={(event) => event.preventDefault()}
+                                        onClick={() => handleCollegeSelect(college)}
+                                    >
+                                        {college.college_name}
+                                    </button>
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+                    {formData.college_name.trim() && !loadingColleges &&
+                        collegeSuggestions.length === 0 && !selectedCollege && (
+                            <span className="college-suggestion-empty" role="status">No colleges match that name.</span>
+                        )}
                 </div>
 
-                <div className="form-group">
-                    <label className="form-label" htmlFor="preference-branch-id">College branch ID</label>
+                <div className="form-group college-autocomplete">
+                    <label className="form-label" htmlFor="preference-branch-name">Branch</label>
                     <input
-                        id="preference-branch-id"
-                        type="number"
-                        name="college_branch_id"
-                        value={formData.college_branch_id}
+                        id="preference-branch-name"
+                        type="text"
+                        name="branch_name"
+                        value={formData.branch_name}
                         onChange={handleChange}
-                        min="1"
-                        step="1"
-                        placeholder="Enter the branch ID"
+                        onKeyDown={handleBranchKeyDown}
+                        autoComplete="off"
+                        role="combobox"
+                        aria-autocomplete="list"
+                        aria-expanded={branchSuggestions.length > 0 && !selectedBranch}
+                        aria-controls={
+                            branchSuggestions.length > 0 && !selectedBranch
+                                ? "branch-suggestions"
+                                : undefined
+                        }
+                        aria-activedescendant={
+                            activeBranchIndex >= 0 && branchSuggestions[activeBranchIndex]
+                                ? `branch-suggestion-${branchSuggestions[activeBranchIndex].id}`
+                                : undefined
+                        }
+                        placeholder={
+                            !selectedCollege
+                                ? "Choose a college first"
+                                : loadingBranches
+                                    ? "Loading branches..."
+                                    : "Type a branch name or ID"
+                        }
+                        disabled={!selectedCollege || loadingBranches || Boolean(branchError)}
                         required
                         className="form-input"
                     />
+                    {branchSuggestions.length > 0 && !selectedBranch && (
+                        <ul className="college-suggestions" id="branch-suggestions" role="listbox" aria-label="Branches">
+                            {branchSuggestions.map((branch, index) => (
+                                <li key={branch.id} role="presentation">
+                                    <button
+                                        id={`branch-suggestion-${branch.id}`}
+                                        type="button"
+                                        role="option"
+                                        aria-selected={index === activeBranchIndex}
+                                        onMouseDown={(event) => event.preventDefault()}
+                                        onClick={() => handleBranchSelect(branch)}
+                                    >
+                                        {branch.branch_name} <span>(ID: {branch.id})</span>
+                                    </button>
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+                    {selectedCollege && formData.branch_name.trim() &&
+                        !loadingBranches && branchSuggestions.length === 0 && !selectedBranch && (
+                            <span className="college-suggestion-empty" role="status">
+                                No branches match that name or ID for this college.
+                            </span>
+                        )}
                 </div>
 
                 <div className="form-group">

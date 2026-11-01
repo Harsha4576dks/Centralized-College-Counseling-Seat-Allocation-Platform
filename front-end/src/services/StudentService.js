@@ -11,8 +11,21 @@ export const saveStudentDetails = async  (studentData) => {
         };
         const response = await apiClient.post('/students/', studentPayload);
         return response.data;
-    }catch (error){
-        throw error.response?.data?.detail ?? 'Failed to save student details';
+    } catch (error) {
+        const detail = error?.response?.data?.detail;
+        if (detail !== undefined) {
+            throw detail;
+        }
+
+        if (error?.response) {
+            throw `Failed to save student details (HTTP ${error.response.status}).`;
+        }
+
+        if (error?.request) {
+            throw 'No response from the counseling server. Check your connection and sign in again before retrying.';
+        }
+
+        throw error instanceof Error ? error.message : 'Failed to save student details.';
     }
 };
 
