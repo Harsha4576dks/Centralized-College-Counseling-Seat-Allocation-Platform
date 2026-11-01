@@ -5,7 +5,7 @@ from ..database import db_dependency
 from ..schemas.student_schemas import StudentBase
 from ..schemas.update_student_schemas import UpdateStudentBase
 from ..services import student_services
-from ..security import security
+from ..security import admin_security, security
 
 router = APIRouter(
     prefix="/students",
@@ -19,6 +19,10 @@ async def get_student(db:db_dependency, student_name:str):
     if result is None:
             raise HTTPException(status_code=404, detail="student not found")
     return result
+
+@router.get("/", dependencies=[Depends(admin_security)])
+def get_students(db:db_dependency):
+      return student_services.get_students(db)
 
 @router.get("/{student_id}")    
 async def get_student(db:db_dependency, student_id:int):

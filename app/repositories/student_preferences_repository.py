@@ -12,6 +12,13 @@ def create_studentpreferences(db:Session, studentprefernces):
 def get_studentpreferences(db:Session, student_preferences_id:int):
     return db.query(models.StudentPreferences).filter(models.StudentPreferences.id == student_preferences_id).first()
 
+def get_all_studentpreferences(db:Session):
+    return db.query(models.StudentPreferences).order_by(
+        models.StudentPreferences.student_id,
+        models.StudentPreferences.preference_order,
+        models.StudentPreferences.id,
+    ).all()
+
 def update_studentpreferences(db:Session, student_preferences_id:int, update_data):
     db_studentpreferences = db.query(models.StudentPreferences).filter(models.StudentPreferences.id == student_preferences_id).first()
     if db_studentpreferences is None:

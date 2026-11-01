@@ -5,13 +5,17 @@ from ..database import db_dependency
 from ..schemas.student_preferences_schemas import Student_PreferencesBase
 from ..schemas.update_student_preferences_schemas import Update_studentpreferencesBase
 from ..services import student_preference_services
-from ..security import security
+from ..security import admin_security, security
 
 router = APIRouter(
     prefix="/course_preferences",
     tags=["Student_preferences"],
     dependencies=[Depends(security)]
 )
+
+@router.get("/", dependencies=[Depends(admin_security)])
+def get_all_student_preferences(db:db_dependency):
+    return student_preference_services.get_all_studentpreferences(db)
 
 @router.get("/{student_preferences_id}")
 async def get_student_preferences(db:db_dependency, student_preferences_id:int):

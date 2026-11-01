@@ -25,6 +25,15 @@ export const getPreferenceDetails = async (id) => {
     }
 };
 
+export const getPreferenceList = async () => {
+    try {
+        const response = await apiClient.get('/course_preferences/');
+        return response.data;
+    } catch (error) {
+        throw error.response?.data?.detail || 'Failed to fetch preferences';
+    }
+};
+
 export const updatePreferenceDetails = async (preferenceId, preferenceData) => {
     try{
         const preferencePayload = {

@@ -1,5 +1,6 @@
-import  { useState } from "react";
+import { useEffect, useState } from "react";
 import { 
+    getStudentDetails,
     getStudentbyId, 
     updateStudentDetails, 
     deleteStudentDetails 
@@ -8,11 +9,12 @@ import { getErrorMessage } from "../../../utils/errorHandler";
 import "./studentManagement.css";
 
 export default function StudentManagement() {
-    const [searchId, setSearchId] = useState("");
     const [studentData, setStudentData] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [listLoading, setListLoading] = useState(true);
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
+    const [studentList, setStudentList] = useState([]);
 
     const [isEditing, setIsEditing] = useState(false);
     const [formData, setFormData] = useState({
@@ -23,27 +25,33 @@ export default function StudentManagement() {
         phone: "",
     });
 
+    useEffect(() => {
+        let isCurrent = true;
 
-    const handleSearch = async (e) => {
-        e.preventDefault();
-        if (!searchId) return;
+        const fetchStudents = async () => {
+            setListLoading(true);
+            setError("");
+            try {
+                const students = await getStudentDetails();
+                if (isCurrent) {
+                    setStudentList(students);
+                }
+            } catch (fetchError) {
+                if (isCurrent) {
+                    setError(getErrorMessage(fetchError));
+                }
+            } finally {
+                if (isCurrent) {
+                    setListLoading(false);
+                }
+            }
+        };
 
-        setLoading(true);
-        setError("");
-        setSuccess("");
-        setStudentData(null);
-        setIsEditing(false);
-
-        try {
-            const data = await getStudentbyId(searchId);
-            setStudentData(data);
-        } catch (err) {
-            setError(getErrorMessage(err));
-        } finally {
-            setLoading(false);
-        }
-    };
-
+        fetchStudents();
+        return () => {
+            isCurrent = false;
+        };
+    }, []);
 
     const handleEditClick = () => {
         if (!studentData) return;
@@ -78,12 +86,13 @@ export default function StudentManagement() {
                 rank: formData.cetRank, 
             };
 
-            await updateStudentDetails(studentData.id, payload);
+            const updated = await updateStudentDetails(studentData.id, payload);
             setSuccess("Student updated successfully!");
             setIsEditing(false);
-            
-            const updated = await getStudentbyId(studentData.id);
             setStudentData(updated);
+            setStudentList((currentStudents) =>
+                currentStudents.map((student) => student.id === updated.id ? updated : student)
+            );
         } catch (err) {
             setError(getErrorMessage(err));
         } finally {
@@ -101,7 +110,7 @@ export default function StudentManagement() {
             await deleteStudentDetails(id);
             setSuccess("Student deleted successfully!");
             setStudentData(null);
-            setSearchId("");
+            setStudentList((currentStudents) => currentStudents.filter((student) => student.id !== id));
         } catch (err) {
             setError(getErrorMessage(err));
         } finally {
@@ -109,28 +118,45 @@ export default function StudentManagement() {
         }
     };
 
+    const showStudent = async (studentId) => {
+        setLoading(true);
+        setError("");
+        setSuccess("");
+        setIsEditing(false);
+
+        try {
+            const student = await getStudentbyId(studentId);
+            setStudentData(student);
+        } catch (fetchError) {
+            setError(getErrorMessage(fetchError));
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const editStudent = (student) => {
+        setStudentData(student);
+        setError("");
+        setSuccess("");
+        setIsEditing(true);
+        setFormData({
+            fullName: student.name || "",
+            roll_number: student.roll_number || "",
+            cetRank: student.rank || "",
+            email: student.email || "",
+            phone: student.phone || "",
+        });
+    };
+
     return (
         <div className="student-management-container">
             <h3>Student Database Management</h3>
 
-            <form onSubmit={handleSearch} className="search-form" style={{ display: "flex", gap: "10px", marginBottom: "20px" }}>
-                <input 
-                    type="number" 
-                    placeholder="Enter Student ID..." 
-                    value={searchId} 
-                    onChange={(e) => setSearchId(e.target.value)} 
-                    required
-                    style={{ padding: "9px", width: "240px", border: "1px solid #cbd5e0", borderRadius: "4px" }}
-                />
-                <button type="submit" className="save-btn" style={{ padding: "9px 16px" }}>Fetch Details</button>
-            </form>
-
-            {loading && <p>Loading...</p>}
             {error && <div className="student-error">{error}</div>}
             {success && <div className="student-success">{success}</div>}
 
-            {isEditing && (
-                <form onSubmit={handleUpdateSubmit} className="edit-form">
+            {isEditing && studentData && (
+                <form onSubmit={handleUpdateSubmit} className="edit-form student-record-panel">
                     <h4>Edit Student (ID: {studentData.id})</h4>
                     <div className="form-group">
                         <label>Full Name</label>
@@ -164,17 +190,17 @@ export default function StudentManagement() {
             )}
 
             {studentData && !isEditing && (
-                <div className="student-details-card" style={{ background: "#f8fafc", padding: "20px", borderRadius: "6px", border: "1px solid #e2e8f0" }}>
+                <div className="student-details-card student-record-panel">
                     <h4>Student Record Found</h4>
-                    <p style={{ margin: "6px 0" }}><strong>ID:</strong> {studentData.id}</p>
-                    <p style={{ margin: "6px 0" }}><strong>Name:</strong> {studentData.name}</p>
-                    <p style={{ margin: "6px 0" }}><strong>Roll No:</strong> {studentData.roll_number}</p>
-                    <p style={{ margin: "6px 0" }}><strong>Rank:</strong> {studentData.rank}</p>
-                    <p style={{ margin: "6px 0" }}><strong>Email:</strong> {studentData.email}</p>
-                    <p style={{ margin: "6px 0" }}><strong>Phone:</strong> {studentData.phone}</p>
+                    <p><strong>ID:</strong> {studentData.id}</p>
+                    <p><strong>Name:</strong> {studentData.name}</p>
+                    <p><strong>Roll No:</strong> {studentData.roll_number}</p>
+                    <p><strong>Rank:</strong> {studentData.rank}</p>
+                    <p><strong>Email:</strong> {studentData.email}</p>
+                    <p><strong>Phone:</strong> {studentData.phone}</p>
 
-                    <div style={{ marginTop: "15px", display: "flex", gap: "10px" }}>
-                        <button className="edit-btn" onClick={handleEditClick}>Edit</button>
+                    <div className="student-details-actions">
+                        <button type="button" className="edit-btn" onClick={handleEditClick}>Edit</button>
                         <button
                             type="button"
                             className="delete-btn"
@@ -186,6 +212,77 @@ export default function StudentManagement() {
                     </div>
                 </div>
             )}
+
+            <section className="student-directory" aria-labelledby="student-directory-title">
+                <div className="student-directory-heading">
+                    <div>
+                        <h4 id="student-directory-title">Registered students</h4>
+                        <p>View or manage a student record directly from this list.</p>
+                    </div>
+                    <span className="student-count">
+                        {listLoading ? "Loading..." : `${studentList.length} ${studentList.length === 1 ? "student" : "students"}`}
+                    </span>
+                </div>
+
+                {listLoading ? (
+                    <p className="student-list-status" role="status">Loading student list...</p>
+                ) : studentList.length === 0 ? (
+                    <p className="student-list-status">No student records are available.</p>
+                ) : (
+                    <div className="student-list-scroll">
+                        <table className="student-table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Student ID</th>
+                                    <th scope="col">Roll number</th>
+                                    <th scope="col">CET rank</th>
+                                    <th scope="col">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {studentList.map((student) => (
+                                    <tr key={student.id}>
+                                        <td className="student-name-cell">{student.name}</td>
+                                        <td>{student.id}</td>
+                                        <td>{student.roll_number}</td>
+                                        <td>{student.rank}</td>
+                                        <td>
+                                            <div className="student-row-actions">
+                                                <button
+                                                    type="button"
+                                                    className="edit-btn"
+                                                    onClick={() => showStudent(student.id)}
+                                                    disabled={loading}
+                                                >
+                                                    View
+                                                </button>
+                                                <button
+                                                    type="button"
+                                                    className="edit-btn"
+                                                    onClick={() => editStudent(student)}
+                                                    disabled={loading}
+                                                >
+                                                    Edit
+                                                </button>
+                                                <button
+                                                    type="button"
+                                                    className="delete-btn"
+                                                    onClick={() => handleDelete(student.id)}
+                                                    disabled={loading}
+                                                >
+                                                    Delete
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                )}
+            </section>
+
         </div>
     );
 }

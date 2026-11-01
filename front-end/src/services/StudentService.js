@@ -32,7 +32,7 @@ export const saveStudentDetails = async  (studentData) => {
 
 export const getStudentDetails = async () => {
     try{
-        const response = await apiClient.get('/students');
+        const response = await apiClient.get('/students/');
         return response.data;
     }catch (error) {
         throw error.response?.data?.detail || 'Failed to fetch student details';

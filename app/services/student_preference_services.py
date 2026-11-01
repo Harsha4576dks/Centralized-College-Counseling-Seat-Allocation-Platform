@@ -4,6 +4,9 @@ from ..repositories import student_preferences_repository
 def get_studentpreferences(db:Session, student_preferences_id:int):
     return student_preferences_repository.get_studentpreferences(db, student_preferences_id)
 
+def get_all_studentpreferences(db:Session):
+    return student_preferences_repository.get_all_studentpreferences(db)
+
 def create_studentpreferences(db:Session, studentpreferences):
     db_student = student_preferences_repository.get_student(db, studentpreferences.student_id)
     if db_student is None:

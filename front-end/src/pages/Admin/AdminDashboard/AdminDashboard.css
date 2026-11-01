@@ -1,46 +1,491 @@
+.admin-workspace {
+  --admin-bg: #1c2a34;
+  --admin-surface: #293a46;
+  --admin-surface-raised: #314551;
+  --admin-border: rgba(215, 227, 231, 0.14);
+  --admin-text: #edf3f2;
+  --admin-muted: #aab9bf;
+  --admin-accent: #d7f36a;
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse at 82% 0%, rgba(92, 126, 128, 0.2), transparent 38%),
+    linear-gradient(145deg, #1a2832, #22343f 58%, #1c2b35);
+  color: var(--admin-text);
+}
+
+.admin-workspace .navbar-dashboard {
+  min-height: 76px;
+  border-bottom-color: var(--admin-border);
+  background: rgba(28, 42, 52, 0.92);
+  box-shadow: 0 10px 30px rgba(8, 16, 22, 0.18);
+}
+
+.admin-workspace .dashboard-container {
+  width: min(100% - 48px, 1320px);
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: clamp(24px, 4vw, 48px) 0 56px;
+}
+
+.admin-dashboard-heading {
+  margin-bottom: 24px;
+}
+
+.admin-dashboard-eyebrow {
+  margin-bottom: 7px;
+  color: var(--admin-accent);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.8px;
+}
+
+.admin-dashboard-heading h2 {
+  margin: 0;
+  color: var(--admin-text);
+  font-size: clamp(26px, 3vw, 34px);
+  letter-spacing: -0.8px;
+}
+
+.admin-dashboard-heading > p:last-child {
+  margin-top: 7px;
+  color: var(--admin-muted);
+  font-size: 14px;
+}
 
 .admin-dashboard-layout {
   display: flex;
-  max-width: 1200px;
-  margin: 30px auto;
-  gap: 30px;
-  padding: 0 20px;
+  flex-direction: column;
+  gap: 18px;
 }
 
-
-.vertical-tabs {
+.admin-workspace .vertical-tabs {
   display: flex;
-  flex-direction: column; 
-  gap: 10px;
-  min-width: 240px;
+  min-width: 0;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 9px;
+  border: 1px solid var(--admin-border);
+  border-radius: 14px;
+  background: rgba(42, 59, 70, 0.88);
+  box-shadow: 0 12px 30px rgba(8, 16, 22, 0.16);
 }
 
-
-.vertical-tabs .tab-btn {
-  padding: 12px 16px;
+.admin-workspace .vertical-tabs .tab-btn {
+  display: inline-flex;
+  min-height: 48px;
+  flex: 1 1 170px;
+  align-items: center;
+  gap: 9px;
+  padding: 0 15px;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  background: transparent;
+  color: #c3d0d2;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 650;
   text-align: left;
-  font-size: 15px;
-  font-weight: 600;
-  border: 1px solid #e2e8f0;
-  background-color: #f8fafc;
-  color: #4a5568;
-  border-radius: 6px;
+  white-space: nowrap;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: color 160ms ease, background-color 160ms ease, border-color 160ms ease;
 }
 
-
-.vertical-tabs .tab-btn.active {
-  background-color: #3182ce;
-  color: #ffffff;
-  border-color: #3182ce;
+.admin-tab-mark {
+  display: grid;
+  width: 25px;
+  height: 25px;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid rgba(215, 227, 231, 0.12);
+  border-radius: 7px;
+  background: rgba(215, 227, 231, 0.08);
+  color: #aab9bf;
+  font-size: 9px;
+  font-weight: 800;
 }
 
+.admin-workspace .vertical-tabs .tab-btn:hover {
+  border-color: rgba(215, 243, 106, 0.2);
+  background: rgba(215, 243, 106, 0.08);
+  color: #f3f7ef;
+}
 
-.tab-content-area {
-  flex-grow: 1;
-  background: #ffffff;
-  padding: 20px;
+.admin-workspace .vertical-tabs .tab-btn.active {
+  border-color: rgba(215, 243, 106, 0.32);
+  background: var(--admin-accent);
+  color: #253943;
+  box-shadow: 0 6px 16px rgba(215, 243, 106, 0.13);
+}
+
+.admin-workspace .vertical-tabs .tab-btn.active .admin-tab-mark {
+  border-color: rgba(37, 57, 67, 0.15);
+  background: rgba(37, 57, 67, 0.12);
+  color: #253943;
+}
+
+.admin-workspace .vertical-tabs .tab-btn:focus-visible {
+  outline: 3px solid rgba(215, 243, 106, 0.58);
+  outline-offset: 2px;
+}
+
+.admin-workspace .tab-content-area {
+  min-width: 0;
+  min-height: 360px;
+  padding: clamp(16px, 2.5vw, 28px);
+  border: 1px solid var(--admin-border);
+  border-radius: 16px;
+  background:
+    radial-gradient(ellipse at 100% 0%, rgba(123, 158, 155, 0.08), transparent 40%),
+    rgba(41, 58, 70, 0.92);
+  box-shadow: 0 20px 52px rgba(8, 16, 22, 0.22);
+}
+
+.admin-workspace .student-management-container,
+.admin-workspace .preference-management-container,
+.admin-workspace .college-management-container,
+.admin-workspace .branch-management-container,
+.admin-workspace .branch-managemnt-container {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--admin-text);
+  box-shadow: none;
+}
+
+.admin-workspace .student-management-container h3,
+.admin-workspace .preference-management-container h3,
+.admin-workspace .college-management-container h3,
+.admin-workspace .branch-management-container h3,
+.admin-workspace .branch-managemnt-container h3 {
+  margin: 0 0 20px;
+  color: var(--admin-text);
+  font-size: 20px;
+  letter-spacing: -0.3px;
+}
+
+.admin-workspace .edit-form,
+.admin-workspace .student-details-card,
+.admin-workspace .preference-details-card,
+.admin-workspace .college-details-card,
+.admin-workspace .branch-details-card {
+  padding: clamp(16px, 2vw, 24px);
+  border: 1px solid var(--admin-border);
+  border-radius: 12px;
+  background: #30434f !important;
+  color: var(--admin-text);
+  box-shadow: 0 8px 24px rgba(8, 16, 22, 0.14);
+}
+
+.admin-workspace .edit-form h4,
+.admin-workspace .student-details-card h4,
+.admin-workspace .preference-details-card h4,
+.admin-workspace .college-details-card h4,
+.admin-workspace .branch-details-card h4 {
+  margin-top: 0;
+  color: var(--admin-text);
+}
+
+.admin-workspace .edit-form p,
+.admin-workspace .allocation-results-box p {
+  color: #b7c7cb !important;
+}
+
+.admin-workspace .edit-form label,
+.admin-workspace .form-group label {
+  color: #d6e0e0;
+}
+
+.admin-workspace .edit-form input,
+.admin-workspace .form-input,
+.admin-workspace .search-input,
+.admin-workspace input {
+  border: 1px solid rgba(204, 220, 222, 0.2);
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  background: #202f39;
+  color: #f0f5f2;
+}
+
+.admin-workspace .edit-form input::placeholder,
+.admin-workspace .search-input::placeholder,
+.admin-workspace input::placeholder {
+  color: #9aabb1;
+}
+
+.admin-workspace .edit-form input:focus,
+.admin-workspace .form-input:focus,
+.admin-workspace .search-input:focus,
+.admin-workspace input:focus {
+  border-color: var(--admin-accent);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(215, 243, 106, 0.14);
+}
+
+.admin-workspace .student-details-card p,
+.admin-workspace .preference-details-card p,
+.admin-workspace .college-details-card p,
+.admin-workspace .branch-details-card p {
+  color: #c1cdd0;
+}
+
+.admin-workspace .student-details-card strong,
+.admin-workspace .preference-details-card strong,
+.admin-workspace .college-details-card strong,
+.admin-workspace .branch-details-card strong {
+  color: #edf3f2;
+}
+
+.admin-workspace .search-form {
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.admin-workspace .student-record-panel {
+  min-width: 0;
+  margin-top: 18px;
+}
+
+.admin-workspace .student-details-card.student-record-panel {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 22px;
+  row-gap: 6px;
+}
+
+.admin-workspace .student-details-card.student-record-panel h4,
+.admin-workspace .student-details-card.student-record-panel .student-details-actions {
+  grid-column: 1 / -1;
+}
+
+.admin-workspace .student-details-card.student-record-panel p {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.admin-workspace .student-details-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.admin-workspace .search-input {
+  width: min(100%, 300px);
+  min-height: 42px;
+  padding: 9px 12px;
+  font: inherit;
+  font-size: 14px;
+}
+
+.admin-workspace .student-directory {
+  margin: 22px 0 26px;
+  padding: clamp(14px, 2vw, 20px);
+  border: 1px solid var(--admin-border);
+  border-radius: 12px;
+  background: rgba(32, 47, 57, 0.62);
+}
+
+.admin-workspace .student-directory-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.admin-workspace .student-directory-heading h4 {
+  color: var(--admin-text);
+  font-size: 16px;
+}
+
+.admin-workspace .student-directory-heading p,
+.admin-workspace .student-list-status {
+  margin-top: 4px;
+  color: var(--admin-muted);
+  font-size: 12px;
+}
+
+.admin-workspace .student-count {
+  flex: 0 0 auto;
+  padding: 6px 10px;
+  border: 1px solid rgba(215, 243, 106, 0.2);
+  border-radius: 999px;
+  background: rgba(215, 243, 106, 0.1);
+  color: var(--admin-accent);
+  font-size: 11px;
+  font-weight: 750;
+}
+
+.admin-workspace .student-list-scroll {
+  overflow-x: auto;
+  border: 1px solid var(--admin-border);
+  border-radius: 9px;
+}
+
+.admin-workspace .student-list-scroll .student-table {
+  min-width: 700px;
+  margin: 0;
+}
+
+.admin-workspace .student-table tbody tr:hover td {
+  background: rgba(215, 243, 106, 0.055);
+}
+
+.admin-workspace .student-name-cell {
+  min-width: 180px;
+  color: #f0f5f2;
+  font-weight: 700;
+}
+
+.admin-workspace .student-row-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.admin-workspace .student-row-actions button {
+  min-height: 32px;
+  padding: 5px 10px;
+  font-size: 11px;
+}
+
+.admin-workspace .save-btn,
+.admin-workspace .search-btn,
+.admin-workspace .fetch-btn,
+.admin-workspace .edit-btn,
+.admin-workspace .cancel-btn,
+.admin-workspace .delete-btn {
+  min-height: 38px;
+  padding: 8px 14px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+}
+
+.admin-workspace .save-btn,
+.admin-workspace .search-btn,
+.admin-workspace .fetch-btn {
+  background: var(--admin-accent);
+  color: #253943;
+}
+
+.admin-workspace .edit-btn {
+  background: #557789;
+  color: #f3f7f5;
+}
+
+.admin-workspace .cancel-btn {
+  background: #52636c;
+  color: #f3f7f5;
+}
+
+.admin-workspace .delete-btn {
+  background: #a94d52;
+  color: #fff5f3;
+}
+
+.admin-workspace .save-btn:hover:not(:disabled),
+.admin-workspace .search-btn:hover:not(:disabled),
+.admin-workspace .fetch-btn:hover:not(:disabled),
+.admin-workspace .edit-btn:hover:not(:disabled),
+.admin-workspace .cancel-btn:hover:not(:disabled),
+.admin-workspace .delete-btn:hover:not(:disabled) {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+
+.admin-workspace button:focus-visible {
+  outline: 3px solid rgba(215, 243, 106, 0.55);
+  outline-offset: 2px;
+}
+
+.admin-workspace .student-error {
+  border: 1px solid rgba(255, 155, 145, 0.28);
+  border-radius: 8px;
+  background: rgba(147, 55, 56, 0.22);
+  color: #ffc2b9;
+}
+
+.admin-workspace .student-success {
+  border: 1px solid rgba(141, 218, 172, 0.25);
+  border-radius: 8px;
+  background: rgba(55, 127, 83, 0.2);
+  color: #bdebc9;
+}
+
+.admin-workspace .loading-text,
+.admin-workspace .no-data {
+  color: var(--admin-muted);
+}
+
+.admin-workspace .student-table {
+  color: var(--admin-text);
+}
+
+.admin-workspace .student-table th,
+.admin-workspace .student-table td {
+  border-color: var(--admin-border);
+}
+
+.admin-workspace .student-table th {
+  background: #344955;
+  color: #e5eeec;
+}
+
+.admin-workspace .student-table td {
+  background: rgba(32, 47, 57, 0.55);
+}
+
+.admin-workspace .allocation-results-box pre,
+.admin-workspace pre {
+  border: 1px solid var(--admin-border);
+  background: #202f39 !important;
+  color: #dce7e4 !important;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 760px) {
+  .admin-workspace .dashboard-container {
+    width: min(100% - 28px, 1320px);
+    padding-top: 28px;
+  }
+
+  .admin-workspace .navbar-dashboard {
+    min-height: 68px;
+  }
+
+  .admin-workspace .vertical-tabs {
+    margin-right: -2px;
+  }
+
+  .admin-workspace .tab-content-area {
+    min-height: 300px;
+    padding: 16px;
+  }
+
+}
+
+@media (max-width: 520px) {
+  .admin-workspace .student-details-card.student-record-panel {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .admin-workspace .vertical-tabs .tab-btn,
+  .admin-workspace .save-btn,
+  .admin-workspace .search-btn,
+  .admin-workspace .fetch-btn,
+  .admin-workspace .edit-btn,
+  .admin-workspace .cancel-btn,
+  .admin-workspace .delete-btn {
+    transition: none;
+  }
 }

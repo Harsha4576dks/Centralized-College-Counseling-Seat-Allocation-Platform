@@ -4,6 +4,9 @@ from ..repositories import student_repository
 def get_student(db:Session, student_id:int):
     return student_repository.get_student(db, student_id)
 
+def get_students(db:Session):
+    return student_repository.get_students(db)
+
 def get_student_name(db:Session, student_name:str):
     return student_repository.search_student(db, student_name)
 
