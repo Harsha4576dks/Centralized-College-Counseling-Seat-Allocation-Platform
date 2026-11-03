@@ -23,7 +23,6 @@ router = APIRouter(
 
 @router.post("/register", response_model=UserResponse)
 def register(user: RegisterUser, db: db_dependency):
-
     new_user, error = auth_services.register_user( db, user)
     if error:
         raise HTTPException( status_code=400, detail=error)

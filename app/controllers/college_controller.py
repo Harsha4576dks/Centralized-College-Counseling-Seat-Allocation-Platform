@@ -19,9 +19,11 @@ async def get_college_name(db:db_dependency, college_name:str):
         raise HTTPException(status_code=404, detail="college not found")
     return result
 
+
 @router.get("/")
 async def get_colleges(db:db_dependency):
     return college_services.get_colleges(db)
+
 
 @router.get("/{college_id}")
 async def get_college(db:db_dependency, college_id:int):
@@ -34,6 +36,7 @@ async def get_college(db:db_dependency, college_id:int):
 @router.post("/")
 async def create_college(db:db_dependency, college:CollegeBase):
     return college_services.create_college(db, college)
+
 
 @router.delete("/{college_id}")
 async def delete_college(db:db_dependency, college_id:int):

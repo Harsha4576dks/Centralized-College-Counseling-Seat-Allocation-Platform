@@ -13,9 +13,11 @@ router = APIRouter(
     dependencies=[Depends(security)]
 )
 
+
 @router.get("/", dependencies=[Depends(admin_security)])
 def get_all_student_preferences(db:db_dependency):
     return student_preference_services.get_all_studentpreferences(db)
+
 
 @router.get("/{student_preferences_id}")
 async def get_student_preferences(db:db_dependency, student_preferences_id:int):
@@ -23,6 +25,7 @@ async def get_student_preferences(db:db_dependency, student_preferences_id:int):
     if result is None:
                 raise HTTPException(status_code=404, detail="choices not found")
     return result
+
 
 @router.post("/")
 async def create_studentpreferences(db:db_dependency, studentpreferences:Student_PreferencesBase):
@@ -34,12 +37,14 @@ async def create_studentpreferences(db:db_dependency, studentpreferences:Student
                 raise HTTPException(status_code=404, detail="branch doesn't  exist")
         return result
 
+
 @router.put("/{student_preferences_id}")
 async def update_studentpreferences(db:db_dependency, student_preferences_id:int, studentpreferences:Update_studentpreferencesBase):
         result = student_preference_services.update_studentpreferences(db, student_preferences_id, studentpreferences)
         if result is None:
                     raise HTTPException(status_code=404, detail="preferences not found")
         return result
+
 
 @router.delete("/{student_preferences_id}")
 async def delete_studentpreferences(db:db_dependency, student_preferences_id:int):

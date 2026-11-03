@@ -20,9 +20,11 @@ async def get_branch_name(db:db_dependency, branch_name:str):
         raise HTTPException(status_code=404, detail="branch not found")
     return result
 
+
 @router.get("/")
 async def get_college_branches(db:db_dependency):
     return college_branches_services.get_college_branches(db)
+
 
 @router.get("/id/{college_branch_id}")
 async def get_college_branch_by_id(db:db_dependency, college_branch_id:int):
@@ -31,12 +33,14 @@ async def get_college_branch_by_id(db:db_dependency, college_branch_id:int):
         raise HTTPException(status_code=404, detail="branch not found")
     return result
 
+
 @router.get("/{branch_id}")
 async def get_college_branch(db:db_dependency, branch_id:int):
     result = college_branches_services.get_college_branch(db, branch_id)
     if result is None:
         raise HTTPException(status_code=404, detail="branch not found")
     return result
+
 
 @router.post("/")
 async def create_branch(db:db_dependency, college_branch:College_BranchBase):
@@ -45,12 +49,14 @@ async def create_branch(db:db_dependency, college_branch:College_BranchBase):
           raise HTTPException(status_code=404, detail="college not found")
      return result
 
+
 @router.put("/{college_branch_id}")
 async def update_college_branch(db:db_dependency, college_branch_id:int, college_branch:Update_CollegeBranchBase):
      result = college_branches_services.update_college_branch(db, college_branch_id, college_branch)
      if result is None:
           raise HTTPException(status_code=404, detail="branch not found")
      return result
+
 
 @router.delete("/{college_branch_id}")
 async def delete_branch(db:db_dependency, college_branch_id:int):

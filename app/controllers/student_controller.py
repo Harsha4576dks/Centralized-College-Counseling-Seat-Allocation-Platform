@@ -13,6 +13,7 @@ router = APIRouter(
     dependencies=[Depends(security)]
 )
 
+
 @router.get("/search")
 async def get_student(db:db_dependency, student_name:str):
     result = student_services.get_student_name(db, student_name)
@@ -20,9 +21,11 @@ async def get_student(db:db_dependency, student_name:str):
             raise HTTPException(status_code=404, detail="student not found")
     return result
 
+
 @router.get("/", dependencies=[Depends(admin_security)])
 def get_students(db:db_dependency):
       return student_services.get_students(db)
+
 
 @router.get("/{student_id}")    
 async def get_student(db:db_dependency, student_id:int):
@@ -31,9 +34,11 @@ async def get_student(db:db_dependency, student_id:int):
               raise HTTPException(status_code=404, detail="student not found")
       return result
 
+
 @router.post("/")
 async def create_student(db:db_dependency, student:StudentBase):
        return student_services.create_student(db, student)
+
 
 @router.put("/{student_id}")
 async def update_student(db:db_dependency, student_id:int, student:UpdateStudentBase):
@@ -41,6 +46,7 @@ async def update_student(db:db_dependency, student_id:int, student:UpdateStudent
        if result is None:
                raise HTTPException(status_code=404, detail="student not found")
        return result
+
 
 @router.delete("/{student_id}")
 async def delete_student(db:db_dependency, student_id:int):
