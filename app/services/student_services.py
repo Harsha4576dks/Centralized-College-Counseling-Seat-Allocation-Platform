@@ -1,17 +1,23 @@
 from sqlalchemy.orm import Session
 from ..repositories import student_repository
 
+
+
 def get_student(db:Session, student_id:int):
     return student_repository.get_student(db, student_id)
+
 
 def get_students(db:Session):
     return student_repository.get_students(db)
 
+
 def get_student_name(db:Session, student_name:str):
     return student_repository.search_student(db, student_name)
 
+
 def create_student(db:Session, student):
     return student_repository.create_student(db, student)
+
 
 def update_student(db:Session, student_id, student):
     db_student = student_repository.update_student(db, student_id, student)
@@ -20,6 +26,7 @@ def update_student(db:Session, student_id, student):
 
     update_data = student.model_dump(exclude_unset=True)
     return student_repository.update_student(db, student_id, student)
+
 
 def delete_student(db:Session, student_id:int):
     student = student_repository.get_student(db, student_id)

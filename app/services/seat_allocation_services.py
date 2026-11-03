@@ -1,8 +1,11 @@
 from sqlalchemy.orm import Session
 from ..repositories import seat_allocation_repository
 
+
+
 def get_seat_allocation_service(db: Session, seat_allocation_id: int):
     return seat_allocation_repository.get_seat_allocation(db, seat_allocation_id)
+
 
 def search_seat_allocation_by_student_service(db: Session, student_id: int):
     student = seat_allocation_repository.get_student(db, student_id)
@@ -15,6 +18,7 @@ def search_seat_allocation_by_student_service(db: Session, student_id: int):
         
     return allocation, None
 
+
 def search_seat_allocation_by_student_name_service(db: Session, student_name: str):
     student = seat_allocation_repository.get_student_by_name(db, student_name)
     if not student:
@@ -25,6 +29,7 @@ def search_seat_allocation_by_student_name_service(db: Session, student_name: st
         return None, "seat allocation details not found"
 
     return allocation, None
+
 
 def delete_seat_allocation_service(db: Session, seat_allocation_id: int):
     allocation = seat_allocation_repository.get_seat_allocation(db, seat_allocation_id)

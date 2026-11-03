@@ -1,11 +1,15 @@
 from sqlalchemy.orm import Session
 from ..repositories import student_preferences_repository
 
+
+
 def get_studentpreferences(db:Session, student_preferences_id:int):
     return student_preferences_repository.get_studentpreferences(db, student_preferences_id)
 
+
 def get_all_studentpreferences(db:Session):
     return student_preferences_repository.get_all_studentpreferences(db)
+
 
 def create_studentpreferences(db:Session, studentpreferences):
     db_student = student_preferences_repository.get_student(db, studentpreferences.student_id)
@@ -18,8 +22,10 @@ def create_studentpreferences(db:Session, studentpreferences):
 
     return student_preferences_repository.create_studentpreferences(db, studentpreferences), None
 
+
 def update_studentpreferences(db:Session, student_preferences_id, studentpreferences):
     return student_preferences_repository.update_studentpreferences(db, student_preferences_id, studentpreferences)
+
 
 def delete_studentpreferences(db:Session, student_preferences_id:int):
     studentpreferences = student_preferences_repository.get_studentpreferences(db, student_preferences_id)

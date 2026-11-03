@@ -2,6 +2,8 @@ from sqlalchemy.orm import Session
 from .. import models
 from ..repositories import counselling_round_repository
 
+
+
 def execute_counselling_algorithm(db: Session):
     db.query(models.SeatAllocation).delete()
     db.commit()
