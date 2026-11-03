@@ -13,6 +13,7 @@ def create_seats(db: Session, seats):
     db.refresh(db_seats)
     return db_seats
 
+
 def get_seat_allocation(db: Session, seat_allocation_id: int):
     return db.query(models.SeatAllocation).filter(models.SeatAllocation.id == seat_allocation_id).first()
     
@@ -31,10 +32,12 @@ def delete_seat_allocation(db: Session, seat_allocation):
 def get_student(db: Session, student_id: int):
     return db.query(models.Student).filter(models.Student.id == student_id).first()
 
+
 def get_student_by_name(db: Session, student_name: str):
     return db.query(models.Student).filter(
         func.lower(models.Student.name) == student_name.strip().lower()
     ).first()
+
 
 def get_college_branch(db: Session, college_branch_id: int):
     return db.query(models.CollegeBranches).filter(models.CollegeBranches.id == college_branch_id).first()
@@ -42,7 +45,6 @@ def get_college_branch(db: Session, college_branch_id: int):
 
 def get_counselling_details(db: Session, counselling_round_id: int):
     return db.query(models.CounsellingRound).filter(models.CounsellingRound.id == counselling_round_id).first()
-
 
 
 def bulk_create_seat_allocations(db: Session, new_allocations: list):
@@ -59,5 +61,6 @@ def delete_allocations_by_counselling_round(db: Session, counselling_round_id: i
     allocations = get_allocations_by_counselling_round(db, counselling_round_id )
     for allocation in allocations:
         db.delete(allocation)
+        
     db.commit()
     return len(allocations)

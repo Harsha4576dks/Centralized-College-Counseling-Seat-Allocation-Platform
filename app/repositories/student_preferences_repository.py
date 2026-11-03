@@ -1,16 +1,21 @@
 from sqlalchemy.orm import Session
 from ..import models
 
-def create_studentpreferences(db:Session, studentprefernces):
-    db_studentpreferences = models.StudentPreferences(student_id=studentprefernces.student_id, college_branch_id=studentprefernces.college_branch_id, preference_order=studentprefernces.preference_order)
+
+def create_studentpreferences(db:Session, studentpreferences):
+    db_studentpreferences = models.StudentPreferences(student_id=studentpreferences.student_id, 
+                                                      college_branch_id=studentpreferences.college_branch_id, 
+                                                      preference_order=studentpreferences.preference_order)
 
     db.add(db_studentpreferences)
     db.commit()
     db.refresh(db_studentpreferences)
     return db_studentpreferences
 
+
 def get_studentpreferences(db:Session, student_preferences_id:int):
     return db.query(models.StudentPreferences).filter(models.StudentPreferences.id == student_preferences_id).first()
+
 
 def get_all_studentpreferences(db:Session):
     return db.query(models.StudentPreferences).order_by(
@@ -18,6 +23,7 @@ def get_all_studentpreferences(db:Session):
         models.StudentPreferences.preference_order,
         models.StudentPreferences.id,
     ).all()
+
 
 def update_studentpreferences(db:Session, student_preferences_id:int, update_data):
     db_studentpreferences = db.query(models.StudentPreferences).filter(models.StudentPreferences.id == student_preferences_id).first()
@@ -31,13 +37,16 @@ def update_studentpreferences(db:Session, student_preferences_id:int, update_dat
     db.refresh(db_studentpreferences)
     return db_studentpreferences
 
+
 def delete_studentpreferences(db:Session, studentpreferences):
     db.delete(studentpreferences)
     db.commit()
     return {"message":"preferences deleted successfully", "deleted_preferences":studentpreferences}
 
+
 def get_student(db:Session, student_id:int):
     return db.query(models.Student).filter(models.Student.id == student_id).first()
+
 
 def get_college_branch(db:Session, college_branch_id:int):
     return db.query(models.CollegeBranches).filter(models.CollegeBranches.id == college_branch_id).first()

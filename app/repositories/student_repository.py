@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
 from ..import models
 
+
 def create_student(db:Session, student):
     db_student = models.Student(name=student.name, roll_number=student.roll_number, email=student.email,
                                 phone=student.phone, rank=student.rank)
@@ -10,14 +11,18 @@ def create_student(db:Session, student):
     db.refresh(db_student)
     return db_student
 
+
 def get_student(db:Session, student_id:int):
     return db.query(models.Student).filter(models.Student.id == student_id).first()
+
 
 def get_students(db:Session):
     return db.query(models.Student).order_by(models.Student.id).all()
 
+
 def search_student(db:Session, student_name:str):
     return db.query(models.Student).filter(models.Student.name == student_name).first()
+
 
 def update_student(db: Session, student_id: int, update_data):
     db_student = db.query(models.Student).filter( models.Student.id == student_id).first()
@@ -29,17 +34,20 @@ def update_student(db: Session, student_id: int, update_data):
 
     db.commit()
     db.refresh(db_student)
-
     return db_student
+
+
 def delete_student(db:Session, student):
     db.delete(student)
     db.commit()
     return {"message":"students deleted successfully", "deleted_student":student}
 
+
 def get_student_preferences(db:Session, student_preferences_id:int):
     return db.query(models.StudentPreferences.id).filter(
         models.StudentPreferences.student_id == student_preferences_id
     ).first() is not None
+
 
 def get_seat_allocation(db:Session, seat_allocation_id:int):
     return db.query(models.SeatAllocation.id).filter(
