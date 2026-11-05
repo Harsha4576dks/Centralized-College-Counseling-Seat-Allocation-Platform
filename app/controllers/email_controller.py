@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 
 from ..database import get_db
 
-from ..services.email_services import execute_counseling_pipeline_service
+from ..services.email_services import execute_counselling_pipeline_service
 from ..security import security
 
 router = APIRouter(
@@ -14,10 +14,10 @@ router = APIRouter(
 
 
 @router.post("/execute/{round_id}", status_code=status.HTTP_202_ACCEPTED)
-def execute_counseling_button_click( round_id: int, background_tasks: BackgroundTasks, db: Session = Depends(get_db)):
+def execute_counselling_button_click( round_id: int, background_tasks: BackgroundTasks, db: Session = Depends(get_db)):
    
     try:
-        background_tasks.add_task(execute_counseling_pipeline_service, db, round_id)
+        background_tasks.add_task(execute_counselling_pipeline_service, db, round_id)
 
         return {
             "status": "success",

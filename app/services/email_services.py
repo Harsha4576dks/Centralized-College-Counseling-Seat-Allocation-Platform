@@ -130,7 +130,7 @@ def send_bulk_allocation_emails( allocations: List[Dict[str, Any]], smtp_host: s
                     pdf_bytes = generate_admission_pdf_matplotlib(student_data)
 
                     msg = MIMEMultipart()
-                    msg['From'] = f"CET Counseling Cell <{smtp_username}>"
+                    msg['From'] = f"CET Counselling Cell <{smtp_username}>"
                     msg['To'] = email.strip()
                     msg['Subject'] = f"CET Seat Allotment Letter - {student_data['college_name']}"
 
@@ -164,7 +164,7 @@ def send_bulk_allocation_emails( allocations: List[Dict[str, Any]], smtp_host: s
         print(f"[CRITICAL ERROR] Failed to initialize SMTP connection: {str(server_err)}")
 
 
-def execute_counseling_pipeline_service(db: Session, round_id: int):
+def execute_counselling_pipeline_service(db: Session, round_id: int):
     try:
         smtp_host = os.getenv("SMTP_HOST", "smtp.gmail.com")
         smtp_port = int(os.getenv("SMTP_PORT", 587))
