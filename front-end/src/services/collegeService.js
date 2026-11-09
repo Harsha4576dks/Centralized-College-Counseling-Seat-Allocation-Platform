@@ -1,5 +1,6 @@
 import apiClient from "../middleware/client";
 
+
 const createCollegePayload = (collegeData) => ({
     college_name: collegeData.college_name,
     college_address: collegeData.college_address,
@@ -7,6 +8,7 @@ const createCollegePayload = (collegeData) => ({
     email: collegeData.email,
     affiliation: collegeData.affiliation,
 });
+
 
 export const saveCollegeDetails = async (collegeData) => {
     try {
@@ -17,6 +19,7 @@ export const saveCollegeDetails = async (collegeData) => {
     }
 };
 
+
 export const getCollegeDetailsById = async (collegeId) => {
     try {
         const response = await apiClient.get(`/colleges/${collegeId}`);
@@ -26,10 +29,12 @@ export const getCollegeDetailsById = async (collegeId) => {
     }
 };
 
+
 export const getAllCollegeDetails = async () => {
     const response = await apiClient.get("/colleges/");
     return response.data;
 };
+
 
 export const deleteCollegeDetails = async (collegeId) => {
     try {

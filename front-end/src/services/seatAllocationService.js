@@ -11,6 +11,7 @@ export const getSeatAllocationbyId =async (allocationId) => {
             }
         };
 
+
 export const getSeatbyStudentName = async (studentName, studentId) => {
     try{
         const students = await getStudentDetails();
@@ -37,6 +38,7 @@ export const getSeatbyStudentName = async (studentName, studentId) => {
      }
 };
 
+
 export const getSeatbyStudentId = async (studentId) => {
     try {
         const response = await apiClient.get(`/seat_allocations/search/student/${studentId}`);
@@ -45,6 +47,7 @@ export const getSeatbyStudentId = async (studentId) => {
         throw error.response?.data?.detail ?? "Failed to fetch seat allocation details by student";
     }
 };
+
 
 export const deleteSeatAllocationDetails = async (allocationId) => {
     try{

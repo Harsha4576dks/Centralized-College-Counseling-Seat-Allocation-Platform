@@ -25,6 +25,7 @@ export const getPreferenceDetails = async (id) => {
     }
 };
 
+
 export const getPreferenceList = async () => {
     try {
         const response = await apiClient.get('/course_preferences/');
@@ -33,6 +34,7 @@ export const getPreferenceList = async () => {
         throw error.response?.data?.detail || 'Failed to fetch preferences';
     }
 };
+
 
 export const updatePreferenceDetails = async (preferenceId, preferenceData) => {
     try{
@@ -49,6 +51,7 @@ export const updatePreferenceDetails = async (preferenceId, preferenceData) => {
         throw error.response?.data?.detail || 'Failed to  update student preferences';
     }
 };
+
 
 export const deletePreferenceDetails = async (preferenceId)=> {
     try{

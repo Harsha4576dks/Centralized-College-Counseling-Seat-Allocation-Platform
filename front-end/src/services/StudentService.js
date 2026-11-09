@@ -1,5 +1,6 @@
 import apiClient from "../middleware/client";
 
+
 export const saveStudentDetails = async  (studentData) => {
     try{
         const studentPayload = {
@@ -39,6 +40,7 @@ export const getStudentDetails = async () => {
     }
 };
 
+
 export const getStudentbyId = async (studentId) => {
     try{
         const response = await apiClient.get(`/students/${studentId}`);
@@ -47,6 +49,7 @@ export const getStudentbyId = async (studentId) => {
         throw error.response?.data?.detail || 'Failed to fetch student details';
     }
 };
+
 
 export const updateStudentDetails = async (studentId, studentData) => {
     try {
@@ -64,6 +67,7 @@ export const updateStudentDetails = async (studentId, studentData) => {
     throw error.response?.data?.detail ?? 'Failed to update student details';
 }
 }
+
 
 export const deleteStudentDetails = async (studentId) => {
     try{

@@ -1,9 +1,11 @@
 import apiClient from "../middleware/client";
 
+
 export const getAllCollegeBranchDetails = async () => {
     const response = await apiClient.get("/branches/");
     return response.data;
 };
+
 
 export const saveCollegeBranchDetails = async (collegeBranchData) => {
     try{
@@ -20,6 +22,7 @@ export const saveCollegeBranchDetails = async (collegeBranchData) => {
     }
 };
 
+
 export const getBranchbyName = async (collegeName) => {
     try{
         const response = await apiClient.get(`/branches/${collegeName}`);
@@ -29,6 +32,7 @@ export const getBranchbyName = async (collegeName) => {
     }
 };
 
+
 export const getBranchbyId = async (collegeBranchId) => {
     try{
         const response = await apiClient.get(`/branches/id/${collegeBranchId}`);
@@ -37,6 +41,7 @@ export const getBranchbyId = async (collegeBranchId) => {
         throw error.response?.data?.detail ?? "Failed to fetch branch details";
     }
 };
+
 
 export const updateBranchDetails = async (collegeBranchId, collegeBranchData) => {
     try{
@@ -53,6 +58,7 @@ export const updateBranchDetails = async (collegeBranchId, collegeBranchData) =>
         throw error.response?.data?.detail || "Failed to update branch details"
     }
 };
+
 
 export const deleteCollegeBranchDetails =async (collegeBranchId) => {
     try{
