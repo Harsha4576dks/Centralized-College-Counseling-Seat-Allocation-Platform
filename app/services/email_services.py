@@ -190,4 +190,4 @@ def execute_counselling_pipeline_service(db: Session, round_id: int):
         print(f"Successfully processed and emailed {len(allocations)} candidates for Round {round_id}.")
 
     except Exception as e:
-        print(f"Error inside counseling service execution: {str(e)}")
+        print(f"Error inside counselling service execution: {str(e)}")
