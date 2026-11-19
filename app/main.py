@@ -25,7 +25,7 @@ from .models import user
 
 
 app = FastAPI(
-    title="CET Counseling & Allocation Engine",
+    title="CET Counselling & Allocation Engine",
     description="Backend service running Gale-Shapley seat allocation and automated PDF allotment email dispatch.",
     version="1.0.0"
 )
